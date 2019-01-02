@@ -13,9 +13,9 @@
         echo '</head>';
 
         echo '<body>';
-        echo 'Bienvenue, '.$_SESSION['login'].' !';
+        echo 'Bienvenue, '.$_SESSION['prenom'].' !';
         if ($_SESSION['cotiz'] == 0) {
-            echo "Tu n'as pas payé ta cotiz !";
+            echo "<strong> Tu n'as pas encore payé ta cotiz !</strong>";
         }
         echo '<br />';
 
