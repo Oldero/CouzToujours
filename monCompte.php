@@ -1,4 +1,4 @@
-<!-- Page des infos du ciompte changement de mdp -->
+<!-- Page des infos du compte changement de mdp -->
 
 
 <?php
