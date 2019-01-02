@@ -1,4 +1,4 @@
-<header id="entete">        
+<header id="tete">        
   <?php
     // On démarre la session (ceci est indispensable dans toutes les pages de notre section membre)
     session_start ();
@@ -19,7 +19,7 @@
         }
         echo '<br />';
 
-        echo '<div class = "flexentete">';
+        echo '<div class = "flextete">';
             // On affiche un lien pour fermer notre session
             echo '<a href="monCompte.php">Mon compte     </a>';
             if ($_SESSION['ca'] == 1 || $_SESSION['admin'] == 1) {
