@@ -1,6 +1,10 @@
 <!-- Généalogie et coordonnées, photos ?
 NB : familha = famille en Auvergnat -->
 
+<?php
+    session_start ();
+?>
+  
 
 <!DOCTYPE html>
 
@@ -10,7 +14,7 @@ NB : familha = famille en Auvergnat -->
 
     <meta charset="utf-8" />
 
-    <title>La familha</title>
+    <title>La Familha</title>
 
     <link rel="stylesheet" href="style.css" />
 
@@ -19,20 +23,21 @@ NB : familha = famille en Auvergnat -->
 
 <body>
 
-    <?php include("entete.php"); ?>
-    
+    <?php include("include/entete.php"); ?>
+    <?php include("include/laterale.php"); ?>
 
-    <section>
+    <section class="corps">
 
         <article>
-         La généalogie
-         Les adresses
+         La généalogie         <br />
+         Les adresses  <br />
          ...
         </article>
            
+        <?php include("include/avenir.php"); ?>
     </section>
 
-    <?php include("pieddepage.php"); ?>
+    <?php include("include/pieddepage.php"); ?>
 
 </body>
 

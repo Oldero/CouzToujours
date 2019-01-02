@@ -1,5 +1,11 @@
-<!-- Forum -->
+   <!-- Forum à construire -->
 
+
+<?php
+    session_start ();
+?>
+  
+ 
 
 <!DOCTYPE html>
 
@@ -9,7 +15,7 @@
 
     <meta charset="utf-8" />
 
-    <title>Les liens</title>
+    <title>Couz'Toujours</title>
 
     <link rel="stylesheet" href="style.css" />
 
@@ -18,17 +24,17 @@
 
 <body>
 
-    <?php include("entete.php"); ?>
+    <?php include("include/entete.php"); ?>
+    <?php include("include/laterale.php"); ?>
     
 
-    <section>
-
-    En construction...
-           
+    <section class="corps">
+        <?php include("include/avenir.php"); ?>           
     </section>
 
-    <?php include("pieddepage.php"); ?>
-
 </body>
+
+    <?php include("include/pieddepage.php"); ?>
+
 
 </html>

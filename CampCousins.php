@@ -1,6 +1,10 @@
 <!-- Camps Cousins : photos ?, liste, productions
 -->
 
+<?php
+    session_start ();
+?>
+  
 
 <!DOCTYPE html>
 
@@ -19,11 +23,13 @@
 
 <body>
 
-    <?php include("entete.php"); ?>
+    <?php include("include/entete.php"); ?>
+    <?php include("include/laterale.php"); ?>
 
-   En construction...
+    <section class="corps">
+        <?php include("include/enconstruction.php"); ?>
  
-   <h2>Éditions : </h2>
+ <!--  <h2>Éditions : </h2>
     <ol>
         <li> À venir...</a></li>
         <li>2017 : <a href="Nope.php"> Le Lac de Lavalette</a></li>
@@ -43,9 +49,10 @@
         <li>1991 : <a href="Nope.php"> ...</a></li>
         <li>1990 : <a href="Nope.php"> ...</a></li>
         
-    </ol>
+    </ol> !-->
+    </section>
 
-    <?php include("pieddepage.php"); ?>
+    <?php include("include/pieddepage.php"); ?>
 
 </body>
 

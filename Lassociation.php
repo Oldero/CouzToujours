@@ -1,6 +1,11 @@
 <!-- Asso Couz'Toujours. Le bureau, le CA, les AG -->
 
 
+<?php
+    session_start ();
+?>
+  
+
 <!DOCTYPE html>
 
 <html>
@@ -18,24 +23,25 @@
 
 <body>
 
-    <?php include("entete.php"); ?>
-    
+    <?php include("include/entete.php"); ?>
+    <?php include("include/laterale.php"); ?>
 
-    <section>
+    <section class="corps">
 
         <article>
-         Le bureau
-         Le CA
-         Les statuts
-         Les CR d'AG
+        <article>
+         Le bureau <br />
+         Le CA <br />
+         Les statuts <br />
+         Les CR d'AG <br />
+        ... <br />
         </article>
            
+        <?php include("include/enconstruction.php"); ?>
     </section>
 
-    <?php include("pieddepage.php"); ?>
+    <?php include("include/pieddepage.php"); ?>
 
 </body>
-
-
 
 </html>

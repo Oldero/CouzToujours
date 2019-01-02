@@ -1,4 +1,10 @@
-<!-- Page d'accueil -->
+
+    <!-- Page d'accueil -->
+
+<?php
+    session_start ();
+?>
+
 
 <!DOCTYPE html>
 
@@ -17,11 +23,12 @@
 
 <body>
 
-    <?php include("entete.php"); ?>
+    <?php include("include/entete.php"); ?>
+    <?php include("include/laterale.php"); ?>
     
 
-    <section>
-
+    <section class="corps">
+        <?php include("include/enconstruction.php"); ?>
         <article>
             <h2>Todo list : </h2>
             <ol>
@@ -35,7 +42,7 @@
            
     </section>
 
-    <?php include("pieddepage.php"); ?>
+    <?php include("include/pieddepage.php"); ?>
 
 </body>
 
