@@ -1,75 +1,150 @@
 <?php
-//***************************************************************************************************
-// fichier contenant la liste des paramètres d'un modele
-//*************************************************************************************************** 
-$taille_police_mois  = 16 ;
-$couleur_police_mois = "#FFFFFF" ;
-$taille_police_nom_jour = 12 ;
-$couleur_police_nom_jour = "#FFFFFF" ;
-$taille_police_jour = 12 ;
-$couleur_police_jour = "#FFFFFF" ;
-$couleur_police_numero_semaine = "#FFFFFF" ;
-$police = "Arial" ;
-
-$bordure_du_tableau = 0 ;
-$couleur_bordure_tableau = "#08599C" ;
-$hauteur_mini_cellule_date = 22 ;
-$largeur_tableau = 170 ;
-$avec_affichage_numero_semaine = true ;
-
-$couleur_nom_numero_semaine = "#2B2B2B" ;
-$couleur_numero_semaine = "#575757" ;
-$couleur_jour_semaine = "#2B2B2B" ;
-$couleur_nom_jour_week_end = "#2B2B2B" ;
-$couleur_jour_week_end = "#575757" ;
-$bordure_ligne_fin_semaine = 1 ;
-$couleur_ligne_fin_semaine = "#FF0000" ;
-$avec_continuite_couleur = true ;
-$couleur_fond_mois = "#CE945A" ;
-$url_image_fond_mois = "template_cal/bois/img0023.gif" ;
-$alignement_horizontal_image_fond = "center" ;
-$alignement_vertical_image_fond = "center" ;
-$couleur_libre = "#575757" ;
-$avec_marquage_du_jour_d_aujourd_hui = false ;
-$couleur_jour_aujourd_hui = "#0D96FF" ;
-$url_image_fond_cellule = "template_cal/bois/img0023.gif" ;
-$url_image_fond_cellule_week_end = "template_cal/bois/img0023.gif" ;
-$url_image_fond_cellule_nom_jour = "template_cal/bois/img0023.gif" ;
-$url_image_fond_cellule_numero_semaine = "template_cal/bois/img0023.gif" ;
-$couleur_bordure_cellule_non_vide = "#FCFCFC" ;
-$largeur_bordure_superieur = "0" ;
-$largeur_bordure_inferieur = "1" ;
-$largeur_bordure_gauche = "0" ;
-$largeur_bordure_droite = "0" ;
-$avec_bordure_cellule_num_jour = true ;
-$avec_bordure_cellule_texte_jour = true ;
-$avec_bordure_cellule_numero_semaine = true ;
-$avec_bordure_cellule_nom_mois = true ;
-$avec_bordure_cellules_vides = true ;
-$url_image_fond_cellule_aujourd_hui = "" ;
-
-$largeur_sel_mois_annee = "60" ;
-$taille_police_sel_mois_annee = "16" ;
-$couleur_sel_mois_annee = "#000000" ;
-
-$couleur_fond_page_visiteur  = "#FFFEFC" ;
-$espace_entre_cellule = 0  ;
-$espace_entre_les_mois = 3  ;
-
-$texte_jour_debut_calendrier_tous = "samedi" ;
-$nombre_semaine_calendrier_tous = 6 ;
-$offset_depart_calendrier_tous = -7 ;
-$nombre_jour_avance_recul_calendrier_tous = 14 ;
-$couleur_separateur_calendrier_tous = "#F2EEED" ;
 
 
+if (!isset($_GET['mois']) && !isset($_GET['annee']))
+{
+$calendrier_date_mois = date('n');
+$calendrier_date_annee = date('Y');
+}
+else
+{
+$calendrier_date_mois = $_GET['mois'];
+$calendrier_date_annee = $_GET['annee'];
+}
+
+if ($calendrier_date_mois == '1')
+{
+$calendrier_date_mois_precedent = '12';
+$calendrier_date_annee_precedente = $calendrier_date_annee - 1;
+}
+else
+{
+$calendrier_date_mois_precedent = $calendrier_date_mois - 1;
+$calendrier_date_annee_precedente = $calendrier_date_annee;
+}
+
+if ($calendrier_date_mois == '12')
+{
+$calendrier_date_mois_suivant = '1';
+$calendrier_date_annee_suivante = $calendrier_date_annee + 1;
+}
+else
+{
+$calendrier_date_mois_suivant = $calendrier_date_mois + 1;
+$calendrier_date_annee_suivante = $calendrier_date_annee;
+}
+
+$calendrier_dateDuJour = date('j_n_Y');
+
+$calendrier_dates_importantes = array( '1_6_2006',
+
+'5_6_2006',
+
+'15_8_2006',
+'14_7_2006',
+'20_7_2006',
+
+'1_1_2007');
 
 
-$choix_modele = "bois" ;
+$calendrier_mktime = mktime(0, 0, 0, $calendrier_date_mois, 1, $calendrier_date_annee);
 
-$espace_dans_cellule = 1 ;
-$decalage_ligne = "0" ;
-$avec_selection_champs_date_visteur = false ;
+$calendrier_date_mois_1erjour = date('w', $calendrier_mktime);
 
+$calendrier_date_mois_nombrejour = date('t', $calendrier_mktime);
+
+$calendrier_mois = array( '1' => 'Janvier', '2' => 'Février', '3' => 'Mars',
+'4' => 'Avril', '5' => 'Mai', '6' => 'Juin',
+'7' => 'Juillet', '8' => 'Août', '9' => 'Septembre',
+'10' => 'Octobre', '11' => 'Novembre', '12' => 'Décembre');
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<STYLE type="text/css">
+@IMPORT URL(css.css);
+</STYLE>
+<title>Calendrier - floptwo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<?php
+
+if ($calendrier_date_mois.'_'.$calendrier_date_annee == date('n_Y'))
+{
+$class_mois = 'calendrier_mois_encours';
+}
+else
+{
+$class_mois = 'calendrier_mois';
+}
+?>
+<table width="200" border="0" align="center" cellpadding="1" cellspacing="1">
+<tr align="center" valign="middle">
+<td><?php echo '<a href="?mois=' , $calendrier_date_mois_precedent , '&annee=' , $calendrier_date_annee_precedente , '" class="calendrier_mois"><</a>'?></td>
+<td colspan="5" class="<?php echo $class_mois ?>"><?php echo $calendrier_mois[$calendrier_date_mois],' ',$calendrier_date_annee ?></td>
+<td><?php echo '<a href="?mois=' , $calendrier_date_mois_suivant , '&annee=' , $calendrier_date_annee_suivante , '" class="calendrier_mois">></a>'?></td>
+</tr>
+<tr>
+<td class="calendrier_nom_des_jours">Lun</td>
+<td class="calendrier_nom_des_jours">Mar</td>
+<td class="calendrier_nom_des_jours">Mer</td>
+<td class="calendrier_nom_des_jours">Jeu</td>
+<td class="calendrier_nom_des_jours">Ven</td>
+<td class="calendrier_nom_des_jours">Sam</td>
+<td class="calendrier_nom_des_jours">Dim</td>
+</tr>
+<?php
+$calendrier_compteur_jours = 0;
+while ($calendrier_compteur_jours <= $calendrier_date_mois_nombrejour)
+
+{
+?>
+<tr>
+<?php
+
+for ($i = 0 ; $i <= 6 ; $i++)
+{
+if ($i == date('w', mktime(0,0,0, $calendrier_date_mois, $calendrier_compteur_jours, $calendrier_date_annee)))
+{
+$calendrier_compteur_jours++;
+}
+
+if ($calendrier_compteur_jours.'_'.$calendrier_date_mois.'_'.$calendrier_date_annee == $calendrier_dateDuJour)
+{
+$class_jour = 'calendrier_dateDuJour';
+}
+else
+{
+if (in_array($calendrier_compteur_jours.'_'.$calendrier_date_mois.'_'.$calendrier_date_annee, $calendrier_dates_importantes))
+{
+$class_jour = 'calendrier_date_importante';
+}
+else
+{
+$class_jour = 'calendrier_date';
+}
+}
 
 ?>
+<td class="<?php echo $class_jour ?>">
+<?php
+
+
+if ($calendrier_compteur_jours != 0 && $calendrier_compteur_jours <= $calendrier_date_mois_nombrejour)
+{
+echo $calendrier_compteur_jours;
+}
+else
+{
+echo ' ';
+}
+?>
+</td>
+<?php
+}
+?>
+</tr>
+<?php
+}
+?> 
