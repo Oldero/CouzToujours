@@ -33,10 +33,12 @@
             <h2>Todo list : </h2>
             <ol>
                 <li>Mise en page</li>
-                <li>Généalogie (Papa)</li>
+                <li>Page la famille : Généalogie (Papa)</li>
                 <li>Camp Cousins (liste et fichiers)</li>
-                <li>Insertion accès sécurisé</li>
-                <li>Réservation Margots (+ photos, projets...)</li>
+                <li>Calendrier interactif</li>
+                <li>Page l'association</li>
+                <li>Page gestion</li>
+                <li>Forum</li>
             </ol>
         </article>
            

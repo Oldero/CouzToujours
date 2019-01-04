@@ -90,14 +90,15 @@
         echo '<br>';
             ?>
 
-    <!--    Changement de mot de passe : Attention ! Retiens-le bien !
-        <form action="changement.php" method="post">
-        Ton ancien mot de passe : <input type="password" name="ancien"><br />
-        Ton nouveau mot de passe : <input type="password" name="nouveau"><br />
-        Répète-le : <input type="password" name="nouveau_test"><br />
-        <input type="submit" value="Changer de mot de passe">
+        Changement de mot de passe : Attention ! Retiens-le bien !
 
-    !-->
+        <form name="formulaire" action="php/change_pwd.php" method="post">
+        	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>
+        	Ton ancien mot de passe : <input type="password" name="ancien"><br />
+        	Ton nouveau mot de passe : <input type="password" name="nouveau"><br />
+        	Répète-le : <input type="password" name="nouveau_test"><br />
+        	<input type="button" value="Changer de mot de passe" onclick="if (document.formulaire.ancien.value == document.formulaire.courant.value && document.formulaire.nouveau.value == document.formulaire.nouveau_test.value && confirm('sur ?') ) {document.formulaire.submit();} else {alert('Mauvais mot de passe !') }">
+        </form>    
  
         <?php
             // Si tout va bien, on peut continuer
