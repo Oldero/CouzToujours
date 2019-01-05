@@ -27,13 +27,6 @@ NB : familha = famille en Auvergnat -->
     <?php include("include/laterale.php"); ?>
 
     <section class="corps">
-
-        <article>
-         La généalogie         <br />
-         Les adresses  <br />
-         ...
-        </article>
-           
         <?php include("include/avenir.php"); ?>
     </section>
 

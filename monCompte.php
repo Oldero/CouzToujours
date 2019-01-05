@@ -108,12 +108,13 @@
             $reponse->execute(array($_SESSION['login']));
 
             // On affiche chaque entrée une à une
+            echo '<table class="reserv">';
             while ($donnees = $reponse->fetch())
                 {
-                echo '<div class="conteneur">';
+                echo '<tr>';
                  if($donnees['fin'] > $date){ ?>
-                    <div class="element">
-                    <?php echo $donnees['nom'] . " : du" . convertdate($donnees['debut']) . "au" . convertdate($donnees['fin']);
+                    <td class="cell_none">
+                    <?php echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                         if ($donnees['prive'] == 1){ 
                             echo "- Séjour privatisé";
                         }
@@ -121,14 +122,15 @@
                             echo "- pour " . ($donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'] + $donnees['nbvis_enf']) . " personnes";
                         } 
                         echo " - coût : " . ($donnees['prix']) . " euros" ?>
-                    </div>
+                    </td>
                         <!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
-                    <input type="Button" onClick="confirmation(<?php echo $donnees['numero'] ; ?> );" VALUE="Supprimer"> 
+                    <td class="cell_none"><input type="Button" onClick="confirmation(<?php echo $donnees['numero'] ; ?> );" VALUE="Supprimer"> </td>
 
-                    <?php echo "<br /> " ;
+                    <?php echo "</tr> " ;
                     }
-                echo '</div>';
+                
                 }
+            echo '</table>';
 
             $reponse->closeCursor(); // Termine le traitement de la requête
         ?>

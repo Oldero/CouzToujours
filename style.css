@@ -16,9 +16,9 @@ html {
 	}
 
 body { 
-	font: 75% georgia, sans-serif;
+	font: georgia, sans-serif;
 	line-height: 1.88889;
-	font-size: large;
+	font-size: 100%;
 	color: #555753; 
 /*	background: #fff url(http://csszengarden.com/001/blossoms.jpg) no-repeat bottom right; */
 	}
@@ -53,47 +53,10 @@ a:hover, a:focus, a:active {
 */
 
 
-/*header h1 { 
-	background: transparent url(http://csszengarden.com/001/h1.gif) no-repeat top left;
-	margin-top: 10px;
-	display: block;
-	width: 219px;
-	height: 87px;
-	float: left;
-
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	}
-header h2 { 
-	background: transparent url(http://csszengarden.com/001/h2.gif) no-repeat top left; 
-	margin-top: 58px; 
-	margin-bottom: 40px; 
-	width: 200px; 
-	height: 18px; 
-	float: right;
-
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	}
-header {
-	padding-top: 20px;
-	height: 87px;
-}
-
-
-
-footer { 
-	text-align: center; 
-	}
-footer a:link, footer a:visited { 
-	margin-right: 20px; 
-	}
-	*/
 .corps {
 	margin-left : 300px ;
 	margin-top: 50px;
+	margin-bottom: 50px;
 	position: relative;
 }
 
@@ -104,54 +67,129 @@ footer a:link, footer a:visited {
 	width: 250px;
 	margin: 4;
 	border: 1px;
-	float: left; 
+	position: fixed;
+	top: 0;
+	left: 10px; 
+	right: 0;
+	background-color: #FFFFFF; 
 }
 
 #tete {
 /*	position: fixed;*/
 	text-align: center;
+
 }
 
 #pied{
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0; 
 	right: 0;
-	text-align: center; 
+	text-align: center;
+	height: 50px;
+	background-color: #FFFFFF;
 }
-
+/*
 .flextete {
 	display: flex;
     justify-content: space-around;
-}
+}*/
 .encours {
 	text-align: center;
 }
-
+/*
 .calendar {
 	text-align: center;
 	margin-top: 50px;
 }
-
-#page_resa {
+*/
+/*#page_resa {
     justify-content: space-around;
     margin-left: 300px;
-}
+} */
 #formulaire_resa{
-	position: left;
+/*	position: left; */
 	border-style: solid;
+ 	position:absolute;
+ 	top:0;
+ 	right:0;
+	width: 50%;
+	padding: 20px;
 }
-#resume_resa{
+/*#resume_resa{
 	float: right;
 	position: relative;
-}
+}*/
 
 .conteneur{
 	display: flex;
     justify-content: space-between;
     margin-right: 200px;
 }
+/*-------------------------------------------tableau de réservation*/
+.reserv {
+	border-collapse:collapse;
+ }
+/*-----------------------------------------------tableau de gestion*/
+.gestion {
+	border-width:1px; 
+	border-style:solid; 
+	border-color:black;
+	text-align: center;
+	border-collapse:collapse;
+ }
 
+.gestion td {
+/*	border-bottom-style: dotted;
+	border-right-style: dotted; */
+/*	width: 200px; */
+/*	padding-left: 10px;*/
+}
+
+.gestion th{
+	font-size: 90%;
+ 	border-width: 1px;
+ 	border-style: solid; 
+ 	border-color: red;
+
+}
+/*-----------------------------------------------style des cellules*/
+.cell_left{
+/*	width: 200px; */
+/*	text-align: center;*/
+	border-left-width: 1px;
+  	border-left-style: solid; 
+ 	border-left-color: red;
+ 	border-bottom-width: 1px;
+ 	border-bottom-style: solid; 
+ 	border-bottom-color: red;
+ 	padding-right: 5px;
+ 	padding-left: 5px;
+	font-size: 90%;
+}
+.cell_right{
+/*	width: 300px; */
+/*	text-align: center;*/
+	border-right-width: 1px;
+ 	border-right-style: solid; 
+ 	border-right-color: red;
+ 	border-bottom-width: 1px;
+ 	border-bottom-style: solid; 
+ 	border-bottom-color: red;
+ 	padding-right: 3px;
+ 	padding-left: 3px;
+	font-size: 90%;
+}
+.cell_none{
+/* 	width: 200px; */
+/*	text-align: center;*/
+ 	border-bottom-width: 1px;
+ 	border-bottom-style: solid; 
+ 	border-bottom-color: red;
+ 	padding-right: 5px;
+ 	padding-left: 5px;
+	font-size: 90%;
+}
 /*:required
 {
     background-color: red;
@@ -163,8 +201,8 @@ footer a:link, footer a:visited {
 }
 
 
-
-//calendar
+/*
+/*------------------------------------------------------------------calendar*/
 /* CSS Document */
 .calendar {
 	margin: 0;
@@ -172,11 +210,13 @@ footer a:link, footer a:visited {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: .6em;
 	}
+/*style des bandeaux de mois*/
 .calendar caption {
 	margin: 0;
 	padding: .3em 0;
-	background: #ffa51e;
+	background: #3CAC9D;
 	}
+/*cellule des jours de la semaine*/
 .calendar th {
 	border-bottom: 1px solid #ccc;
 	font-weight: normal;
@@ -204,6 +244,8 @@ footer a:link, footer a:visited {
 	}
 	
 .calendar td:hover, .calendar td.today:hover, 
+
+/* passer la souris sur une case*/
 .calendar td.selected:hover, .calendar td.highlighted:hover {
 	background: #cff;
 	border: 1px solid #09f;
@@ -221,11 +263,13 @@ table.calendar td.pad:hover {
 .sunday, .saturday {
 	background: #f0f0f0;
 	}
-	
+
+/*disposition des douze blocs*/
 #year {
 	padding: 0;
-	width: 500px;
+	width: 50%;
 	list-style: none;
+	padding-bottom: 10px;
 	}
 #year:after {
 	content: "";
@@ -234,8 +278,10 @@ table.calendar td.pad:hover {
 	clear: both;
 	visibility: hidden;
 	}
+/* disposition d'un bloc mois*/
 #year li {
 	float: left;
 	padding: 0 .5em .5em 0;
 	height: 150px;
+	padding-bottom: 42px;
 	}

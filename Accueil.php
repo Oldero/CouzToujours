@@ -3,6 +3,18 @@
 
 <?php
     session_start ();
+    try
+    {
+        // On se connecte à MySQL
+        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours;charset=utf8', 'root', 'root');
+    }
+    catch(Exception $e)
+    {
+        // En cas d'erreur, on affiche un message et on arrête tout
+            die('Erreur : '.$e->getMessage());
+    }
+
+    include("php/fonctions.php");
 ?>
 
 
@@ -29,19 +41,22 @@
 
     <section class="corps">
         <?php include("include/enconstruction.php"); ?>
-        <article>
-            <h2>Todo list : </h2>
-            <ol>
-                <li>Mise en page</li>
-                <li>Page la famille : Généalogie (Papa)</li>
-                <li>Camp Cousins (liste et fichiers)</li>
-                <li>Calendrier interactif</li>
-                <li>Page l'association</li>
-                <li>Page gestion</li>
-                <li>Forum</li>
-            </ol>
-        </article>
-           
+
+        <section>
+            <?php
+                $reponse = $bdd->query('SELECT * FROM news ORDER BY date DESC LIMIT 0, 10');
+
+                // On affiche chaque entrée une à une
+                while ($donnees = $reponse->fetch())
+                    {
+                        echo "Le " . convertdate($donnees['date']) . " par " . $donnees['user'] . " : <br />";
+                        echo $donnees['message'] . "<br />";
+                        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br />";
+                    }
+
+                $reponse->closeCursor(); // Termine le traitement de la requête
+            ?>
+        </section>
     </section>
 
     <?php include("include/pieddepage.php"); ?>

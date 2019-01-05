@@ -14,7 +14,8 @@
 
         echo '<body>';
         echo 'Bienvenue, '.$_SESSION['prenom'].' !';
-        if ($_SESSION['cotiz'] == 0) {
+        //affichage du popup cotiz non payée sauf si c'est un non-adhérent
+        if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] != 0) {
             echo "<strong> Tu n'as pas encore payé ta cotiz !</strong>";
         }
         echo '<br />';

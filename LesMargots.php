@@ -16,6 +16,18 @@
 Dynamic Date
 */
     $calendar = new Calendar($date);
+
+    try
+    {
+        // On se connecte à MySQL
+        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours;charset=utf8', 'root', 'root');
+    }
+    catch(Exception $e)
+    {
+        // En cas d'erreur, on affiche un message et on arrête tout
+            die('Erreur : '.$e->getMessage());
+    }
+    // Si tout va bien, on peut continuer
 ?>
   
 
@@ -29,7 +41,7 @@ Dynamic Date
 
     <title>Les Margots</title>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css" /> 
 
  </head>
 
@@ -38,16 +50,17 @@ Dynamic Date
 
     <?php include("include/entete.php"); ?>
     <?php include("include/laterale.php"); ?>
-<!--    ?php
+    <section class="corps">
+<?php
     //-------------------------------------------------------------- output calendar
     echo ("<ol id=\"year\">\n");
     for($i=1;$i<=12;$i++){
-        echo ("<li>");
+        echo ("<li class =\"month\">");
         echo ($calendar->output_calendar($calendar->year, $i));
         echo ("</li>\n");
     }
     echo ("</ol>");
-    ?> -->
+    ?> 
 
 <!--    <section class="calendar">
         <iframe name="InlineFrame1" id="InlineFrame1" style="width:690px;height:515px;" src="https://www.mathieuweb.fr/calendrier/calendrier-des-semaines.php?nb_mois=12&nb_mois_ligne=4&mois=0&an=0&langue=fr&texte_color=DDDDDD&week_color=F8F8F8&week_end_color=EDEDED&police_color=2F4544&sel=false" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
@@ -55,7 +68,7 @@ Dynamic Date
  -->           
 
     <section id="page_resa">
-        <article id="formulaire_resa">
+        <section id="formulaire_resa">
             <p>Réservation des Margots</p>
             <form method="post" action="php/reservation.php">
                 <p>
@@ -88,21 +101,9 @@ Dynamic Date
                 </p>
                 <input type="submit" value="Envoyer" />
             </form>
-        </article>
-        <article id="resume_resa">
+        </section>
+        <section id="resume_resa">
             <?php
-                try
-                {
-                    // On se connecte à MySQL
-                    $bdd = new PDO('mysql:host=localhost;dbname=couztoujours;charset=utf8', 'root', 'root');
-                }
-                catch(Exception $e)
-                {
-                    // En cas d'erreur, on affiche un message et on arrête tout
-                        die('Erreur : '.$e->getMessage());
-                }
-
-                // Si tout va bien, on peut continuer
                 echo "Réservations à venir :<br />";
                 // On récupère tout le contenu de la table jeux_video
                 $reponse = $bdd->query('SELECT * FROM reservation');
@@ -111,7 +112,7 @@ Dynamic Date
                 while ($donnees = $reponse->fetch())
                     {
                      if($donnees['fin'] > $date){
-                        echo $donnees['nom'] . " : du" . convertdate($donnees['debut']) . "au" . convertdate($donnees['fin']);
+                        echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                             if ($donnees['prive'] == 1){ 
                                 echo "- Séjour privatisé";
                             }
@@ -124,7 +125,8 @@ Dynamic Date
 
                 $reponse->closeCursor(); // Termine le traitement de la requête
             ?>
-        </article>
+        </section>
+    </section>
     </section>
 
     <?php include("include/pieddepage.php"); ?>

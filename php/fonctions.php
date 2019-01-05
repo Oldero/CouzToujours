@@ -1,5 +1,36 @@
 <?php
 // liste des fonctions utilisées ailleurs
+
+function day($date){
+    $tdate = explode("-", $date);
+    $day = date("w", mktime(0, 0, 0, $tdate[1], $tdate[2], $tdate[0]));
+  switch ($day){
+        case 1:
+            $jour = "lundi";
+            break;
+        case 2:
+            $jour = "mardi";
+            break;    
+        case "3":
+            $jour = "mercredi";
+            break;
+        case 4:
+            $jour = "jeudi";
+            break;
+        case 5:
+            $jour = "vendredi";
+            break;
+        case 6:
+            $jour = "samedi";
+            break;
+        case 0:
+            $jour = "dimanche";
+            break;
+        default:
+            $jour = "vendremanche";
+    }
+    return ($jour); 
+}
 function convertdate($date){
     $tdate = explode("-", $date);
     //$frenchdate = array($tdate[2], "mois", $tdate[0]);
@@ -42,7 +73,7 @@ function convertdate($date){
             break;
     }
 
-    return (" " . $tdate[2] . " " . $mois . " " . $tdate[0] . " " );
+    return (day($date) . " " . $tdate[2] . " " . $mois . " " . $tdate[0] . " " );
 }
 
 // NbJours("2000-10-20", "2000-10-21") retourne 1
@@ -57,36 +88,6 @@ function NbJours($debut, $fin) {
     return(($diff / 86400));
 }
 
-function day($date){
-    $tdate = explode("-", $date);
-    $day = date("w", mktime(0, 0, 0, $tdate[1], $tdate[2], $tdate[0]));
-  switch ($day){
-        case 1:
-            $jour = "lundi";
-            break;
-        case 2:
-            $jour = "mardi";
-            break;    
-        case "3":
-            $jour = "mercredi";
-            break;
-        case 4:
-            $jour = "jeudi";
-            break;
-        case 5:
-            $jour = "vendredi";
-            break;
-        case 6:
-            $jour = "samedi";
-            break;
-        case 0:
-            $jour = "dimanche";
-            break;
-        default:
-            $jour = "vendremanche";
-    }
-    return ($jour); 
-}
 
 
 ?>

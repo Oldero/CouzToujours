@@ -27,16 +27,6 @@
     <?php include("include/laterale.php"); ?>
 
     <section class="corps">
-
-        <article>
-        <article>
-         Le bureau <br />
-         Le CA <br />
-         Les statuts <br />
-         Les CR d'AG <br />
-        ... <br />
-        </article>
-           
         <?php include("include/enconstruction.php"); ?>
     </section>
 

@@ -1,15 +1,23 @@
-Todo list et idées
+﻿Todo list et idées
 
-Mentions légales à cooriger/insérer
+Habillage...
+
 Mettre en place le carnet d'adresse (lien Papa)
-Réservation des Margots (Calendrier ?)
+
 Récupérer les infos des Camps Couz
-Habillage May ?
-Bilou rédactrice ?
-Accès utilisateur + bdd ?
+
 Rédiger bureau/statuts
 Forum ?
-Dessiner une structure
+
 Contact avec Ribo
 
+livre d'or/boite à idées
+formulaire d'écriture de news
+
+page gestion : edition de fichiers csv + formulaire + dernière mise à jour
+select dans formulaire par défaut : le type d'adhérent et payé/non payé
+
+calendrier interactif
+
+changement de bureau ?
 
