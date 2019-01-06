@@ -69,10 +69,10 @@ Dynamic Date
 
     <section id="page_resa">
         <section id="formulaire_resa">
-            <p>Réservation des Margots</p>
+            <p class="underlined">Réservation des Margots</p>
             <form method="post" action="php/reservation.php">
                 <p>
-                    <label for="nom">À quel nom ?</label> <input type="text" name="nom" id="nom" value= <?php echo $_SESSION['login']; ?> required />
+                    <label for="nom">Nom de la réservation : </label> <input type="text" name="nom" id="nom" value= <?php echo $_SESSION['login']; ?> required />
                 </p>
                 <p>
                     <label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
@@ -90,7 +90,7 @@ Dynamic Date
                     <input type="radio" name="prive" value="Non" id="Non" checked /> <label for="Non">Non</label> &nbsp &nbsp
                     <input type="radio" name="prive" value="Oui" id="Oui" /> <label for="Oui">Oui</label><br />
                 </p>
-                <p>
+                <p class="reparti">
                     Si non privatisé, pour combien de personnes ? <br />
                     <label for="ptitdub">Nombre de P'tit Dub :</label> <input type="number" name="ptitdub" id="ptitdub" value=0 /><br />
                     <label for="grosdub">Nombre de Gros Dub :</label> <input type="number" name="grosdub" id="grosdub" value=0 /><br />
@@ -105,14 +105,14 @@ Dynamic Date
         <section id="resume_resa">
             <?php
                 echo "Réservations à venir :<br />";
-                // On récupère tout le contenu de la table jeux_video
+                // On récupère tout le contenu de la table reservation
                 $reponse = $bdd->query('SELECT * FROM reservation');
 
                 // On affiche chaque entrée une à une
                 while ($donnees = $reponse->fetch())
                     {
                      if($donnees['fin'] > $date){
-                        echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
+                        echo utf8_decode($donnees['nom']) . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                             if ($donnees['prive'] == 1){ 
                                 echo "- Séjour privatisé";
                             }

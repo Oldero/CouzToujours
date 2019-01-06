@@ -7,11 +7,6 @@
     if (isset($_SESSION['login']) && isset($_SESSION['pwd']) && isset ($_SESSION['cotiz'])) {
 
         // On teste pour voir si nos variables ont bien été enregistrées
-        echo '<html>';
-        echo '<head>';
-        echo '<title>Page de notre section membre</title>';
-        echo '</head>';
-
         echo '<body>';
         echo 'Bienvenue, '.$_SESSION['prenom'].' !';
         //affichage du popup cotiz non payée sauf si c'est un non-adhérent

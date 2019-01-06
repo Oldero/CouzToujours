@@ -41,19 +41,36 @@
 
     <section class="corps">
         <?php include("include/enconstruction.php"); ?>
+<!--        ?php 
+            echo 'àéç';
+            $date = date("d-m-Y"); 
+            $heure = date("H:i");
+            echo $date . " à " . $heure;
+        ?> -->
+        <aside class="formulaire_cote">
+            <p class="underlined">Rédaction de news</p>
+        <form action="php/rediger_news.php" method="post">
+            <?php echo'<input type="hidden" name="name" value="' . $_SESSION['login'] .'">'; ?>
+            <label for="title">Titre de la news : </label>
+            <input type="text" name="title" id="title"/><br />
+            <label for="msg">Quelles nouvelles ?</label>
+            <textarea name="msg" id="msg" required="required"></textarea><br />
+            <input type="submit" value="Poster">
+        </form>
+        </aside>
 
-        <section>
+        <section class="section_news">
             <?php
-                $reponse = $bdd->query('SELECT * FROM news ORDER BY date DESC LIMIT 0, 10');
-
+                $reponse = $bdd->query('SELECT * FROM news ORDER BY date_du_jour DESC LIMIT 0, 10');
+                echo '<table class="news">';
                 // On affiche chaque entrée une à une
                 while ($donnees = $reponse->fetch())
                     {
-                        echo "Le " . convertdate($donnees['date']) . " par " . $donnees['user'] . " : <br />";
-                        echo $donnees['message'] . "<br />";
-                        echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <br />";
+                        echo "<tr><td class=\"titre_news\"><strong>" . utf8_decode($donnees['titre']) . "</strong></td></tr>";
+                        echo "<tr><td class=\"msg_news\">" . utf8_decode($donnees['message']) . "</td></tr>";
+                        echo "<tr><td class=\"sign_news\"> Le " . convertdate($donnees['date_du_jour']) . " par " . $donnees['nom'] . " </td></tr>";
                     }
-
+                echo '</table>';
                 $reponse->closeCursor(); // Termine le traitement de la requête
             ?>
         </section>

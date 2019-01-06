@@ -101,14 +101,17 @@
         </form>    
  
         <?php
+            $date = date("Y-m-d");
+//            echo $date;
             // Si tout va bien, on peut continuer
-            echo "Mes réservations :<br />";
+ 
             // On récupère tout le contenu de la table réservations
             $reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ?');
             $reponse->execute(array($_SESSION['login']));
 
             // On affiche chaque entrée une à une
             echo '<table class="reserv">';
+            echo "<tr><td class=\"cell_none\" colspan=2>Mes réservations :</td></tr>";
             while ($donnees = $reponse->fetch())
                 {
                 echo '<tr>';

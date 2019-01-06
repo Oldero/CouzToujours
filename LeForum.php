@@ -15,7 +15,7 @@
 
     <meta charset="utf-8" />
 
-    <title>Couz'Toujours</title>
+    <title>Forum Couz'Toujours</title>
 
     <link rel="stylesheet" href="style.css" />
 

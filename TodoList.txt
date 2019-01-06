@@ -14,10 +14,13 @@ Contact avec Ribo
 livre d'or/boite à idées
 formulaire d'écriture de news
 
-page gestion : edition de fichiers csv + formulaire + dernière mise à jour
-select dans formulaire par défaut : le type d'adhérent et payé/non payé
+page gestion : dernière mise à jour + changement de bureau
 
 calendrier interactif
 
 changement de bureau ?
 
+tests et limitateurs pour les différents formulaires
+régler les soucis de caractères spéciaux AVEC utf8_decode()
+
+Rendre le site smartphone compatible (avec media queries ?)
