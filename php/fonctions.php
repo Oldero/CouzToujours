@@ -2,8 +2,9 @@
 // liste des fonctions utilisées ailleurs
 
 function day($date){
-    $tdate = explode("-", $date);
-    $day = date("w", mktime(0, 0, 0, $tdate[1], $tdate[2], $tdate[0]));
+    $tdate_hour = explode("-", $date);
+    $tday = explode(" ",$tdate_hour[2]);
+    $day = date("w", mktime(0, 0, 0, $tdate_hour[1], $tday[0], $tdate_hour[0]));
   switch ($day){
         case 1:
             $jour = "lundi";
@@ -33,6 +34,7 @@ function day($date){
 }
 function convertdate($date){
     $tdate = explode("-", $date);
+    $tday_hour = explode(" ",$tdate[2]);
     //$frenchdate = array($tdate[2], "mois", $tdate[0]);
     switch ($tdate[1]){
         case 1:
@@ -73,7 +75,12 @@ function convertdate($date){
             break;
     }
 
-    return (day($date) . " " . $tdate[2] . " " . $mois . " " . $tdate[0] . " " );
+    $output = day($date) . " " . $tday_hour[0] . " " . $mois . " " . $tdate[0] . " " ;
+    //on rajoute l'heure éventuelle
+    if ($tday_hour[1] != "") {
+        $output .= " à ". $tday_hour[1];
+    }
+    return $output;
 }
 
 // NbJours("2000-10-20", "2000-10-21") retourne 1
@@ -87,7 +94,5 @@ function NbJours($debut, $fin) {
   
     return(($diff / 86400));
 }
-
-
 
 ?>

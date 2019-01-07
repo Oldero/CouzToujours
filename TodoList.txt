@@ -12,15 +12,37 @@ Forum ?
 Contact avec Ribo
 
 livre d'or/boite à idées
-formulaire d'écriture de news
+écrire un mail à couz'toujours.
 
-page gestion : dernière mise à jour + changement de bureau
+page gestion : changement de bureau
 
-calendrier interactif
+page mon compte, modif résa ?
 
-changement de bureau ?
+anniversaires : nouvelle table ?
 
 tests et limitateurs pour les différents formulaires
 régler les soucis de caractères spéciaux AVEC utf8_decode()
 
 Rendre le site smartphone compatible (avec media queries ?)
+
+Dans le style, fusionner les type de formulaires en réglant mieux la taille relative.
+
+TEST réservation privatisée -> pas déjà de réservation. Nb de personnes ?
+
+calendrier interactif
+
+$date passe en link
+
+max douze personnes. 0-4 4-8 8-12 -> nuances de rouge
+séjour privatisé -> bleu
+event de l'asso -> vert
+
+Première étape : créer une autre highlight (class highlight dans le fichier calender.class)
+créer une fonction if_highlighted, mark as highlighted, else not.
+idée : remplissage transparent qui s'opacifie si plusieurs résas en même temps
+trouver comment highlight tous les jours entre les deux dates.
+trouver comment mettre un label quand on passe la souris.
+Lier la bdd résa.
+
+Seconde étape : utiliser le lien de chaque jour pour commencer à remplir le formulaire.
+Quelle ergonomie ? Voir plus tard.

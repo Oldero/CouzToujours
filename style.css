@@ -36,6 +36,7 @@ h3 {
 	color: #7D775C;
 	}
 	*/
+/*-------------------------------------------------------------------Les liens */
 a:link { 
 	font-weight: bold; 
 	text-decoration: none; 
@@ -57,10 +58,15 @@ a:hover, a:focus, a:active {
 
 
 .corps {
-	margin-left : 300px ;
 	margin-top: 50px;
 	margin-bottom: 50px;
-	position: relative;
+	position: absolute;
+	left: 300px;
+	bottom: 100px;
+	top: 50px;
+	padding-bottom: 50px;
+	width: 1200px;
+	min-height: 1500px;
 }
 
 /*Trois sections du cadre*/
@@ -106,18 +112,39 @@ a:hover, a:focus, a:active {
 	margin-top: 50px;
 }
 */
-/*#page_resa {
-    justify-content: space-around;
-    margin-left: 300px;
+/*------------------------------------------------------page réservation*/
+/*.page_resa {
+    height: 100%;
 } */
-#formulaire_resa{
+.formulaire_resa{
 /*	position: left; */
 	border-style: solid;
  	position:absolute;
  	top:0;
- 	right:0;
+ 	right:5px;
+ 	height: 50%;
 	width: 50%;
+	max-width: 667px;
 	padding: 20px;
+	font-family: cursive;
+	text-align: center;
+	max-height: 50%;
+}
+.justify_right{
+	text-align: right;
+}
+.resume_resa{
+	font-family: cursive;
+	border-collapse: collapse;
+	position: absolute;
+	top: 800px;
+ 	right: 5px;
+	width: 50%;
+	max-width: 1000px;
+	margin-bottom: 50px;
+}
+.resume_resa_moncompte{
+	border-collapse: collapse;
 }
 /*.reparti{
 	display: block;
@@ -152,6 +179,9 @@ a:hover, a:focus, a:active {
 	float: right;
 	max-width: 500px;
 	padding-top: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 .selection_tableau{
 	margin: 0;
@@ -197,6 +227,8 @@ a:hover, a:focus, a:active {
 	border-color:black;
 	text-align: center;
 	border-collapse:collapse;
+	position: absolute;
+	top: 700px;
  }
 
 .gestion td {
@@ -213,6 +245,15 @@ a:hover, a:focus, a:active {
  	border-color: red;
 
 }
+ .type_adhesion{
+ 	width: 300px;
+ }
+.titre_tableau{
+	font-family: cursive;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 /*-----------------------------------------------style des cellules*/
 .cell_left{
 /*	width: 200px; */
@@ -250,6 +291,7 @@ a:hover, a:focus, a:active {
  	padding-left: 5px;
 	font-size: 90%;
 }
+
 /*:required
 {
     background-color: red;
@@ -292,21 +334,39 @@ a:hover, a:focus, a:active {
 	color: #000;
 	text-decoration: none;
 	}
-
+/*style des highlights*/
 .calendar td.today {
 	background: #ffc;
 	}
 .calendar td.selected {
 	border: 1px dotted #ff7800;
 	}
-.calendar td.highlighted {
-	background: #fc9;
+/*couleur des events*/
+.calendar td.red_light {
+	background: #F0F082;
+}
+.calendar td.red_medium {
+	background: #FEB05F;
+}
+.calendar td.red_dark {
+	background: #FE1017;
+}
+.calendar td.privatised {
+	background: #6495ed;
+	/*color: white;*/
 	}
-	
-.calendar td:hover, .calendar td.today:hover, 
+.calendar td.official {
+	background: #90ee90;
+}
+.calendar td.passed{
+	background-color: gray;
+background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);background-color: gray;
+background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);
+}
 
-/* passer la souris sur une case*/
-.calendar td.selected:hover, .calendar td.highlighted:hover {
+/* passer la souris sur une case*/	
+.calendar td:hover, .calendar td.today:hover, 
+.calendar td.selected:hover, .calendar td.privatised:hover, .calendar td.official:hover {
 	background: #cff;
 	border: 1px solid #09f;
 	}
@@ -328,8 +388,10 @@ table.calendar td.pad:hover {
 #year {
 	padding: 0;
 	width: 50%;
+	max-width: 1000px;
 	list-style: none;
 	padding-bottom: 10px;
+	margin-right: 500px;
 	}
 #year:after {
 	content: "";

@@ -50,7 +50,7 @@
         <aside class="formulaire_cote">
             <p class="underlined">Rédaction de news</p>
         <form action="php/rediger_news.php" method="post">
-            <?php echo'<input type="hidden" name="name" value="' . $_SESSION['login'] .'">'; ?>
+            <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
             <label for="title">Titre de la news : </label>
             <input type="text" name="title" id="title"/><br />
             <label for="msg">Quelles nouvelles ?</label>

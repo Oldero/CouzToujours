@@ -46,8 +46,9 @@
     <?php include("include/entete.php"); ?>
     <?php include("include/laterale.php"); ?>
     <section class ="corps">
-        <?php echo "Informations : <br> "; 
-        echo 'Nom :  '.$_SESSION['login'].'<br>' ; 
+        <?php echo "<p class='underlined'>Informations : </p> "; 
+        echo 'Tu t\'appelles ' .$_SESSION['prenom'] . ' ' . $_SESSION['nom'].'.<br>';
+        echo 'Connecté en tant que :  '.$_SESSION['login'].'<br>' ; 
         echo 'Type d\'adhésion :  ' ;
         switch ($_SESSION['type']) {
             case 0:
@@ -90,7 +91,8 @@
         echo '<br>';
             ?>
 
-        Changement de mot de passe : Attention ! Retiens-le bien !
+        <a class="underlined">Changement de mot de passe :</a>
+        <a> Attention ! Retiens-le bien !</a>
 
         <form name="formulaire" action="php/change_pwd.php" method="post">
         	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>
@@ -102,22 +104,23 @@
  
         <?php
             $date = date("Y-m-d");
-//            echo $date;
-            // Si tout va bien, on peut continuer
- 
+            $nom_de_resa = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
             // On récupère tout le contenu de la table réservations
-            $reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ?');
-            $reponse->execute(array($_SESSION['login']));
-
+            if ($_SESSION['login'] == "admin") {
+                $reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? OR username = ? ORDER BY debut');
+//                echo $nom_de_resa;
+                $reponse->execute(array($nom_de_resa,"admin"));}
+            else{$reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? ORDER BY debut');
+                $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
-            echo '<table class="reserv">';
+            echo '<table class="resume_resa_moncompte">';
             echo "<tr><td class=\"cell_none\" colspan=2>Mes réservations :</td></tr>";
             while ($donnees = $reponse->fetch())
                 {
                 echo '<tr>';
-                 if($donnees['fin'] > $date){ ?>
+                 if($donnees['fin'] > date("Y-m-d")){ ?>
                     <td class="cell_none">
-                    <?php echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
+                    <?php echo utf8_decode($donnees['nom']) . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                         if ($donnees['prive'] == 1){ 
                             echo "- Séjour privatisé";
                         }

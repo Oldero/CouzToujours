@@ -125,10 +125,10 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
             }
             switch ($tab['cotiz']) {
                 case 0:
-                    $cotiz = "payee";
+                    $cotiz = "non payee";
                     break;
                 case 1:
-                    $cotiz = "non payee";
+                    $cotiz = "payee";
                     break;
                 default:
                     $cotiz = "";

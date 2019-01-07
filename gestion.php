@@ -13,7 +13,9 @@
         // En cas d'erreur, on affiche un message et on arrête tout
             die('Erreur : '.$e->getMessage());
     }
-
+    include("php/fonctions.php");
+    $last_name_modif = "";
+    $last_date_modif = "";
 ?>
   
 
@@ -33,12 +35,31 @@
 
 
 <body>
-
+    
     <?php include("include/entete.php"); ?>
     <?php include("include/laterale.php"); ?>
 
     <section class="corps">
-          
+        <table class="event_officiel">
+        <tr><td class="underlined" colspan=2>Réservation des Margots</td></tr>
+        <form class ="simple button" action="php/reservation.php" method="POST">
+            <input type="hidden" name="official" value=1>
+            <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
+            <tr><td colspan=2><label for="nom">Nom de l'événement : </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
+            <tr><td colspan=2><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
+            <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" required /></td></tr>
+            <input type="hidden" name="prive" value=0>
+            <input type="hidden" name="package" value="OSEF">
+            <input type="hidden" name="ptitdub" value=0>
+            <input type="hidden" name="grosdub" value=0>
+            <input type="hidden" name="pleintarif" value=0>
+            <input type="hidden" name="tarifreduit" value=0>
+            <input type="hidden" name="enfants" value=0>
+            <tr><td colspan=2><input type="submit" value="Déclarer un événement officiel"></td></tr>
+        </form>
+    </table>
+
+<!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
 <!--        ?php include("include/enconstruction.php"); ?> -->
         <aside class="formulaire_edition">
         <p class="underlined">Edition de tableau récapitulatif</p>
@@ -80,18 +101,23 @@
                 </p>        
         </form>
         </aside>
+
         <!--Création du tableau : -->
         <table class="gestion">
-            <tr class ="line">
-                <th colspan="2">Nom</th>
-                <th colspan="2">Type d'adhésion</th>
+            <caption class="titre_tableau">Gestion des adhésions :</caption>
+                <tr class ="line">
+                <th colspan=2>Nom</th>
+                <th colspan=2>Type d'adhésion</th>
                 <th>CA</th>
                 <th>Bureau</th>
-                <th colspan="2">Cotiz ?</th>
+                <th colspan=2>Cotiz ?</th>
             </tr>
             <?php 
-            $reponse = $bdd->query('SELECT * FROM users WHERE name != "admin" ORDER BY nom, prenom'); //WHERE name != "admin"');
+            $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
+
             while($donnees = $reponse->fetch()){
+                //On n'affiche pas l'admin
+                if ($donnees['name'] != "admin") {
                 $test = ($donnees['name'] == $_SESSION['login'] );
                 echo '<tr>';
                 echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
@@ -119,9 +145,10 @@
                         echo '<td class="cell_left">Superhéros</td>';
                         break;          
                 }
-                //Si la ligne n'est pas celle du login de session le if est là pour sélectionner par défaut le type
+                //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
                 if (!$test && $donnees['name'] != 'admin') {
                     echo '<td class="cell_none"><form name="formulaire2" method="post" action="php/gestion_edit_type.php">
+                        <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="typ" id="typ'. $donnees['numero'] . '">
                             <option value=0';
@@ -190,6 +217,7 @@
                 }
                 if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
                     echo '<td class="cell_right"><form name="formulaire2" method="post" action="php/gestion_edit_cotiz.php">
+                        <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="cotiz" id="cotiz'. $donnees['numero'] . '">
                             <option value=0';
@@ -200,11 +228,22 @@
                             echo '>payée</option>
                         </select>';
                     echo '<input type="submit" value="Modifier" /></form></td>';
-                    echo '</tr>';}
-                else {echo '<td class="cell_right"></td>';}
+                    echo '</tr>';
+                }
+                else {
+                    echo '<td class="cell_right"></td>';
+                }
+                }
+                //calcul de la dernière date de modif et login correspondant.
+                if ($donnees['modif'] > $last_date_modif) {
+                    $last_date_modif = $donnees['modif'];
+                    $last_name_modif = $donnees['name'];
+                }
+
             }
             $reponse->closeCursor();
             ?>
+            <?php echo '<tr><td class="sign_news" colspan=4>Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</td></tr>'; ?>
         </table>
     </section>
 

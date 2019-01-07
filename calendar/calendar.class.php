@@ -9,6 +9,8 @@
 * @link http://style-vs-substance.com
 * @copyright Copyright (c) 2008, Jim Mayes
 * @license http://creativecommons.org/licenses/by-sa/3.0/ Creative Commons Attribution-Share Alike 3.0 License
+
+MODIF : in french, highlight events.
 */
 
 class Calendar{
@@ -18,9 +20,9 @@ class Calendar{
 	var $day;
 	
 	var $week_start_on = FALSE;
-	var $week_start = 7;// sunday
+	var $week_start = 1;// monday
 	
-	var $link_days = TRUE;
+	var $link_days = FALSE;
 	var $link_to;
 	var $formatted_link_to;
 	
@@ -32,13 +34,26 @@ class Calendar{
 	
 	var $mark_passed = TRUE;
 	var $passed_date_class = 'passed';
-	
-	var $highlighted_dates;
-	var $default_highlighted_class = 'highlighted';
+	//event privatisé
+	var $privatised_event;
+	var $privatised_class = 'privatised';
+	//event officiel de l'asso
+	var $official_event;
+	var $official_class = 'official';	
+	//event normal, nuances de rouge
+	var $event_04;
+	var $event_04_class = 'red_light';
+	var $event_48;
+	var $event_48_class = 'red_medium';
+	var $event_8plus;
+	var $event_8plus_class = 'red_dark';
+//	var $event;
+//	var $highlight_event = "event";
 	
 	
 	/* CONSTRUCTOR */
 	function Calendar($date = NULL, $year = NULL, $month = NULL){
+		setlocale(LC_TIME, "fr_FR");
 		$self = htmlspecialchars($_SERVER['PHP_SELF']);
 		$this->link_to = $self;
 		
@@ -64,7 +79,7 @@ class Calendar{
 	}
 	
 	function output_calendar($year = NULL, $month = NULL, $calendar_class = 'calendar'){
-		
+		setlocale(LC_TIME, "fr_FR");
 		if( $this->week_start_on !== FALSE ){
 			echo "The property week_start_on is replaced due to a bug present in version before 2.6. of this class! Use the property week_start instead!";
 			exit;
@@ -89,15 +104,17 @@ class Calendar{
 		$last_day_falls_on = date("N", $month_end_date);
 
 		//------------------------------------------------- start table, caption
+		//................................................. noms de mois
 		$output  = "<table class=\"" . $calendar_class . "\">\n";
 		$output .= "<caption>" . ucfirst(strftime("%B %Y", $month_start_date)) . "</caption>\n";
 		
 		$col = '';
 		$th = '';
+		//................................................. noms de jours
 		for( $i=1,$j=$this->week_start,$t=(3+$this->week_start)*86400; $i<=7; $i++,$j++,$t+=86400 ){
 			$localized_day_name = gmstrftime('%A',$t);
 			$col .= "<col class=\"" . strtolower($localized_day_name) ."\" />\n";
-			$th .= "\t<th title=\"" . ucfirst($localized_day_name) ."\">" . strtoupper($localized_day_name{0}) ."</th>\n";
+			$th .= "\t<th title=\"" . "ucfirst($localized_day_name)" ."\">" . strtoupper($localized_day_name{0}) ."</th>\n";
 			$j = ( $j == 7 )? 0 : $j;
 		}
 		
@@ -153,10 +170,30 @@ class Calendar{
 			if( $this->mark_passed == TRUE && $day_date < date("Y-m-d") ){
 				$classes[] = $this->passed_date_class;
 			}
-			
-			if( is_array($this->highlighted_dates) ){
-				if( in_array($day_date, $this->highlighted_dates) ){
-					$classes[] = $this->default_highlighted_class;
+			//PAR ICI JE DEVRAIS TROUVER COMMENT METTRE LES EVENTS EN VALEUR !
+			if( is_array($this->privatised_event) ){
+				if( in_array($day_date, $this->privatised_event) ){
+					$classes[] = $this->privatised_class;
+				}
+			}
+			if( is_array($this->official_event) ){
+				if( in_array($day_date, $this->official_event) ){
+					$classes[] = $this->official_class;
+				}
+			}
+			if( is_array($this->event_04) ){
+				if( in_array($day_date, $this->event_04) ){
+					$classes[] = $this->event_04_class;
+				}
+			}
+			if( is_array($this->event_48) ){
+				if( in_array($day_date, $this->event_48) ){
+					$classes[] = $this->event_48_class;
+				}
+			}
+			if( is_array($this->event_8plus) ){
+				if( in_array($day_date, $this->event_8plus) ){
+					$classes[] = $this->event_8plus_class;
 				}
 			}
 			
@@ -178,6 +215,7 @@ class Calendar{
 			unset($day_class, $classes);
 			
 			//-------------------------------------- conditional, start link tag 
+			//-------------------------------------- A TRAVAILLER AVEC LES LIENS link_days = TRUE
 			switch( $this->link_days ){
 				case 0 :
 					$output .= $day;
@@ -192,8 +230,8 @@ class Calendar{
 				break;
 				
 				case 2 :
-					if( is_array($this->highlighted_dates) ){
-						if( in_array($day_date, $this->highlighted_dates) ){
+					if( is_array($this->privatised_event) ){
+						if( in_array($day_date, $this->privatised_event) ){
 							if( empty($this->formatted_link_to) ){
 								$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">";
 							} else {
@@ -204,8 +242,8 @@ class Calendar{
 					
 					$output .= $day;
 					
-					if( is_array($this->highlighted_dates) ){
-						if( in_array($day_date, $this->highlighted_dates) ){
+					if( is_array($this->privatised_event) ){
+						if( in_array($day_date, $this->privatised_event) ){
 							if( empty($this->formatted_link_to) ){
 								$output .= "</a>";
 							} else {
