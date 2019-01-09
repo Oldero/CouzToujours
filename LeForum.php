@@ -1,7 +1,6 @@
-   <!-- Forum à construire -->
-
-
 <?php
+// Forum à construire 
+
     session_start ();
 ?>
   

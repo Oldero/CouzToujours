@@ -1,7 +1,6 @@
-<!-- Généalogie et coordonnées, photos ?
-NB : familha = famille en Auvergnat -->
-
 <?php
+// Généalogie et coordonnées, photos ?
+//NB : familha = famille en Auvergnat 
     session_start ();
 ?>
   

@@ -1,21 +1,9 @@
-<!-- Page des infos du compte changement de mdp -->
-
-
 <?php
-    session_start ();
-    include("php/fonctions.php");
-    
-    try
-    {
-        // On se connecte à MySQL
-        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours;charset=utf8', 'root', 'root');
-    }
-    catch(Exception $e)
-    {
-        // En cas d'erreur, on affiche un message et on arrête tout
-            die('Erreur : '.$e->getMessage());
-    }
+// Page des infos du compte changement de mdp
 
+    session_start ();
+    include("doctor/bdd.php");
+    include("php/fonctions.php");
 ?>
   
 
@@ -46,28 +34,31 @@
     <?php include("include/entete.php"); ?>
     <?php include("include/laterale.php"); ?>
     <section class ="corps">
-        <?php echo "<p class='underlined'>Informations : </p> "; 
+        <a>Laisser un <a href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.</a>
+    <section class ="flex_formulaire">
+    <div class="infos_persos">
+        <?php echo "<a class='bigtitle'>Informations : </a><br />"; 
         echo 'Tu t\'appelles ' .$_SESSION['prenom'] . ' ' . $_SESSION['nom'].'.<br>';
-        echo 'Connecté en tant que :  '.$_SESSION['login'].'<br>' ; 
+        echo 'Connecté en tant que : <a class="italique">'.$_SESSION['login'].'</a><br>' ; 
         echo 'Type d\'adhésion :  ' ;
         switch ($_SESSION['type']) {
             case 0:
                 echo "Tu peux adhérer à l'association quand tu le souhaites !";
                 break;
             case 1:
-                echo "Tu es P'tit Dub. C'est grâce à toi que l'association vit, merci !";
+                echo "Tu es <strong>P'tit Dub</strong>. C'est grâce à toi que l'association vit, merci !";
                 break;
             case 2:
-                echo "Tu es Gros Dub. C'est grâce à toi que l'association est si géniale. Merci !";
+                echo "Tu es <strong>Gros Dub</strong>. C'est grâce à toi que l'association est si géniale. Merci !";
                 break;
             case 3:
-                echo "Tu es Gros Dub et à la tête d'une tribu. Que ta tribu soit longue et prospère !";
+                echo "Tu es <strong>Gros Dub</strong> et à la tête d'une <strong>tribu</strong>. Que ta tribu soit longue et prospère !";
                 break;
             case 4:
-                echo "Tu es un parasite. Non, pardon, tu fais partie d'une tribu. ";
+                echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie d'une tribu. ";
                 break;
             case 5:
-                echo "Tu es membre honoraire de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
+                echo "Tu es <strong>membre honoraire</strong> de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
                 break;
             default:
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
@@ -90,18 +81,22 @@
         }
         echo '<br>';
             ?>
-
-        <a class="underlined">Changement de mot de passe :</a>
+        <div class="pwd_block">
+        <a class="bigtitle">Changement de mot de passe :</a>
         <a> Attention ! Retiens-le bien !</a>
-
+        <table>
         <form name="formulaire" action="php/change_pwd.php" method="post">
         	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>
-        	Ton ancien mot de passe : <input type="password" name="ancien"><br />
-        	Ton nouveau mot de passe : <input type="password" name="nouveau"><br />
-        	Répète-le : <input type="password" name="nouveau_test"><br />
-        	<input type="button" value="Changer de mot de passe" onclick="if (document.formulaire.ancien.value == document.formulaire.courant.value && document.formulaire.nouveau.value == document.formulaire.nouveau_test.value && confirm('sur ?') ) {document.formulaire.submit();} else {alert('Mauvais mot de passe !') }">
-        </form>    
- 
+            <input type="hidden" name="user" value = <?php echo $_SESSION['login']; ?>>
+        	<tr><td>Ton ancien mot de passe : </td><td><input type="password" name="ancien"></td></tr>
+        	<tr><td>Ton nouveau mot de passe : </td><td><input type="password" name="nouveau"></td></tr>
+        	<tr><td>Répète-le : </td><td><input type="password" name="nouveau_test"></td></tr>
+        	<tr><td colspan=2 class="justify_center"><input type="button" value="Changer de mot de passe" onclick="if (document.formulaire.ancien.value == document.formulaire.courant.value && document.formulaire.nouveau.value == document.formulaire.nouveau_test.value && confirm('sur ?') ) {document.formulaire.submit();} else {alert('Mauvais mot de passe !') }"></td></tr>
+        </form>
+        </table>    
+        </div>
+    </div>
+
         <?php
             $date = date("Y-m-d");
             $nom_de_resa = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
@@ -114,13 +109,13 @@
                 $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
             echo '<table class="resume_resa_moncompte">';
-            echo "<tr><td class=\"cell_none\" colspan=2>Mes réservations :</td></tr>";
+            echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations :</a></td></tr>";
             while ($donnees = $reponse->fetch())
                 {
                 echo '<tr>';
                  if($donnees['fin'] > date("Y-m-d")){ ?>
                     <td class="cell_none">
-                    <?php echo utf8_decode($donnees['nom']) . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
+                    <?php echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                         if ($donnees['prive'] == 1){ 
                             echo "- Séjour privatisé";
                         }
@@ -140,7 +135,7 @@
 
             $reponse->closeCursor(); // Termine le traitement de la requête
         ?>
-        
+    </section>    
     </section>
     <?php include("include/pieddepage.php"); ?>
 

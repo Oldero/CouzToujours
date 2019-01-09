@@ -1,13 +1,3 @@
-/* css Zen Garden default style v1.02 */
-/* css released under Creative Commons License - http://creativecommons.org/licenses/by-nc-sa/1.0/  */
-
-/* This file based on 'Tranquille' by Dave Shea */
-/* You may use this file as a foundation for any new work, but you may find it easier to start from scratch. */
-/* Not all elements are defined in this file, so you'll most likely want to refer to the xhtml as well. */
-
-/* Your images should be linked as if the CSS file sits in the same folder as the images. ie. no paths. */
-
-
 /* basic elements */
 html {
 	margin: 0;
@@ -20,22 +10,46 @@ body {
 	line-height: 1.88889;
 	font-size: 100%;
 	color: #555753; 
-/*	background: #fff url(http://csszengarden.com/001/blossoms.jpg) no-repeat bottom right; */
 	}
+
+/*----------------------------------------------------------Page de connection*/
+div.page_connexion{
+}
+.tableau_connexion{
+	margin:auto;
+	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+  	transform: translateY(-100%); /* tiré de la moitié de sa propre hauteur */
+	border: 1px solid black;
+	padding: 10px;
+	background-color: #CCDDEE;
+}
+.tableau_connexion{
+	font-family: verdana;
+}
+/*----------------------------------------------------------éléments classiques*/
 .underlined{
 	text-decoration: underline; 
 }
-/*p { 
-	margin-top: 0; 
-	text-align: justify;
-	}
-h3 { 
-	font: italic normal 1.4em georgia, sans-serif;
-	letter-spacing: 1px; 
-	margin-bottom: 0; 
-	color: #7D775C;
-	}
-	*/
+.bigtitle{
+	text-decoration: underline;
+	font-style: italic;
+	font-weight: bold;
+}
+.italique{
+	font-style: italic;
+}
+.justify_right{
+	text-align: right;
+}
+.justify_center{
+	text-align: center;
+}
+.justify_left{
+	text-align: left;
+}
+.caption_center{
+	text-decoration: underline;
+}
 /*-------------------------------------------------------------------Les liens */
 a:link { 
 	font-weight: bold; 
@@ -45,28 +59,21 @@ a:link {
 a:visited { 
 	font-weight: bold; 
 	text-decoration: none; 
-	color: #D4CDDC;
+	color: #B7A5DF; 
 	}
 a:hover, a:focus, a:active { 
 	text-decoration: underline; 
 	color: #9685BA;
 	}
-/*abbr {
-	border-bottom: none;
-	}
-*/
 
-
+/*------------------------------------------------Éléments de la page*/
 .corps {
 	margin-top: 50px;
 	margin-bottom: 50px;
 	position: absolute;
-	left: 300px;
-	bottom: 100px;
+	left: 400px;
 	top: 50px;
-	padding-bottom: 50px;
-	width: 1200px;
-	min-height: 1500px;
+	padding: auto;
 }
 
 /*Trois sections du cadre*/
@@ -74,18 +81,28 @@ a:hover, a:focus, a:active {
 /*	position: fixed;*/
 	text-align: left;
 	width: 250px;
-	margin: 4;
+	height: 100%;
+	padding: 10px;
+	margin-top: 70px;
 	border: 1px;
 	position: fixed;
 	top: 0;
-	left: 10px; 
+	left: 0; 
 	right: 0;
 	background-color: #FFFFFF; 
+	z-index: 1;
 }
 
 #tete {
-/*	position: fixed;*/
+	height: 70px;
+	position: fixed;
+	top:0;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 	text-align: center;
+	z-index: 1;
+	background-color: #FFFFFF;  
 
 }
 
@@ -97,129 +114,82 @@ a:hover, a:focus, a:active {
 	text-align: center;
 	height: 50px;
 	background-color: #FFFFFF;
+	z-index: 1;
 }
-/*
-.flextete {
-	display: flex;
-    justify-content: space-around;
-}*/
+/*---------------------------------------------------page en construction*/
 .encours {
+	width:100%;
 	text-align: center;
+	margin:auto;
+	margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
+  	transform: translateY(-100%); /* tiré de 100% de sa propre hauteur */
 }
-/*
-.calendar {
-	text-align: center;
-	margin-top: 50px;
-}
-*/
 /*------------------------------------------------------page réservation*/
-/*.page_resa {
-    height: 100%;
-} */
+.flex_formulaire {
+/*    height: 100%;*/
+	width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+    /*justify-content: space-between;*/
+} 
 .formulaire_resa{
-/*	position: left; */
 	border-style: solid;
- 	position:absolute;
- 	top:0;
- 	right:5px;
- 	height: 50%;
-	width: 50%;
-	max-width: 667px;
+ 	position: relative;
+	max-width: 700px;
 	padding: 20px;
 	font-family: cursive;
 	text-align: center;
 	max-height: 50%;
-}
-.justify_right{
-	text-align: right;
+	order: 2;
+	flex:2;
+	margin-bottom: 80px;
 }
 .resume_resa{
 	font-family: cursive;
 	border-collapse: collapse;
-	position: absolute;
-	top: 800px;
- 	right: 5px;
-	width: 50%;
 	max-width: 1000px;
-	margin-bottom: 50px;
+	order: 3;
+}
+.almanach{
+	margin-right: 20px;
+	max-width: 50%;
+	order: 1;
+	margin-bottom: 80px;
+}
+/*-----------------------------------------------page mon compte*/
+/*.flex_vertical{
+	display: flex;
+	flex-direction: column;
+}*/
+.infos_persos{
+	width: 500px;
+	margin-right: 80px;
 }
 .resume_resa_moncompte{
 	border-collapse: collapse;
+	font-family: cursive;	
 }
-/*.reparti{
-	display: block;
-    align-content: space-around;
-}*/
-.line_spec{
-	display: block;
+/*------------------------------------------------page gestion*/
+.ensemble_gauche{
+	order: 1;
+	margin-right: 100px;
+	margin-bottom: 100px;
 }
-/*----------------Edition de tableaux de gestion et Rédaction de news*/
-.formulaire_cote {
-	width: 50%;
-	height: 350px;
-	border: 1px solid black;
-	padding: 20px;
-	font-family: cursive;
-	text-align: center;
-	float: right;
-	max-width: 400px;
-	padding-top: 0;
-}
-.formulaire_cote textarea {
-	width: 100%;
-	height: 200px;
+.event_officiel{
+	margin: auto;
+	margin-bottom: 100px;
 }
 .formulaire_edition {
-	width: 50%;
 	height: 600px;
 	border: 1px solid black;
 	padding: 15px;
 	font-family: cursive;
 	text-align: center;
-	float: right;
-	max-width: 500px;
+	max-width: 700px;
 	padding-top: 0;
-	position: absolute;
-	right: 0;
-	top: 0;
+	order: 2;
 }
-.selection_tableau{
-	margin: 0;
-	padding-top: 0;
-	width: 100%
-}
-.check_selection{
-	text-align: left;
-}
-/*#resume_resa{
-	float: right;
-	position: relative;
-}*/
-/*-------------------------------------------------------------???*/
-.conteneur{
-	display: flex;
-    justify-content: space-between;
-    margin-right: 200px;
-}
-/*-------------------------------------------------------------news*/
-.section_news{
-	width: 40%;
-}
-.titre_news{
-	font-size:110%;
-	border-top: solid red 1px;
-}
-.msg_news{
-	font-family: cursive;
-}
-.sign_news{
-	font-size:70%;
-	font-style: italic;
-}
-/*-------------------------------------------tableau de réservation*/
-.reserv {
-	border-collapse:collapse;
- }
 /*-----------------------------------------------tableau de gestion*/
 .gestion {
 	border-width:1px; 
@@ -227,10 +197,7 @@ a:hover, a:focus, a:active {
 	border-color:black;
 	text-align: center;
 	border-collapse:collapse;
-	position: absolute;
-	top: 700px;
- }
-
+}
 .gestion td {
 /*	border-bottom-style: dotted;
 	border-right-style: dotted; */
@@ -243,7 +210,6 @@ a:hover, a:focus, a:active {
  	border-width: 1px;
  	border-style: solid; 
  	border-color: red;
-
 }
  .type_adhesion{
  	width: 300px;
@@ -253,11 +219,74 @@ a:hover, a:focus, a:active {
 	text-decoration: underline;
 	font-weight: bold;
 }
-
+/*--------------------------------------------------Page d'accueil*/
+.formulaire_cote {
+	height: 350px;
+	border: 1px solid black;
+	padding: 20px;
+	font-family: cursive;
+	text-align: center;
+	max-width: 500px;
+	padding-top: 0;
+	order: 2;
+}
+.formulaire_cote textarea {
+	width: 100%;
+	height: 200px;
+}
+/*-------------------------------------------------------------news*/
+.section_news{
+	margin-right: 80px;
+	order:1;
+}
+.titre_news{
+	font-size:110%;
+	border-top: solid red 1px;
+}
+.msg_news{
+	font-family: cursive;
+}
+.sign_news{
+	font-size:70%;
+	font-style: italic;
+}
+/*--------------------------------------------------boite à idées*/
+.formulaire_idees{
+	width: 500px;
+	margin-bottom: 80px;
+	margin-left: auto;
+	margin-right: auto;
+	border-width:1px; 
+	border-style:solid; 
+	border-color:black;
+	padding: 20px;
+}
+.formulaire_idees textarea {
+	width: 100%;
+	height: 200px;
+}
+.livre{
+	order: 4;
+	width: 50%;
+}
+.idees{
+	order: 5;
+	width: 50%;
+	border-collapse:collapse;
+}
+.idees th, .idees td{
+	border-width: 1px;
+  	border-style: solid; 
+ 	border-color: red;
+ 	border-width: 1px;
+ 	border-style: solid; 
+ 	border-color: red;
+ 	padding-right: 5px;
+ 	padding-left: 5px;
+	font-size: 90%;
+}
 /*-----------------------------------------------style des cellules*/
 .cell_left{
-/*	width: 200px; */
-/*	text-align: center;*/
 	border-left-width: 1px;
   	border-left-style: solid; 
  	border-left-color: red;
@@ -269,8 +298,6 @@ a:hover, a:focus, a:active {
 	font-size: 90%;
 }
 .cell_right{
-/*	width: 300px; */
-/*	text-align: center;*/
 	border-right-width: 1px;
  	border-right-style: solid; 
  	border-right-color: red;
@@ -282,8 +309,6 @@ a:hover, a:focus, a:active {
 	font-size: 90%;
 }
 .cell_none{
-/* 	width: 200px; */
-/*	text-align: center;*/
  	border-bottom-width: 1px;
  	border-bottom-style: solid; 
  	border-bottom-color: red;
@@ -292,18 +317,6 @@ a:hover, a:focus, a:active {
 	font-size: 90%;
 }
 
-/*:required
-{
-    background-color: red;
-}
-
-/* :invalid
-{
-	background-color: orange;
-}
-
-
-/*
 /*------------------------------------------------------------------calendar*/
 /* CSS Document */
 .calendar {
@@ -312,11 +325,18 @@ a:hover, a:focus, a:active {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: .6em;
 	}
+.legende{	
+	margin: 2;
+	padding: 2;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .6em;
+}
 /*style des bandeaux de mois*/
 .calendar caption {
 	margin: 0;
 	padding: .3em 0;
-	background: #3CAC9D;
+	background: #05B484;
+	border-radius: 10px 10px 0px 0px; /*arrondit les angles*/
 	}
 /*cellule des jours de la semaine*/
 .calendar th {
@@ -324,7 +344,7 @@ a:hover, a:focus, a:active {
 	font-weight: normal;
 	background: #fff;
 	}
-.calendar td {
+.calendar td  {
 	border: 1px solid #fff;
 	padding: .1em .3em ;
 	width: 1em;
@@ -335,42 +355,86 @@ a:hover, a:focus, a:active {
 	text-decoration: none;
 	}
 /*style des highlights*/
-.calendar td.today {
+.calendar td.today, .legende td.today {
 	background: #ffc;
+	border-radius: 5px 5px 5px 5px;
 	}
-.calendar td.selected {
+.calendar td.selected, .legende td.selected {
 	border: 1px dotted #ff7800;
+	border-radius: 5px 5px 5px 5px;
 	}
 /*couleur des events*/
-.calendar td.red_light {
-	background: #F0F082;
+.calendar td.red_light, .legende td.red_light {
+	background: #FEE050;
+	border-radius: 5px 5px 5px 5px;
 }
-.calendar td.red_medium {
+.calendar td.red_medium, .legende td.red_medium {
 	background: #FEB05F;
+	border-radius: 5px 5px 5px 5px;
 }
-.calendar td.red_dark {
+.calendar td.red_dark, .legende td.red_dark {
 	background: #FE1017;
+	border-radius: 5px 5px 5px 5px;
 }
-.calendar td.privatised {
+.calendar td.privatised, .legende td.privatised {
 	background: #6495ed;
+	border-radius: 5px 5px 5px 5px;
 	/*color: white;*/
 	}
-.calendar td.official {
+.calendar td.official, .legende td.official {
 	background: #90ee90;
+	border-radius: 5px 5px 5px 5px;
 }
-.calendar td.passed{
+/*jours passés*/
+.calendar td.passed, .legende td.passed{
 	background-color: gray;
-background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);background-color: gray;
-background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);
+	background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);background-color: gray;
+	background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);
+	border-radius: 5px 5px 5px 5px;
 }
-
+/*couleur des cases du week-end*/
+.samedi, .dimanche {
+	background: #f0f0f0;
+	border-radius: 5px 5px 5px 5px;
+}
 /* passer la souris sur une case*/	
 .calendar td:hover, .calendar td.today:hover, 
 .calendar td.selected:hover, .calendar td.privatised:hover, .calendar td.official:hover {
 	background: #cff;
 	border: 1px solid #09f;
+	cursor: pointer;
 	}
+.legende caption{
+	text-decoration: underline;
+}
+.legende td.official, .legende td.privatised, .legende td.red_dark, .legende td.red_medium, .legende td.red_light{
+	border: 1px solid #fff;
+	min-width: 8px;
+	text-align: center;
+}
+.legende td.legende_element, .legende td.underlined{
+	padding-right: 5px;
+}
+/*infobulles*/
+.infobulle {
+  position: relative;  /* les .infobulle deviennent référents */
+  cursor: help;
+}
 
+/* on génère un élément :after lors du survol et du focus :*/
+
+.infobulle:hover::after,
+.infobulle:focus::after {
+  content: attr(aria-label);  /* on affiche aria-label */
+  position: absolute;
+  top: -2.4em;
+  left: 50%;
+  transform: translateX(-50%); /* on centre horizontalement  */
+  z-index: 1; /* pour s'afficher au dessus des éléments en position relative */
+  white-space: nowrap;  /* on interdit le retour à la ligne */
+  background-color: silver;
+}
+/*pad : dernières cases vides*/
 table.calendar td.pad {
 	color: #999;
 	background: #fff;
@@ -379,19 +443,15 @@ table.calendar td.pad:hover {
 	background: none;
 	border: 0;
 	}
-	
-.sunday, .saturday {
-	background: #f0f0f0;
-	}
-
 /*disposition des douze blocs*/
 #year {
 	padding: 0;
-	width: 50%;
+	width: 100%;
 	max-width: 1000px;
 	list-style: none;
 	padding-bottom: 10px;
 	margin-right: 500px;
+	flex-wrap: wrap;
 	}
 #year:after {
 	content: "";

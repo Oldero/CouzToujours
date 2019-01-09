@@ -34,21 +34,21 @@ class Calendar{
 	
 	var $mark_passed = TRUE;
 	var $passed_date_class = 'passed';
+
+	//événements
+	//tableaux 2-dimension d'infobulles -> tableau d'événements;
+	var $info_private;
+	var $info_official;
+	var $info_normal;
+	//classe de case
 	//event privatisé
-	var $privatised_event;
 	var $privatised_class = 'privatised';
 	//event officiel de l'asso
-	var $official_event;
 	var $official_class = 'official';	
 	//event normal, nuances de rouge
-	var $event_04;
 	var $event_04_class = 'red_light';
-	var $event_48;
 	var $event_48_class = 'red_medium';
-	var $event_8plus;
 	var $event_8plus_class = 'red_dark';
-//	var $event;
-//	var $highlight_event = "event";
 	
 	
 	/* CONSTRUCTOR */
@@ -88,7 +88,27 @@ class Calendar{
 		//--------------------- override class methods if values passed directly
 		$year = ( is_null($year) )? $this->year : $year;
 		$month = ( is_null($month) )? $this->month : str_pad($month, 2, '0', STR_PAD_LEFT);
-	
+		//--------------------------------- extraction des tableaux d'événements
+		//------------------------------------ privatisé + officiel + normal * 3
+		$privatised_event = array_column($this->info_private, 0);
+		$official_event = array_column($this->info_official, 0);
+		if (is_array($this->info_normal)) {
+		$top = sizeof($this->info_normal);
+    	$bottom = 0;
+    	//---------------------------------- répartition dans les trois tableaux
+     	while($bottom <= $top){
+	        if ($this->info_normal[$bottom][1] <=4) {
+	            $event_04[] = $this->info_normal[$bottom][0];
+	        }
+	        elseif ($this->info_normal[$bottom][1] <= 8 ) {
+	            $event_48[] = $this->info_normal[$bottom][0];
+	        }
+	        else {
+	            $event_8plus[] = $this->info_normal[$bottom][0];
+	        }
+	        $bottom++;
+	    }
+		}
 		//------------------------------------------- create first date of month
 		$month_start_date = strtotime($year . "-" . $month . "-01");
 		//------------------------- first day of month falls on what day of week
@@ -104,13 +124,13 @@ class Calendar{
 		$last_day_falls_on = date("N", $month_end_date);
 
 		//------------------------------------------------- start table, caption
-		//................................................. noms de mois
+		//----------------------------------------------------------noms de mois
 		$output  = "<table class=\"" . $calendar_class . "\">\n";
 		$output .= "<caption>" . ucfirst(strftime("%B %Y", $month_start_date)) . "</caption>\n";
 		
 		$col = '';
 		$th = '';
-		//................................................. noms de jours
+		//----------------------------------------------------------noms de jours
 		for( $i=1,$j=$this->week_start,$t=(3+$this->week_start)*86400; $i<=7; $i++,$j++,$t+=86400 ){
 			$localized_day_name = gmstrftime('%A',$t);
 			$col .= "<col class=\"" . strtolower($localized_day_name) ."\" />\n";
@@ -146,10 +166,7 @@ class Calendar{
 		
 		//--------------------------------------------------- loop days of month
 		for($day=1,$cell=$prepend+1; $day<=$days_in_month; $day++,$cell++){
-			
-			/*
-			if this is first cell and not also the first day, end previous row
-			*/
+			/*if this is first cell and not also the first day, end previous row*/
 			if( $cell == 1 && $day != 1 ){
 				$output .= "<tr>\n";
 			}
@@ -170,29 +187,29 @@ class Calendar{
 			if( $this->mark_passed == TRUE && $day_date < date("Y-m-d") ){
 				$classes[] = $this->passed_date_class;
 			}
-			//PAR ICI JE DEVRAIS TROUVER COMMENT METTRE LES EVENTS EN VALEUR !
-			if( is_array($this->privatised_event) ){
-				if( in_array($day_date, $this->privatised_event) ){
+			//Changed here to add five colors of events
+			if( is_array($privatised_event) ){
+				if( in_array($day_date, $privatised_event) ){
 					$classes[] = $this->privatised_class;
 				}
 			}
-			if( is_array($this->official_event) ){
-				if( in_array($day_date, $this->official_event) ){
+			if( is_array($official_event) ){
+				if( in_array($day_date, $official_event) ){
 					$classes[] = $this->official_class;
 				}
 			}
-			if( is_array($this->event_04) ){
-				if( in_array($day_date, $this->event_04) ){
+			if( is_array($event_04) ){
+				if( in_array($day_date, $event_04) ){
 					$classes[] = $this->event_04_class;
 				}
 			}
-			if( is_array($this->event_48) ){
-				if( in_array($day_date, $this->event_48) ){
+			if( is_array($event_48) ){
+				if( in_array($day_date, $event_48) ){
 					$classes[] = $this->event_48_class;
 				}
 			}
-			if( is_array($this->event_8plus) ){
-				if( in_array($day_date, $this->event_8plus) ){
+			if( is_array($event_8plus) ){
+				if( in_array($day_date, $event_8plus) ){
 					$classes[] = $this->event_8plus_class;
 				}
 			}
@@ -209,7 +226,29 @@ class Calendar{
 			}
 			
 			//---------------------------------- start table cell, apply classes
-			$output .= "\t<td" . $day_class . " title=\"" . ucwords(strftime("%A, %B %e, %Y", strtotime($day_date))) . "\">";
+			//---------------------------------- avec l'infobulle !
+			$jour_compare = $year . "-" . $month ."-" . $day;
+			$infobulle = strftime("%A %e %B %Y", strtotime($day_date));
+			$infobulle .= " \n";
+			if (is_array($this->info_private)) {
+				if (in_array($jour_compare, array_column($this->info_private,0))) {
+					$key = array_search($jour_compare, array_column($this->info_private, 0));
+					$infobulle .= "séjour privatisé \n" . $this->info_private[$key][2];
+				}
+			}
+			if (is_array($this->info_official)) {
+				if (in_array($jour_compare, array_column($this->info_official,0))) {
+					$key = array_search($jour_compare, array_column($this->info_official, 0));
+					$infobulle .= $this->info_official[$key][2];
+				}
+			}
+			if (is_array($this->info_normal)) {
+				if (in_array($jour_compare, array_column($this->info_normal,0))) {
+					$key = array_search($jour_compare, array_column($this->info_normal, 0));
+					$infobulle .= $this->info_normal[$key][1] . " personnes \n" . $this->info_normal[$key][2];
+				}
+			}
+			$output .= "\t<td" . $day_class . " title=\"" . $infobulle . "\">";
 			
 			//----------------------------------------- unset to keep loop clean
 			unset($day_class, $classes);
@@ -219,6 +258,8 @@ class Calendar{
 			switch( $this->link_days ){
 				case 0 :
 					$output .= $day;
+					//Avec infobulle :
+					//$output .= '<span class="infobulle" aria-label ="' . $infobulle . '">' . $day . '<span>';
 				break;
 				
 				case 1 :

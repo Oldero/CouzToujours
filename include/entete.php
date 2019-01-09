@@ -17,7 +17,7 @@
 
         echo '<div class = "flextete">';
             // On affiche un lien pour fermer notre session
-            echo '<a href="monCompte.php">Mon compte &nbsp &nbsp</a>';
+            echo '<a href="monCompte.php">Mon compte</a> &nbsp &nbsp';
             if ($_SESSION['ca'] == 1 || $_SESSION['admin'] == 1) {
                 echo '<a href="gestion.php">Gestion de l\'association</a> &nbsp &nbsp';
             }

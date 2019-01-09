@@ -1,7 +1,6 @@
-<!-- Asso Couz'Toujours. Le bureau, le CA, les AG -->
-
-
 <?php
+//Asso Couz'Toujours. Le bureau, le CA, les AG 
+
     session_start ();
 ?>
   

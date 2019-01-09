@@ -1,4 +1,4 @@
-    <?php
+<?php
     // On démarre la session
     session_start ();
 
@@ -10,4 +10,4 @@
 
     // On redirige le visiteur vers la page d'accueil
     header ('location: ../index.html');
-    ?>
+?>

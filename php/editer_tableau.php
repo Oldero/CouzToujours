@@ -1,19 +1,12 @@
 <?php
 //page php pour effectuer l'édition de tableaux récapitulatifs
 
-try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours', 'root', 'root');
-    }
-catch (Exception $e) // Si erreur
-    {
-            die('Erreur : ' . $e->getMessage());
-    }
+    include("../doctor/bdd.php");
 
     // on teste si nos variables sont définies
 if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && isset($_POST['select'])) {
         //query à distinquer selon les critères de choix.
-        $csvcsv="Nom;Prénom;type;cotiz\n";
+        $csvcsv="Nom;Prénom;Type;Cotiz\n";
         //construction du sql_query qui va dépendre des options cochées
         $sql_query = "SELECT * FROM users";
         switch ($_POST['cotiz']) {
@@ -102,7 +95,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
             if ($tab['name'] != "admin") {
             switch ($tab['type']) {
                 case 0:
-                    $type = "non-adherent";
+                    $type = "non-adhérent";
                     break;
                 case 1:
                     $type = "P'tit Dub";
@@ -125,10 +118,10 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
             }
             switch ($tab['cotiz']) {
                 case 0:
-                    $cotiz = "non payee";
+                    $cotiz = "non payée";
                     break;
                 case 1:
-                    $cotiz = "payee";
+                    $cotiz = "payée";
                     break;
                 default:
                     $cotiz = "";

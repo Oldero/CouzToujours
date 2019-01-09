@@ -1,21 +1,9 @@
-<!-- Gestion des adhésions, édition de fichier csv -->
-
-
 <?php
+// Gestion des adhésions, édition de fichier csv 
+
     session_start ();
-    try
-    {
-        // On se connecte à MySQL
-        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours;charset=utf8', 'root', 'root');
-    }
-    catch(Exception $e)
-    {
-        // En cas d'erreur, on affiche un message et on arrête tout
-            die('Erreur : '.$e->getMessage());
-    }
+    include("doctor/bdd.php");
     include("php/fonctions.php");
-    $last_name_modif = "";
-    $last_date_modif = "";
 ?>
   
 
@@ -40,13 +28,47 @@
     <?php include("include/laterale.php"); ?>
 
     <section class="corps">
+    <section class="flex_formulaire">
+<!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
+        <table class="formulaire_edition">
+        <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
+        <form action= "php/editer_tableau.php" method="post"> 
+                <tr class="justify_left"><td colspan=3 class="underlined">Trier par : </td></tr>
+                    <tr><td><input type="radio" name="tri" value="nom" id="nom" checked /> <label for="nom">Nom</label></td><td>
+                    <input type="radio" name="tri" value="type" id="type" /> <label for="type">Type d'adhésion</label></td><td>
+                    <input type="radio" name="tri" value="cotiz" id="cotiz" /> <label for="cotiz">Cotiz payée</label></td></tr>
+                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
+                    <tr><td><input type="radio" name="cotiz" value="non_payee" id="non_payee" /> <label for="non_payee">Cotiz non payée</label></td><td>
+                    <input type="radio" name="cotiz" value="payee" id="payee" /> <label for="payee">Cotiz payée</label></td><td>
+                    <input type="radio" name="cotiz" value="les_deux" id="les_deux" checked /> <label for="les_deux">Les deux</label></td></tr>
+                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
+                    <tr><td><input type="radio" name="adh" value="adherents" id="adherents" checked /> <label for="adherents">Les adhérents</label></td><td>
+                    <input type="radio" name="adh" value="non_adherents" id="non_adherents" /> <label for="non_adherents">Les non adhérents</label></td><td>
+                    <input type="radio" name="adh" value="tous" id="tous" /> <label for="tous">Tous</label></td></tr>
+                <tr class="justify_left"><td colspan=3 class="underlined">Faire apparaître :</td></tr>
+                    <tr><td><input type="radio" name="select" value="dubus" id="dubus" checked /> <label for="dubus">Tous</label></td><td><input type="radio" name="select" value="selection" id="selection" /> <label for="selection">Sélection :</label></td>
+                    <td class="justify_left"><input type="checkbox" name="ptitsdub" id="ptitsdub" /> <label for="ptitsdub">Les p'tits Dub</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grossolo" id="grossolo" /> <label for="grossolo">Les gros Dub solo</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grostribu" id="grostribu" /> <label for="grostribu">Les gros Dub tribu</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="etudiants" id="etudiants" /> <label for="etudiants">Les étudiants-parasites</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="honneur" id="honneur" /> <label for="honneur">Les membres d'honneur</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="visiteurs" id="visiteurs" /> <label for="visiteurs">Les non-adhérents</label></td></tr>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr><td colspan="3"><input type="submit" value="Créer"> </td></tr>
+                </table>
+                </p>        
+        </form>
+        </table>
+
+        <div class="ensemble_gauche">
         <table class="event_officiel">
-        <tr><td class="underlined" colspan=2>Réservation des Margots</td></tr>
+        <tr><td class="caption_center" colspan=2>Réservation des Margots</td></tr>
         <form class ="simple button" action="php/reservation.php" method="POST">
             <input type="hidden" name="official" value=1>
             <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
-            <tr><td colspan=2><label for="nom">Nom de l'événement : </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
-            <tr><td colspan=2><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
+            <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
+            <tr><td colspan=2 class="justify_center"><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
             <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" required /></td></tr>
             <input type="hidden" name="prive" value=0>
             <input type="hidden" name="package" value="OSEF">
@@ -55,52 +77,9 @@
             <input type="hidden" name="pleintarif" value=0>
             <input type="hidden" name="tarifreduit" value=0>
             <input type="hidden" name="enfants" value=0>
-            <tr><td colspan=2><input type="submit" value="Déclarer un événement officiel"></td></tr>
+            <tr><td colspan=2 class="justify_center"><input type="submit" value="Déclarer un événement officiel"></td></tr>
         </form>
-    </table>
-
-<!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
-<!--        ?php include("include/enconstruction.php"); ?> -->
-        <aside class="formulaire_edition">
-        <p class="underlined">Edition de tableau récapitulatif</p>
-        <form action= "php/editer_tableau.php" method="post"> 
-                <p>
-                    Trier par : <br />
-                    <input type="radio" name="tri" value="nom" id="nom" checked /> <label for="nom">Nom</label> &nbsp &nbsp
-                    <input type="radio" name="tri" value="type" id="type" /> <label for="type">Type d'adhésion</label> &nbsp &nbsp
-                    <input type="radio" name="tri" value="cotiz" id="cotiz" /> <label for="cotiz">Cotiz payée</label><br />
-                </p>
-                <p>
-                    Sélectionner uniquement : <br />
-                    <input type="radio" name="cotiz" value="non_payee" id="non_payee" /> <label for="non_payee">Cotiz non payée</label> &nbsp &nbsp
-                    <input type="radio" name="cotiz" value="payee" id="payee" /> <label for="payee">Cotiz payée</label> &nbsp &nbsp
-                    <input type="radio" name="cotiz" value="les_deux" id="les_deux" checked /> <label for="les_deux">Les deux</label>
-                </p>
-                <p>
-                    Sélectionner uniquement : <br />
-                    <input type="radio" name="adh" value="adherents" id="adherents" checked /> <label for="adherents">Les adhérents</label> &nbsp &nbsp
-                    <input type="radio" name="adh" value="non_adherents" id="non_adherents" /> <label for="non_adherents">Les non adhérents</label> &nbsp &nbsp
-                    <input type="radio" name="adh" value="tous" id="tous" /> <label for="tous">Tous</label>
-                </p>
-                <p class ="line_spec">
-                    Faire apparaître :
-                <table class="selection_tableau">
-                    <tr><td><input type="radio" name="select" value="dubus" id="dubus" checked /> <label for="dubus">Tous</label></td>
-                    <td><input type="radio" name="select" value="selection" id="selection" /> <label for="selection">Sélection :</label></td>
-                
-                    <td class="check_selection"><input type="checkbox" name="ptitsdub" id="ptitsdub" /> <label for="ptitsdub">Les p'tits Dub</label></td></tr>
-                    <tr><td></td><td></td><td class="check_selection"><input type="checkbox" name="grossolo" id="grossolo" /> <label for="grossolo">Les gros Dub solo</label></td></tr>
-                    <tr><td></td><td></td><td class="check_selection"><input type="checkbox" name="grostribu" id="grostribu" /> <label for="grostribu">Les gros Dub tribu</label></td></tr>
-                    <tr><td></td><td></td><td class="check_selection"><input type="checkbox" name="etudiants" id="etudiants" /> <label for="etudiants">Les étudiants-parasites</label></td></tr>
-                    <tr><td></td><td></td><td class="check_selection"><input type="checkbox" name="honneur" id="honneur" /> <label for="honneur">Les membres d'honneur</label></td></tr>
-                    <tr><td></td><td></td><td class="check_selection"><input type="checkbox" name="visiteurs" id="visiteurs" /> <label for="visiteurs">Les non-adhérents</label></td></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr><td colspan="3"><input type="submit" value="Créer"> </td></tr>
-                </table>
-                </p>        
-        </form>
-        </aside>
+        </table>
 
         <!--Création du tableau : -->
         <table class="gestion">
@@ -243,8 +222,10 @@
             }
             $reponse->closeCursor();
             ?>
-            <?php echo '<tr><td class="sign_news" colspan=4>Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</td></tr>'; ?>
+            <?php echo '<tr><td class="sign_news" colspan=6>Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</td></tr>'; ?>
         </table>
+    </div>
+    </section>
     </section>
 
     <?php include("include/pieddepage.php"); ?>

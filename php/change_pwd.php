@@ -1,20 +1,15 @@
 <?php
+//résultat du formulaire de changement de mot de passe
+//lancement de la session pour actualiser le changement de mot de passe.
     session_start ();
-try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours', 'root', 'root');
-    }
-catch (Exception $e) // Si erreur
-    {
-            die('Erreur : ' . $e->getMessage());
-    }
+    include("../doctor/bdd.php");
 
     // on teste si nos variables sont définies
-if (isset($_SESSION['login']) && isset($_POST['nouveau'])) {
+if (isset($_POST['user']) && isset($_POST['nouveau'])) {
 
         //changement du pwd correspondant.
         $req = $bdd->prepare('UPDATE users SET password = ? WHERE name = ?');
-        $req->execute(array($_POST['nouveau'], $_SESSION['login']));
+        $req->execute(array($_POST['nouveau'], $_POST['user']));
         $req->closeCursor();
         //changement de valeur de variable de session
         $_SESSION['pwd'] = $_POST['nouveau'];

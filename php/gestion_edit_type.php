@@ -1,14 +1,7 @@
 <?php
 //page php pour effectuer les modifs de bdd par gestion
     
-try
-    {
-        $bdd = new PDO('mysql:host=localhost;dbname=couztoujours', 'root', 'root');
-    }
-catch (Exception $e) // Si erreur
-    {
-            die('Erreur : ' . $e->getMessage());
-    }
+    include("../doctor/bdd.php");
 
     // on teste si nos variables sont définies
 if (isset($_POST['typ']) && isset ($_POST['num']) && isset($_POST['user'])) {

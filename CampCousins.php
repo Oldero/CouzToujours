@@ -1,7 +1,6 @@
-<!-- Camps Cousins : photos ?, liste, productions
--->
-
 <?php
+// Camps Cousins : photos ?, liste, productions
+
     session_start ();
 ?>
   
