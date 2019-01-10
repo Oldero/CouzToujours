@@ -126,7 +126,7 @@ class Calendar{
 		//------------------------------------------------- start table, caption
 		//----------------------------------------------------------noms de mois
 		$output  = "<table class=\"" . $calendar_class . "\">\n";
-		$output .= "<caption>" . ucfirst(strftime("%B %Y", $month_start_date)) . "</caption>\n";
+		$output .= "<caption>" . ucfirst(utf8_encode(strftime("%B %Y", $month_start_date))) . "</caption>\n";
 		
 		$col = '';
 		$th = '';

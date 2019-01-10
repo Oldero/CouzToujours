@@ -34,7 +34,7 @@
             <tr><td></td><td class="underlined">Livre d'or / Boîte à idées</td><td></td></tr>
         <form action="php/rediger_idee.php" method="post">
             <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
-            <tr><td colspan=3><label for="msg">Une idée à implémenter ? Un message à faire passer ? <br />(N'oubliez pas de signer)</label></td></tr>
+            <tr><td colspan=3><label for="msg">Une idée à implémenter ? Un message à faire passer ? <br />(N'oublie pas de signer)</label></td></tr>
             <tr><td colspan=3><textarea name="msg" id="msg" required="required"></textarea></td></tr>
             <tr><td>Direction : </td><td><input type="radio" name="direction" value="idee" id="idee"/> <label for="idee">Boîte à idées</label></td><td><input type="radio" name="direction" value="livre" id="livre" checked /> <label for="livre">Livre d'or</label></td></tr>
             <tr><td></td><td class="justify_center"><input type="submit" value="Poster"></td><td></td></tr>
