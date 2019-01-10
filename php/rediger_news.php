@@ -6,13 +6,15 @@
     // on teste si nos variables sont définies
 if (isset($_POST['name']) && isset ($_POST['title']) && isset($_POST['msg'])) {
         //update avec tag.
+    $title = htmlspecialchars($_POST['title']);
+    $msg = htmlspecialchars($_POST['msg']);
     if($_POST['title'] != ""){
         $req = $bdd->prepare('INSERT INTO news(nom, date_du_jour, titre, message) VALUES(?,?,?,?)');
-        $req->execute(array($_POST['name'], date("Y-m-d"), $_POST['title'], $_POST['msg']));
+        $req->execute(array($_POST['name'], date("Y-m-d"), $title, $msg));
     }
     else{
         $req = $bdd->prepare('INSERT INTO news(nom, date_du_jour, message) VALUES(?,?,?)');
-        $req->execute(array($_POST['name'], date("Y-m-d"), $_POST['msg']));
+        $req->execute(array($_POST['name'], date("Y-m-d"), $msg));
     }
     $req->closeCursor();
     //termine le traitement de la requête    

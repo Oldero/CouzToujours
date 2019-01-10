@@ -6,6 +6,7 @@
     // on teste si nos variables sont définies
 if (isset($_POST['name']) && isset($_POST['msg']) && isset($_POST['direction'])) {
     //update avec tag.
+    $msg = htmlspecialchars($_POST['msg']);
     switch($_POST['direction']) {
         case "livre":
         $direct = 1;
@@ -19,7 +20,7 @@ if (isset($_POST['name']) && isset($_POST['msg']) && isset($_POST['direction']))
     }
 
     $req = $bdd->prepare('INSERT INTO livredor(username, type, message) VALUES(?,?,?)');
-    $req->execute(array($_POST['name'], $direct, $_POST['msg']));
+    $req->execute(array($_POST['name'], $direct, $msg));
 
     $req->closeCursor();
     //termine le traitement de la requête    

@@ -6,10 +6,11 @@
 
     // on teste si nos variables sont définies
 if (isset($_POST['user']) && isset($_POST['nouveau'])) {
-
+    //ici crypter.
+        $new_pwd = htmlspecialchars($_POST['nouveau'])
         //changement du pwd correspondant.
         $req = $bdd->prepare('UPDATE users SET password = ? WHERE name = ?');
-        $req->execute(array($_POST['nouveau'], $_POST['user']));
+        $req->execute(array($new_pwd, $_POST['user']));
         $req->closeCursor();
         //changement de valeur de variable de session
         $_SESSION['pwd'] = $_POST['nouveau'];

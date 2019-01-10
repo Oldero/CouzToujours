@@ -9,7 +9,6 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
 /*    echo $_POST['login'];*/
 /*  echappement des caractères html*/
     $nom = htmlspecialchars($_POST['nom']);
-
     /*Construction des tableaux d'events privés et officiels pour éviter double résa.*/
     $reponse = $bdd->query('SELECT debut,fin FROM reservation WHERE prive=1 OR officiel=1');
     while ($donnees = $reponse->fetch()){
