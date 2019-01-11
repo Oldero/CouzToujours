@@ -69,7 +69,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         if($_POST['official'] == 0){
             if($_POST['prive'] == "Oui"){
                 $prive = 1;
-                echo "Séjour <strong>privatisé</strong> <br />";
+                echo "Séjour <strong>privatisé</strong> ";
             }
             else {
                 $prive = 0;
@@ -89,14 +89,14 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                     $package = 2;
                     $prix = ($prive)*200 + (1-$prive)*140;
                     $nbnuitee = 2;
-                    echo "Pour un week-end entier <br />";
+                    echo "pour un week-end entier <br />";
                     break;
     
                 case "semaine":
                     $package = 3;
                     $prix = ($prive)*450 + (1-$prive)*330;
                     $nbnuitee = 6;
-                    echo "Pour une semaine complète <br />";
+                    echo "pour une semaine complète <br />";
                     break;
             }
             echo "Le prix total du séjour est de $prix euros. ";

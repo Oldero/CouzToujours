@@ -156,11 +156,12 @@ a:hover, a:focus, a:active {
 	max-width: 1000px;
 	order: 3;
 	margin-right: 20px;
-	margin-bottom: 100px;
+	margin-bottom: 250px;
 }
 .almanach{
 	margin-right: 20px;
 	max-width: 50%;
+	min-height: 50%;
 	order: 1;
 	margin-bottom: 80px;
 }
@@ -175,6 +176,9 @@ a:hover, a:focus, a:active {
 	background-image : url(img/blackboard.jpg);
 	background-repeat:no-repeat;
 	border-collapse: collapse;
+	transform: matrix(1, 0.05, 0, 1, 0, -200);
+}
+.tarifs{
 }
 .tableau_noir th{
 	text-decoration: underline;
@@ -503,5 +507,5 @@ table.calendar td.pad:hover {
 	float: left;
 	padding: 0 .5em .5em 0;
 	height: 150px;
-	margin-bottom: 20px;
+	margin-bottom: 55px;
 	}
