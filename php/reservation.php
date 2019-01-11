@@ -47,21 +47,21 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
     }
-    //si à la nuitée privé
+    //si à la nuitée, forcément non privatisé
     elseif ($_POST['prive'] == "Oui" && $_POST['package'] == "nuitee"){
         echo "<body onLoad=\"alert('Ce n\'est pas possible ! Seul un séjour d\'un week-end ou d\'une semaine peut être privatisé. ')\">";
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
     }
-    //si week-end pas du vendredi au dimanche
-    elseif ((day($_POST['debut']) != "vendredi" || day($_POST['fin']) != "dimanche") && $_POST['package'] == "weekend"){
-        echo "<body onLoad=\"alert('Un week-end va du vendredi au dimanche, c\'est mieux. ')\">";
+    //si week-end plus de deux jours
+    elseif (NbJours($_POST['debut'], $_POST['fin']) > 2 && $_POST['package'] == "weekend"){
+        echo "<body onLoad=\"alert('Un week-end dure au plus 2 nuitées, c\'est mieux. ')\">";
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
     }
-    //si semaine pas de 7 jours
-    elseif ( NbJours($_POST['debut'], $_POST['fin']) != 7 && $_POST['package'] == "semaine"){
-        echo "<body onLoad=\"alert('Une semaine dure 7 nuitées, c\'est mieux. ')\">";
+    //si semaine plus de 7 jours
+    elseif ( NbJours($_POST['debut'], $_POST['fin']) > 7 && $_POST['package'] == "semaine"){
+        echo "<body onLoad=\"alert('Une semaine dure au plus 7 nuitées, c\'est mieux. ')\">";
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
     }

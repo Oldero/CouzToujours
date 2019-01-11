@@ -26,7 +26,7 @@
         echo '</body>';
     }
     else {
-        echo 'Les variables ne sont pas déclarées.';
+        echo 'Session expirée. Tu dois te <a href="index.html">reconnecter</a> !';
     }
     ?>    
 </header>

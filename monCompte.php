@@ -96,12 +96,13 @@
         </table>    
         </div>
     </div>
-
+    <div class="resa_moncompte">
         <?php
             $date = date("Y-m-d");
             $nom_de_resa = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
             // On récupère tout le contenu de la table réservations
             if ($_SESSION['login'] == "admin") {
+            	//Pour admin, juste, toutes.
                 $reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? OR username = ? ORDER BY debut');
 //                echo $nom_de_resa;
                 $reponse->execute(array($nom_de_resa,"admin"));}
@@ -109,7 +110,7 @@
                 $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
             echo '<table class="resume_resa_moncompte">';
-            echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations :</a></td></tr>";
+            echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
             while ($donnees = $reponse->fetch())
                 {
                 echo '<tr>';
@@ -126,7 +127,36 @@
                     </td>
                         <!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
                     <td class="cell_none"><input type="Button" onClick="confirmation(<?php echo $donnees['numero'] ; ?> );" VALUE="Supprimer"> </td>
-
+                    <?php echo "</tr> " ;
+                    }
+                
+                }
+            // On recommence avec la table des résas passées.
+            if ($_SESSION['login'] == "admin") {
+            	//Pour admin, juste, toutes.
+                $reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? OR username = ? ORDER BY debut');
+//                echo $nom_de_resa;
+                $reponse->execute(array($nom_de_resa,"admin"));}
+            else{$reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? ORDER BY debut');
+                $reponse->execute(array($nom_de_resa));}
+            // On affiche chaque entrée une à une
+            echo '</table>';
+            echo '<table class="resume_resa_moncompte">';
+            echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations passées :</a></td></tr>";
+            while ($donnees = $reponse->fetch())
+                {
+                echo '<tr>';
+                 if($donnees['fin'] <= date("Y-m-d")){ ?>
+                    <td class="cell_none">
+                    <?php echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
+                        if ($donnees['prive'] == 1){ 
+                            echo "- Séjour privatisé";
+                        }
+                        else { 
+                            echo "- pour " . ($donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'] + $donnees['nbvis_enf']) . " personnes";
+                        } 
+                        echo " - coût : " . ($donnees['prix']) . " euros" ?>
+                    </td>
                     <?php echo "</tr> " ;
                     }
                 
@@ -135,6 +165,7 @@
 
             $reponse->closeCursor(); // Termine le traitement de la requête
         ?>
+    </div>
     </section>    
     </section>
     <?php include("include/pieddepage.php"); ?>

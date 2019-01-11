@@ -22,17 +22,17 @@ class Calendar{
 	var $week_start_on = FALSE;
 	var $week_start = 1;// monday
 	
-	var $link_days = FALSE;
+	var $link_days = TRUE; //créer un lien sur les jours ? ou non ?
 	var $link_to;
 	var $formatted_link_to;
 	
-	var $mark_today = TRUE;
+	var $mark_today = TRUE; //marquer le jour ? ou non ?
 	var $today_date_class = 'today';
 	
-	var $mark_selected = TRUE;
+	var $mark_selected = TRUE; //marquer la date sélectionnée ? ou non ?
 	var $selected_date_class = 'selected';
 	
-	var $mark_passed = TRUE;
+	var $mark_passed = TRUE; //marquer les jours passés ? ou non ?
 	var $passed_date_class = 'passed';
 
 	//événements
@@ -228,7 +228,7 @@ class Calendar{
 			//---------------------------------- start table cell, apply classes
 			//---------------------------------- avec l'infobulle !
 			$jour_compare = $year . "-" . $month ."-" . $day;
-			$infobulle = strftime("%A %e %B %Y", strtotime($day_date));
+			$infobulle = utf8_encode(strftime("%A %e %B %Y", strtotime($day_date)));
 			$infobulle .= " \n";
 			if (is_array($this->info_private)) {
 				if (in_array($jour_compare, array_column($this->info_private,0))) {
@@ -254,7 +254,7 @@ class Calendar{
 			unset($day_class, $classes);
 			
 			//-------------------------------------- conditional, start link tag 
-			//-------------------------------------- A TRAVAILLER AVEC LES LIENS link_days = TRUE
+			//-----------------------------formatted_link_to ?? link_days = 2 ??
 			switch( $this->link_days ){
 				case 0 :
 					$output .= $day;
@@ -263,35 +263,41 @@ class Calendar{
 				break;
 				
 				case 1 :
-					if( empty($this->formatted_link_to) ){
-						$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">" . $day . "</a>";
-					} else {
-						$output .= "<a href=\"" . strftime($this->formatted_link_to, strtotime($day_date)) . "\">" . $day . "</a>";
+					if ($day_date > date("Y-m-d")) {
+						if( empty($this->formatted_link_to) ){
+							$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">" . $day . "</a>";
+						} else {
+							$output .= "<a href=\"" . strftime($this->formatted_link_to, strtotime($day_date)) . "\">" . $day . "</a>";
+						}
 					}
+					else{$output .= $day;}
 				break;
 				
 				case 2 :
-					if( is_array($this->privatised_event) ){
-						if( in_array($day_date, $this->privatised_event) ){
-							if( empty($this->formatted_link_to) ){
-								$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">";
-							} else {
-								$output .= "<a href=\"" . strftime($this->formatted_link_to, strtotime($day_date)) . "\">";
+					if ($day_date > date("Y-m-d")) {
+						if( is_array($this->privatised_event) ){
+							if( in_array($day_date, $this->privatised_event) ){
+								if( empty($this->formatted_link_to) ){
+									$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">";
+								} else {
+									$output .= "<a href=\"" . strftime($this->formatted_link_to, strtotime($day_date)) . "\">";
+								}
+							}
+						}
+						
+						$output .= $day;
+						
+						if( is_array($this->privatised_event) ){
+							if( in_array($day_date, $this->privatised_event) ){
+								if( empty($this->formatted_link_to) ){
+									$output .= "</a>";
+								} else {
+									$output .= "</a>";
+								}
 							}
 						}
 					}
-					
-					$output .= $day;
-					
-					if( is_array($this->privatised_event) ){
-						if( in_array($day_date, $this->privatised_event) ){
-							if( empty($this->formatted_link_to) ){
-								$output .= "</a>";
-							} else {
-								$output .= "</a>";
-							}
-						}
-					}
+					else{$output .= $day;}					
 				break;
 			}
 			

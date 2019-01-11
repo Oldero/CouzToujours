@@ -11,7 +11,12 @@ body {
 	font-size: 100%;
 	color: #555753; 
 	}
-
+/*-------------------------------------------------------insertion font*/
+@font-face 
+	{
+	font-family: "chalk";
+	src: url("font/coloredcrayons.ttf");
+	}
 /*----------------------------------------------------------Page de connection*/
 div.page_connexion{
 }
@@ -150,12 +155,39 @@ a:hover, a:focus, a:active {
 	border-collapse: collapse;
 	max-width: 1000px;
 	order: 3;
+	margin-right: 20px;
+	margin-bottom: 100px;
 }
 .almanach{
 	margin-right: 20px;
 	max-width: 50%;
 	order: 1;
 	margin-bottom: 80px;
+}
+.tableau_noir{
+	order: 4;
+	padding-left: 50px;
+	width: 350px;
+	margin-left: 200px;
+	padding-bottom: 00px;
+	padding-top: 10px;
+	align-self: right;
+	background-image : url(img/blackboard.jpg);
+	background-repeat:no-repeat;
+	border-collapse: collapse;
+}
+.tableau_noir th{
+	text-decoration: underline;
+	justify-content: center;
+	color: white;
+	font-family: "chalk";
+	font-size: x-large;
+}
+.tableau_noir td{
+	padding:0;
+	color: white;
+	font-family: "chalk";
+	font-size: 100%;
 }
 /*-----------------------------------------------page mon compte*/
 /*.flex_vertical{
@@ -169,12 +201,14 @@ a:hover, a:focus, a:active {
 .resume_resa_moncompte{
 	border-collapse: collapse;
 	font-family: cursive;	
+	margin-bottom: 50px; 
 }
 /*------------------------------------------------page gestion*/
 .ensemble_gauche{
 	order: 1;
+	width: auto;
 	margin-right: 100px;
-	margin-bottom: 100px;
+	margin-bottom: 80px;
 }
 .event_officiel{
 	margin: auto;
@@ -336,7 +370,7 @@ a:hover, a:focus, a:active {
 	margin: 0;
 	padding: .3em 0;
 	background: #05B484;
-	border-radius: 10px 10px 0px 0px; /*arrondit les angles*/
+	border-radius: 7px 7px 0px 0px; /*arrondit les angles*/
 	}
 /*cellule des jours de la semaine*/
 .calendar th {
@@ -386,11 +420,13 @@ a:hover, a:focus, a:active {
 	border-radius: 5px 5px 5px 5px;
 }
 /*jours passés*/
-.calendar td.passed, .legende td.passed{
+.calendar td.passed, .calendar td.passed:hover, .legende td.passed {
 	background-color: gray;
 	background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);background-color: gray;
 	background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 4px);
+	border: none;
 	border-radius: 5px 5px 5px 5px;
+	cursor : default;
 }
 /*couleur des cases du week-end*/
 .samedi, .dimanche {
@@ -403,6 +439,7 @@ a:hover, a:focus, a:active {
 	background: #cff;
 	border: 1px solid #09f;
 	cursor: pointer;
+	border-radius: 5px 5px 5px 5px;
 	}
 .legende caption{
 	text-decoration: underline;
@@ -440,8 +477,9 @@ table.calendar td.pad {
 	background: #fff;
 	}
 table.calendar td.pad:hover {
-	background: none;
+	background: #fff;
 	border: 0;
+	cursor: default;
 	}
 /*disposition des douze blocs*/
 #year {
@@ -465,5 +503,5 @@ table.calendar td.pad:hover {
 	float: left;
 	padding: 0 .5em .5em 0;
 	height: 150px;
-	padding-bottom: 42px;
+	margin-bottom: 20px;
 	}

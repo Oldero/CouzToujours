@@ -21,12 +21,21 @@ Rendre le site smartphone compatible (avec media queries ?)
 
 calendrier interactif
 $date passe en link $link-to; link_day
+trouver un moyen avec deux variables de sélectionner date de début et date de fin.
+
+Sélecteur de couleur ?
 
 
 
 
 À implémenter :
 ---------------
+PB sélectionneur de dates !
+Safari -> sélecteur de date ? vérifier que la dte est ..-..-.. jouer avec les links
+faire des demi cases ?
+Ajuster le gestionnaire de résa avec nouvelles infos.
+
+compteur de nuitées avec jointure de tables
 
 Gérer le style des pages...
 
@@ -37,7 +46,8 @@ page gestion : changement de bureau
 
 tests et limitateurs pour les différents formulaires
 régler les soucis de caractères spéciaux AVEC utf8_decode()
-Notamment page les MArgots -> créer des variables utf8_decode
+Notamment page les MArgots -> créer des variables utf8_decode ?!?
+erreur de caractère dans les infobulles.
 
 Dans le style, fusionner les type de formulaires en réglant mieux la taille relative. Faire un check-up des répétitions d'attributs (réfléchir sur la mep classique)
 
@@ -51,6 +61,7 @@ fichier .htaccess
 
 crypt mdp !
 
+frame/iframe
 
 
 Calendrier :

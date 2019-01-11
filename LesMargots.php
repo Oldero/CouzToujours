@@ -1,12 +1,11 @@
 <?php
 // Les Margots : histoire, réservation, photos, projets...
-
+    
     session_start ();
     include("doctor/bdd.php");
     include("php/fonctions.php");
 //--------------------------------------------------- include calendar.class.php
     require_once('calendar/calendar.class.php');
-
 //--------------------------------------- check $_GET for date passed from links
     $date = ( isset($_GET['date']) )? $_GET['date'] : date("Y-m-d");
 
@@ -15,6 +14,10 @@
 Dynamic Date
 */
     $calendar = new Calendar($date);
+    if(!isset($_GET['date'])){
+        $date = date("Y-m-d");
+    }
+    $fin_defaut = date("Y-m-d",strtotime($date . " +2 day"));
 
 ?>
 
@@ -38,7 +41,6 @@ Dynamic Date
     <?php include("include/entete.php"); ?>
     <?php include("include/laterale.php"); ?>
     <section class="corps">
-
     <section class="flex_formulaire">
         <table class="formulaire_resa">
             <tr><td class="underlined" colspan=2>Réservation des Margots</td></tr>
@@ -47,8 +49,9 @@ Dynamic Date
                     <label for="nom">Nom de la réservation : </label> <input type="text" name="nom" id="nom" value= "Séjour pépère" required />
                 </td></tr>
                 <tr><td colspan=2>
-                    <label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
-                    <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" required />
+                    <!-- min (date de fin) = today -->
+                    <label for="debut">Date de début :</label> <?php echo '<input type="date" name="debut" id="debut" placeholder="AAAA-MM-JJ" value="' . $date . '" required />
+                    <label for="fin"> &nbsp &nbsp Date de fin  :</label><input type="date" name="fin" id="fin" placeholder="AAAA-MM-JJ" value="' . $fin_defaut . '" min="' . date("Y-m-d") . '"required />'; ?>
                 </td></tr>
 
                 <tr><td colspan=2>
@@ -175,6 +178,24 @@ Dynamic Date
         </tr>
         </tbody>
     </table>
+    </div>
+    <div class=tableau_noir>
+        <table class="tarifs">
+            <tr><th colspan=2>Tarifs des nuitees</th></tr>
+            <tr><td><br /></td></tr>
+            <tr><td>P'tit Dub ..................................</td><td>6€ / nuitee</td></td></tr>
+            <tr><td><br /></td></tr>
+            <tr><td colspan=2>Visiteurs</td></tr>
+            <tr><td>Plein tarif ..............................</td><td>10€ / nuitee</td></tr>
+            <tr><td>Tarif reduit ............................</td><td>10€ / nuitee</td></tr>
+            <tr><td>enfants / + de 7 ans ..............</td><td>10€ / nuitee</td></tr>
+            <tr><td><br /></td></tr>
+            <tr><td>Package week-end ..................</td><td>140€</td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatise ........................</td><td>200€</td></tr>
+            <tr><td><br /></td></tr>
+            <tr><td>Package semaine ....................</td><td>330€</td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatise ........................</td><td>450€</td></tr>
+        </table>
     </div>
     </section>
 

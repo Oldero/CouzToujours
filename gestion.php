@@ -68,8 +68,8 @@
             <input type="hidden" name="official" value=1>
             <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
             <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
-            <tr><td colspan=2 class="justify_center"><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" required />
-            <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" required /></td></tr>
+            <tr><td colspan=2 class="justify_center"><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" placeholder="AAAA-MM-JJ" required />
+            <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" placeholder="AAAA-MM-JJ" required /></td></tr>
             <input type="hidden" name="prive" value=0>
             <input type="hidden" name="package" value="OSEF">
             <input type="hidden" name="ptitdub" value=0>
