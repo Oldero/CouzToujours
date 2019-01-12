@@ -81,6 +81,11 @@
         </form>
         </table>
 
+        <?php if ($_SESSION['login'] == 'admin') {
+            echo "prout.";
+            include("doctor/admin.php");
+        } ?>
+
         <!--Création du tableau : -->
         <table class="gestion">
             <caption class="titre_tableau">Gestion des adhésions :</caption>
@@ -126,7 +131,7 @@
                 }
                 //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
                 if (!$test && $donnees['name'] != 'admin') {
-                    echo '<td class="cell_none"><form name="formulaire2" method="post" action="php/gestion_edit_type.php">
+                    echo '<td class="cell_none"><form name="formulaire_type" method="post" action="php/gestion_edit_type.php">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="typ" id="typ'. $donnees['numero'] . '">
@@ -195,7 +200,7 @@
                         break;          
                 }
                 if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
-                    echo '<td class="cell_right"><form name="formulaire2" method="post" action="php/gestion_edit_cotiz.php">
+                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post" action="php/gestion_edit_cotiz.php">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="cotiz" id="cotiz'. $donnees['numero'] . '">
@@ -222,7 +227,7 @@
             }
             $reponse->closeCursor();
             ?>
-            <?php echo '<tr><td class="sign_news" colspan=6>Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</td></tr>'; ?>
+            <?php echo '<tr><td class="cell_none" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
         </table>
     </div>
     </section>

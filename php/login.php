@@ -7,11 +7,10 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
     $reponse = $bdd->query('SELECT * FROM users'); // Je choisis de la base de données users le champ name
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['pwd']);
-    $test = 0;
-    //Je vérifie tout mes champs logins
+    //Je vérifie tout mes champs logins avec password_verify
     while ($donnees = $reponse->fetch()) 
     {
-        if ($login == $donnees['name'] AND $password == $donnees['password']) 
+        if ($login == $donnees['name'] AND password_verify($password,$donnees['password'])) 
         {// dans ce cas, tout est ok, on peut démarrer notre session
             // on la démarre :)
             session_start();

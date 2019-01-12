@@ -17,7 +17,6 @@
     $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
     while($donnees = $reponse->fetch()){
             //On n'affiche pas l'admin
-            if ($donnees['name'] != "admin") {
             echo '<tr>';
             echo '<td class= "cell_left">' . $donnees['numero'] . '</td>';
             echo '<td class= "cell_left">' . $donnees['name'] . '</td>';            
@@ -27,7 +26,6 @@
                 <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                 <input type="text" name="new_pwd"></td>';
             echo '<td class="cell_right"><input type="submit" value="Générer" /></form></td>';
-            }
         }
         $reponse->closeCursor();
     echo '</table>';

@@ -7,7 +7,7 @@
     // on teste si nos variables sont définies
 if (isset($_POST['user']) && isset($_POST['nouveau'])) {
     //ici crypter.
-        $new_pwd = htmlspecialchars($_POST['nouveau']);
+        $new_pwd = password_hash($_POST['nouveau'], PASSWORD_DEFAULT);
         //changement du pwd correspondant.
         $req = $bdd->prepare('UPDATE users SET password = ? WHERE name = ?');
         $req->execute(array($new_pwd, $_POST['user']));

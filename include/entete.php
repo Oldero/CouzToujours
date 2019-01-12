@@ -26,7 +26,8 @@
         echo '</body>';
     }
     else {
-        echo 'Session expirée. Tu dois te <a href="index.html">reconnecter</a> !';
+        echo '<div class="reconnexion">Session expirée. Tu dois te <a href="index.html">reconnecter</a> !</div>';
+        echo '<meta http-equiv="refresh" content="0;URL=index.html">';
     }
     ?>    
 </header>
