@@ -1,6 +1,6 @@
 <nav class="encours">        
-    <p>
-        En construction <br />
+    <div class="gif">
+        En construction... <br />
         <img src="img/duck.gif" alt="Canard" title="Avez-vous déjà vu ?" />
-    </p>
+    </div>
 </nav>

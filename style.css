@@ -76,16 +76,17 @@ a:hover, a:focus, a:active {
 	margin-top: 50px;
 	margin-bottom: 50px;
 	position: absolute;
-	left: 400px;
+	left: 300px;
 	top: 50px;
 	padding: auto;
+	z-index: 0;
 }
 
 /*Trois sections du cadre*/
 #menu {
 /*	position: fixed;*/
-	text-align: left;
-	width: 250px;
+	text-align: center;
+	width: 180px;
 	height: 100%;
 	padding: 10px;
 	margin-top: 70px;
@@ -94,21 +95,105 @@ a:hover, a:focus, a:active {
 	top: 0;
 	left: 0; 
 	right: 0;
-	background-color: #FFFFFF; 
+	background-color: #000000; 
+	color: white;
 	z-index: 1;
+}
+/*--------------------------------tentative de menu déroulant vertical*/
+.navigation{
+	width: 175px;
+}
+.navigation dl{
+	height: 40px;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+.navigation dt{
+	display: block;
+	height: 40 px;
+	line-height: 40px;
+}
+.navigation dt:hover, .navigation li:hover{
+	background-color: gray;
+}
+.navigation dt:hover a, .navigation li:hover a{
+	color: black;
+}
+.navigation dd{
+	display: block;
+	width: 200px;
+	background-color: black;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+.navigation dd ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.navigation dl dd{
+	display: none;
+}
+.navigation dl:hover dd{
+	display: block;
+	position: absolute;
+	left: 185px;
+	transform: translateY(-40px);
+	z-index: 100; 
 }
 
 #tete {
 	height: 70px;
+	padding: 0;
 	position: fixed;
 	top:0;
+	left: 0;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	text-align: center;
-	z-index: 1;
-	background-color: #FFFFFF;  
 
+	z-index: 2;
+	background-color: #000000; 
+	color: white;
+	font-weight: bold;
+}
+/*----------------------------------- mise en page de l'en tête*/
+.bienvenue{
+	height: 30px;
+	display: flex;
+	justify-content:center;
+}
+.nav_tete{
+	height: 40px;
+	width: 100%;
+/*	margin: auto;*/
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+}
+
+.nav_tete dl{
+	height: 40px;
+	margin: 0;
+	padding: 0;
+	display: block;
+	text-align: center;
+}
+.nav_tete dt{
+	display: block;
+	float: left;
+	width: 150px;
+	height: 40px;
+	line-height: 40px;
+}
+.nav_tete dt:hover{
+	background-color: gray;
+}
+.nav_tete dt:hover a{
+	color: black;
 }
 
 #pied{
@@ -117,15 +202,18 @@ a:hover, a:focus, a:active {
 	left: 0; 
 	right: 0;
 	text-align: center;
-	height: 50px;
-	background-color: #FFFFFF;
-	z-index: 1;
+	height: 30px;
+	line-height: 30px;
+	background-color: #000000; 
+	color: white;
+	z-index: 2;
 }
 /*---------------------------------------------------page en construction*/
 .encours {
-	width:100%;
+	width:500px;
 	text-align: center;
 	margin:auto;
+	padding: auto;
 	margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
   	transform: translateY(-100%); /* tiré de 100% de sa propre hauteur */
 }
@@ -194,10 +282,6 @@ a:hover, a:focus, a:active {
 	font-size: 100%;
 }
 /*-----------------------------------------------page mon compte*/
-/*.flex_vertical{
-	display: flex;
-	flex-direction: column;
-}*/
 .infos_persos{
 	width: 500px;
 	margin-right: 80px;
@@ -237,12 +321,7 @@ a:hover, a:focus, a:active {
 	border-collapse:collapse;
 }
 .gestion td {
-/*	border-bottom-style: dotted;
-	border-right-style: dotted; */
-/*	width: 200px; */
-/*	padding-left: 10px;*/
 }
-
 .gestion th{
 	font-size: 90%;
  	border-width: 1px;
@@ -354,9 +433,7 @@ a:hover, a:focus, a:active {
  	padding-left: 5px;
 	font-size: 90%;
 }
-
 /*------------------------------------------------------------------calendar*/
-/* CSS Document */
 .calendar {
 	margin: 0;
 	padding: 0;
@@ -461,9 +538,7 @@ a:hover, a:focus, a:active {
   position: relative;  /* les .infobulle deviennent référents */
   cursor: help;
 }
-
 /* on génère un élément :after lors du survol et du focus :*/
-
 .infobulle:hover::after,
 .infobulle:focus::after {
   content: attr(aria-label);  /* on affiche aria-label */

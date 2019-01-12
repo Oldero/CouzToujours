@@ -8,20 +8,17 @@
 
         // On teste pour voir si nos variables ont bien été enregistrées
         echo '<body>';
-        echo 'Bienvenue, '.$_SESSION['prenom'].' !';
+        echo '<div class="bienvenue"><div> Bienvenue, '.$_SESSION['prenom'].' ! </div>';
         //affichage du popup cotiz non payée sauf si c'est un non-adhérent
         if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] != 0) {
-            echo "<strong> Tu n'as pas encore payé ta cotiz !</strong>";
+            echo "<div class=\"bold\"> &nbsp Tu n'as pas encore payé ta cotiz !</div>";
         }
-        echo '<br />';
+        echo '</div>';
 
-        echo '<div class = "flextete">';
+        echo '<div class = "nav_tete">';
             // On affiche un lien pour fermer notre session
-            echo '<a href="monCompte.php">Mon compte</a> &nbsp &nbsp';
-            if ($_SESSION['ca'] == 1 || $_SESSION['admin'] == 1) {
-                echo '<a href="gestion.php">Gestion de l\'association</a> &nbsp &nbsp';
-            }
-            echo '<a href="php/logout.php">Déconnection</a>';
+            echo '<dl><dt><a href="monCompte.php" title="Informations personnelles">Mon compte</a></dt></dl>';
+            echo '<dl><dt><a href="php/logout.php" title="À bientôt ?">Déconnexion</a></dt></dl>';
         echo '</div>';
         echo '</body>';
     }
