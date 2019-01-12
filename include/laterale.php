@@ -16,11 +16,11 @@ echo'<nav id="menu">
                     <li>À venir</li>
                     <li>Archives</li>
                 </ul></dd></dl>
-            <dl><dt><a href="">Les Margots</a></dt>
+            <dl><dt><a href="LesMargots.php">Les Margots</a></dt>
                 <dd><ul>
                     <li>L\'actualité de la maison</li>';
-            if ($_SESSION['ca'] == 1 || $_SESSION['admin'] == 1) {
-                    echo'<li><a href="LesMargots.php" title="Réserver les Margots"> Réserver les Margots</a></li>';
+            if ($_SESSION['type'] > 0) {
+                    echo'<li><a href="resa_Margots.php" title="Réserver les Margots"> Réserver les Margots</a></li>';
             }
                 echo '</ul></dd></dl>
             <dl><dt><a href="Lassociation.php" title="L\'association"> L\'association</a></dt>

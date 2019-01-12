@@ -18,6 +18,7 @@
     <title>Livre d'or</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
 
 </head>
 
@@ -41,12 +42,12 @@
         </form>
         </table>
 
-        <div class="livre">
+        <div class="resume_resa">
             <?php
                 $reponse = $bdd->query('SELECT * FROM livredor WHERE type = 1');
                 echo '<table class="table_livre">';
                 // On affiche chaque entrée une à une
-                echo "<tr><th>Livre d'or</th></tr>";
+                echo "<tr><th class=\"cell_none\">Livre d'or</th></tr>";
                 while ($donnees = $reponse->fetch())
                     {  
                         echo "<tr><td class=\"cell_none\">" . $donnees['message'] . "</td></tr>";
@@ -58,7 +59,7 @@
         <div class="idees">
             <?php
                 $reponse = $bdd->query('SELECT * FROM livredor WHERE type = 2 ORDER BY numero DESC');
-                echo '<table class="table_idees">';
+                echo '<table class="gestion">';
                 // On affiche chaque entrée une à une
                 echo "<tr><th class=\"\">Boîte à idées</th><th class=\"\">Réponse de l'admin</th></tr>";
                 while ($donnees = $reponse->fetch())

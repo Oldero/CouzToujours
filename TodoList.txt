@@ -21,27 +21,27 @@ Rendre le site smartphone compatible (avec media queries ?)
 
 trouver un moyen avec deux variables de sélectionner date de début et date de fin.
 
-Sélecteur de couleur ?
+Sélecteur de couleur ? pas compatible avec la suite.
 
+faire des demi cases ? Dur !
+	images nb = (N+3)^2-1 images où N est le nb de rouges différents.
+	pour 1 -> 15	3 -> 35	   5 -> 63
 
 
 
 À implémenter :
 ---------------
-Page admin.
-
 date selector pour safari -> jqueries ? javascript en tout cas
 
-faire des demi cases ? Dur !
-	images nb = (N+3)^2-1 images où N est le nb de rouges différents.
-	pour 1 -> 15	3 -> 35	   5 -> 63
 Ajuster le gestionnaire de résa avec nouvelles infos. -> présence nécessaire d'un adhérent !
+Remplacé par non accès pour les visiteurs.
 
 compteur de nuitées et lien étudiant-tribu avec jointure de tables
 
 Gérer le style des pages...
 
 livre d'or/boite à idées avec dix trucs par page. Fait mais réfléchir à la mise en page.
+
 écrire un mail à couz'toujours + infos de l'asso
 
 page gestion : changement de bureau, compteur de résa, RàZ en septembre.
@@ -58,7 +58,9 @@ limte Nb de personnes ? pas vraiment
 
 comprendre le fonctionnement des fichiers externes. ini, tout ça tout ça.
 
-fichier .htaccess
+fichier .htaccess ?
+
+Obtenir un https ?
 
 frame/iframe
 

@@ -18,6 +18,8 @@
     <title>Gestion</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet"> 
 
 </head>
 
@@ -88,8 +90,8 @@
 
         <!--Création du tableau : -->
         <table class="gestion">
-            <caption class="titre_tableau">Gestion des adhésions :</caption>
-                <tr class ="line">
+            <tl><td class="unique_case" colspan=8>Gestion des adhésions :</td></tl>
+            <tr class ="line">
                 <th colspan=2>Nom</th>
                 <th colspan=2>Type d'adhésion</th>
                 <th>CA</th>
@@ -227,7 +229,7 @@
             }
             $reponse->closeCursor();
             ?>
-            <?php echo '<tr><td class="cell_none" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
+            <?php echo '<tr><td class="unique_case" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
         </table>
     </div>
     </section>

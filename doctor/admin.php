@@ -7,8 +7,8 @@
 
 	echo'<!--Création du tableau : -->
         <table class="gestion">
-            <caption class="titre_tableau">Gestion de la BDD :</caption>
-                <tr class ="line">
+            <tl><td class="unique_case" colspan=8>Reset password :</td></tl>
+            <tr class ="line">
                 <th>Numéro</th>
 				<th>Login</th>
                 <th colspan=2>Nom</th>

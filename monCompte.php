@@ -18,6 +18,7 @@
     <title>Mon compte</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
     <SCRIPT LANGUAGE="JavaScript">
     function confirmation(param) {
         var msg = "Es-tu sûr(e) de vouloir supprimer ce truc ?";
@@ -111,7 +112,7 @@
         else{$reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? ORDER BY debut');
         $reponse->execute(array($nom_de_resa));}
         // On affiche chaque entrée une à une
-        echo '<table class="resume_resa_moncompte">';
+        echo '<table class="resume_resa">';
         echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
         while ($donnees = $reponse->fetch())
             {
@@ -142,7 +143,7 @@
             $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
         echo '</table>';
-        echo '<table class="resume_resa_moncompte">';
+        echo '<table class="resume_resa">';
         echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations passées :</a></td></tr>";
         while ($donnees = $reponse->fetch()){
             echo '<tr>';

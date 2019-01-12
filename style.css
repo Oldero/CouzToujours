@@ -231,7 +231,7 @@ a:hover, a:focus, a:active {
  	position: relative;
 	max-width: 700px;
 	padding: 20px;
-	font-family: cursive;
+	font-family: 'Patrick Hand', cursive;
 	text-align: center;
 	max-height: 50%;
 	order: 2;
@@ -239,12 +239,12 @@ a:hover, a:focus, a:active {
 	margin-bottom: 80px;
 }
 .resume_resa{
-	font-family: cursive;
+	font-family: 'Kalam', cursive;
 	border-collapse: collapse;
 	max-width: 1000px;
 	order: 3;
 	margin-right: 20px;
-	margin-bottom: 250px;
+	margin-bottom: 50px;
 }
 .almanach{
 	margin-right: 20px;
@@ -281,6 +281,9 @@ a:hover, a:focus, a:active {
 	font-family: "chalk";
 	font-size: 100%;
 }
+.separateur{
+	height: 200px;
+}
 /*-----------------------------------------------page mon compte*/
 .infos_persos{
 	width: 500px;
@@ -306,7 +309,7 @@ a:hover, a:focus, a:active {
 	height: 600px;
 	border: 1px solid black;
 	padding: 15px;
-	font-family: cursive;
+	font-family: 'Patrick Hand', cursive;
 	text-align: center;
 	max-width: 700px;
 	padding-top: 0;
@@ -319,6 +322,8 @@ a:hover, a:focus, a:active {
 	border-color:black;
 	text-align: center;
 	border-collapse:collapse;
+	font-family: 'Kalam', cursive;
+	margin-bottom: 20px;
 }
 .gestion td {
 }
@@ -341,7 +346,7 @@ a:hover, a:focus, a:active {
 	height: 350px;
 	border: 1px solid black;
 	padding: 20px;
-	font-family: cursive;
+	font-family: 'Patrick Hand', cursive;
 	text-align: center;
 	max-width: 500px;
 	padding-top: 0;
@@ -353,6 +358,7 @@ a:hover, a:focus, a:active {
 }
 /*-------------------------------------------------------------news*/
 .section_news{
+	font-family: 'Londrina Solid', cursive;
 	margin-right: 80px;
 	order:1;
 }
@@ -361,7 +367,7 @@ a:hover, a:focus, a:active {
 	border-top: solid red 1px;
 }
 .msg_news{
-	font-family: cursive;
+	font-family: 'Indie Flower', cursive;
 }
 .sign_news{
 	font-size:70%;
@@ -377,6 +383,7 @@ a:hover, a:focus, a:active {
 	border-style:solid; 
 	border-color:black;
 	padding: 20px;
+	font-family: 'Patrick Hand', cursive;
 }
 .formulaire_idees textarea {
 	width: 100%;
@@ -390,6 +397,7 @@ a:hover, a:focus, a:active {
 	order: 5;
 	width: 50%;
 	border-collapse:collapse;
+	margin-right: 50px;
 }
 .idees th, .idees td{
 	border-width: 1px;
@@ -429,6 +437,17 @@ a:hover, a:focus, a:active {
  	border-bottom-width: 1px;
  	border-bottom-style: solid; 
  	border-bottom-color: red;
+ 	padding-right: 5px;
+ 	padding-left: 5px;
+	font-size: 90%;
+}
+.unique_case{
+	border-width: 1px;
+  	border-style: solid; 
+ 	border-color: red;
+ 	border-width: 1px;
+ 	border-style: solid; 
+ 	border-color: red;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
