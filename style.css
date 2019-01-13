@@ -2,7 +2,7 @@
 @font-face 
 	{
 	font-family: "chalk";
-	src: url("coloredcrayons.ttf");
+	src: url("font/LittleBird.ttf");
 	}
 /* basic elements */
 html {
@@ -12,7 +12,7 @@ html {
 	}
 
 body { 
-	font: georgia, sans-serif;
+	font-family: "Source Sans Pro", sans-serif;
 	line-height: 1.88889;
 	font-size: 100%;
 	color: #555753; 
@@ -56,17 +56,17 @@ div.page_connexion{
 	text-decoration: underline;
 }
 /*-------------------------------------------------------------------Les liens */
-a:link { 
+.lien:link { 
 	font-weight: bold; 
 	text-decoration: none; 
 	color: #B7A5DF;
 	}
-a:visited { 
+.lien:visited { 
 	font-weight: bold; 
 	text-decoration: none; 
 	color: #B7A5DF; 
 	}
-a:hover, a:focus, a:active { 
+.lien:hover, .lien:focus, .lien:active { 
 	text-decoration: underline; 
 	color: #9685BA;
 	}
@@ -80,6 +80,10 @@ a:hover, a:focus, a:active {
 	top: 50px;
 	padding: auto;
 	z-index: 0;
+	font-family: "Source Sans Pro", sans-serif;
+	line-height: 1.88889;
+	font-size: 100%;
+	color: #555753;
 }
 
 /*Trois sections du cadre*/
@@ -286,7 +290,7 @@ a:hover, a:focus, a:active {
 }
 /*-----------------------------------------------page mon compte*/
 .infos_persos{
-	width: 500px;
+	width: 600px;
 	margin-right: 80px;
 }
 .resume_resa_moncompte{
@@ -303,7 +307,10 @@ a:hover, a:focus, a:active {
 }
 .event_officiel{
 	margin: auto;
-	margin-bottom: 100px;
+	margin-bottom: 20px;
+}
+.event_officiel a{
+
 }
 .formulaire_edition {
 	height: 600px;
@@ -324,6 +331,7 @@ a:hover, a:focus, a:active {
 	border-collapse:collapse;
 	font-family: 'Kalam', cursive;
 	margin-bottom: 20px;
+	width: 100%;
 }
 .gestion td {
 }

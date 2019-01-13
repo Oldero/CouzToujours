@@ -59,7 +59,7 @@
 
         <div class="ensemble_gauche">
         <table class="event_officiel">
-        <tr><td class="caption_center" colspan=2>Réservation des Margots</td></tr>
+        <tr><td class="caption_center" colspan=2><a>Réservation des Margots</a></td></tr>
         <form class ="simple button" action="../php/reservation.php" method="POST">
             <input type="hidden" name="official" value=1>
             <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>

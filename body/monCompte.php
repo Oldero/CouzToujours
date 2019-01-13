@@ -31,7 +31,7 @@
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
     <section class ="corps">
-        <a>Laisser un <a href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.</a>
+        Laisser un <a class="lien" href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.
     <section class ="flex_formulaire">
     <div class="infos_persos">
         <?php echo "<a class='bigtitle'>Informations : </a><br />"; 
@@ -61,7 +61,7 @@
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
         } 
         if ($_SESSION['type'] > 0) {
-            echo "<br>Tu peux donc <a href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour.";
+            echo "<br>Tu peux donc <a class=\"lien\" href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour.";
             echo '<br>';
         }
         if ($_SESSION['ca'] == 1 && $_SESSION['admin'] == 0) {
@@ -69,20 +69,20 @@
             if ($_SESSION['bureau'] == 1) {
                 echo " et même du bureau élu démocratiquement puisqu'il y a eu des votes contre";
             }
-            echo ".<br>Tu as donc accès à <a href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
+            echo ".<br>Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';
         }
 
         if ($_SESSION['admin'] == 1) {
             echo "Tu es super-admin !";
-            echo " Tu as donc accès à <a href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
+            echo " Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';
         }
         echo '<br>';
             ?>
         <div class="pwd_block">
-        <a class="bigtitle">Changement de mot de passe :</a>
-        <a> Attention ! Retiens-le bien !</a>
+        <div><a class="bigtitle">Changement de mot de passe :</a>
+         &nbsp Attention ! Retiens-le bien !</div>
         <table>
         <form name="formulaire" action="../php/change_pwd.php" method="post">
         	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>

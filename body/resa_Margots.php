@@ -53,12 +53,12 @@ Dynamic Date
                     Pour quel package ?
                     <input type="radio" name="package" value="nuitee" id="nuitee" checked /> <label for="nuitee">À la nuitée</label> &nbsp &nbsp
                     <input type="radio" name="package" value="weekend" id="weekend" /> <label for="weekend">Week-end entier</label> &nbsp &nbsp
-                    <input type="radio" name="package" value="semaine" id="semaine" /> <label for="semaine">Toute la semaine !</label><br />
+                    <input type="radio" name="package" value="semaine" id="semaine" /> <label for="semaine">Toute la semaine !</label>
                 </td></tr>
                 <tr><td colspan=2>
                     Est-ce un séjour privatisé ? 
                     <input type="radio" name="prive" value="Non" id="Non" checked /> <label for="Non">Non</label> &nbsp &nbsp
-                    <input type="radio" name="prive" value="Oui" id="Oui" /> <label for="Oui">Oui</label><br />
+                    <input type="radio" name="prive" value="Oui" id="Oui" /><label for="Oui">Oui</label>
                 </td></tr>
                 <tr><td colspan=2>
                     Si non privatisé, pour combien de personnes ? </td></tr>
@@ -89,15 +89,15 @@ Dynamic Date
                         <td class="cell_none">
                         <?php echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
                             if ($donnees['prive'] == 1){ 
-                                echo "- Séjour privatisé <br />";
+                                echo "- Séjour privatisé ";
                             }
                             elseif ($donnees['officiel'] == 1){
-                                echo "- Événement Couz'Toujours <br />";
+                                echo "- Événement Couz'Toujours ";
                             }
                             else { 
-                                echo "- pour " . $nb_total . " personnes <br />";
+                                echo "- pour " . $nb_total . " personnes ";
                             }
-                        echo "(par " . $donnees['username'] . " le " . convertdate($donnees['date_resa']) . ") <br /> " ;
+                        echo "<br />(par " . $donnees['username'] . " le " . convertdate($donnees['date_resa']) . ")" ;
                         echo'</td>';
                         echo "</tr> " ;
                         //mise dans les tableaux highlighted et infobulle 
@@ -176,20 +176,20 @@ Dynamic Date
     </div>
     <div class=tableau_noir>
         <table class="tarifs">
-            <tr><th colspan=2>Tarifs des nuitees</th></tr>
+            <tr><th colspan=2>Tarifs des nuitées</th></tr>
             <tr><td><br /></td></tr>
-            <tr><td>P'tit Dub ..................................</td><td>6€ / nuitee</td></td></tr>
+            <tr><td>P'tit Dub ..................................</td><td>6€ / nuitée</td></td></tr>
             <tr><td><br /></td></tr>
             <tr><td colspan=2>Visiteurs</td></tr>
-            <tr><td>Plein tarif ..............................</td><td>10€ / nuitee</td></tr>
-            <tr><td>Tarif reduit ............................</td><td>10€ / nuitee</td></tr>
-            <tr><td>enfants / + de 7 ans ..............</td><td>10€ / nuitee</td></tr>
+            <tr><td>Plein tarif ..............................</td><td>10€ / nuitée</td></tr>
+            <tr><td>Tarif réduit ............................</td><td>10€ / nuitée</td></tr>
+            <tr><td>Enfants / + de 7 ans ..............</td><td>10€ / nuitée</td></tr>
             <tr><td><br /></td></tr>
             <tr><td>Package week-end ..................</td><td>140€</td></tr>
-            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatise ........................</td><td>200€</td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatisé ........................</td><td>200€</td></tr>
             <tr><td><br /></td></tr>
             <tr><td>Package semaine ....................</td><td>330€</td></tr>
-            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatise ........................</td><td>450€</td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatisé ........................</td><td>450€</td></tr>
         </table>
     </div>
     </section>
