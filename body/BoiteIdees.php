@@ -2,8 +2,8 @@
     //Page d'accueil 
 
     session_start ();
-    include("doctor/bdd.php");
-    include("php/fonctions.php");
+    include("../doctor/bdd.php");
+    include("../php/fonctions.php");
 ?>
 
 
@@ -12,28 +12,22 @@
 <html>
 
 <head>
-
-    <meta charset="utf-8" />
-
+    <?php include("../include/style.php"); ?>
     <title>Livre d'or</title>
-
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
-
 </head>
 
 
 <body>
 
-    <?php include("include/entete.php"); ?>
-    <?php include("include/laterale.php"); ?>
+    <?php include("../include/entete.php"); ?>
+    <?php include("../include/laterale.php"); ?>
     
 
     <section class="corps">
     <section class="flex_formulaire">
         <table class="formulaire_idees">
             <tr><td></td><td class="underlined">Livre d'or / Boîte à idées</td><td></td></tr>
-        <form action="php/rediger_idee.php" method="post">
+        <form action="../php/rediger_idee.php" method="post">
             <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
             <tr><td colspan=3><label for="msg">Une idée à implémenter ? Un message à faire passer ? <br />(N'oublie pas de signer)</label></td></tr>
             <tr><td colspan=3><textarea name="msg" id="msg" required="required"></textarea></td></tr>
@@ -73,7 +67,7 @@
     </section>
     </section>
 
-    <?php include("include/pieddepage.php"); ?>
+    <?php include("../include/pieddepage.php"); ?>
 
 </body>
 

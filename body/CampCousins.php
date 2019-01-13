@@ -10,23 +10,18 @@
 <html>
 
 <head>
-
-    <meta charset="utf-8" />
-
+    <?php include("../include/style.php"); ?>
     <title>Camps cousins</title>
-
-    <link rel="stylesheet" href="style.css" />
-
 </head>
 
 
 <body>
 
-    <?php include("include/entete.php"); ?>
-    <?php include("include/laterale.php"); ?>
+    <?php include("../include/entete.php"); ?>
+    <?php include("../include/laterale.php"); ?>
 
     <section class="corps">
-        <?php include("include/enconstruction.php"); ?>
+        <?php include("../include/enconstruction.php"); ?>
  
  <!--  <h2>Éditions : </h2>
     <ol>
@@ -51,7 +46,7 @@
     </ol> !-->
     </section>
 
-    <?php include("include/pieddepage.php"); ?>
+    <?php include("../include/pieddepage.php"); ?>
 
 </body>
 

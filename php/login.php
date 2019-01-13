@@ -25,7 +25,7 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $_SESSION['prenom'] = $donnees['prenom'];
             $_SESSION['nom'] = $donnees['nom'];
             // on redirige notre visiteur vers l'accueil
-            header('location: ../Accueil.php');
+            header('location: ../body/Accueil.php');
         }
     }
         //Login inexistant

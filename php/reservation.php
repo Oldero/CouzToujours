@@ -35,7 +35,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
 
             echo "<body onLoad=\"alert('Ce n\'est pas possible ! La date est déjà réservée. Vérifie le calendrier !')\">";
             // puis on le redirige vers la page précédente
-            echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
+            echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
             $nope = 1;
         }
         $date_compare = date("Y-m-d",strtotime($date_compare . " +1 day"));
@@ -45,25 +45,25 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         //vérification date debut<date fin
         echo '<body onLoad="alert(\'Date incorrecte ! \nLa date de début doit être antérieure à la date de fin du séjour ! \')">';
         // puis on le redirige vers la page précédente
-        echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     //si à la nuitée, forcément non privatisé
     elseif ($_POST['prive'] == "Oui" && $_POST['package'] == "nuitee"){
         echo "<body onLoad=\"alert('Ce n\'est pas possible ! Seul un séjour d\'un week-end ou d\'une semaine peut être privatisé. ')\">";
         // puis on le redirige vers la page précédente
-        echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     //si week-end plus de deux jours
     elseif (NbJours($_POST['debut'], $_POST['fin']) > 2 && $_POST['package'] == "weekend"){
         echo "<body onLoad=\"alert('Un week-end dure au plus 2 nuitées, c\'est mieux. ')\">";
         // puis on le redirige vers la page précédente
-        echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     //si semaine plus de 7 jours
     elseif ( NbJours($_POST['debut'], $_POST['fin']) > 7 && $_POST['package'] == "semaine"){
         echo "<body onLoad=\"alert('Une semaine dure au plus 7 nuitées, c\'est mieux. ')\">";
         // puis on le redirige vers la page précédente
-        echo '<meta http-equiv="refresh" content="0;URL=../lesMargots.php">';
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     else{
         if($_POST['official'] == 0){
@@ -127,7 +127,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
             'date_resa' => date("Y-m-d H:i:s")
         ));
     }
-        echo '<br /> <a href="../LesMargots.php" title="Retour"> Ok !</a><br />';
+        echo '<br /> <a href="../body/resa_Margots.php" title="Retour"> Ok !</a><br />';
     }
 }
 else {

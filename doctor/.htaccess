@@ -1,4 +1,0 @@
-AuthName "Zone d'administration du site !"
-AuthType Basic
-AuthUserFile "/homepages/17/d768868834/htdocs/doctor/.htpasswd"
-Require valid-user

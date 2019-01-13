@@ -33,6 +33,6 @@ echo'<nav id="menu">
                 echo '</ul></dd></dl>
             <dl><dt><a href="LeForum.php" title="Pour discuter bien sûr !"> Le Forum</a></dt></dl>
         </div>';
-        } ?>
-    </div>
-</nav>
+        }
+    echo '</div>
+</nav>'; ?>

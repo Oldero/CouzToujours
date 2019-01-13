@@ -2,8 +2,8 @@
 // Page des infos du compte changement de mdp
 
     session_start ();
-    include("doctor/bdd.php");
-    include("php/fonctions.php");
+    include("../doctor/bdd.php");
+    include("../php/fonctions.php");
 ?>
   
 
@@ -12,18 +12,14 @@
 <html>
 
 <head>
-
-    <meta charset="utf-8" />
-
+    <?php include("../include/style.php"); ?>
     <title>Mon compte</title>
 
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
     <SCRIPT LANGUAGE="JavaScript">
     function confirmation(param) {
         var msg = "Es-tu sûr(e) de vouloir supprimer ce truc ?";
         if (confirm(msg)){
-            window.location.replace("php/suppr_resa.php?numero="+param);
+            window.location.replace("../php/suppr_resa.php?numero="+param);
         }
     }
     </SCRIPT> 
@@ -32,8 +28,8 @@
 
 
 <body>
-    <?php include("include/entete.php"); ?>
-    <?php include("include/laterale.php"); ?>
+    <?php include("../include/entete.php"); ?>
+    <?php include("../include/laterale.php"); ?>
     <section class ="corps">
         <a>Laisser un <a href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.</a>
     <section class ="flex_formulaire">
@@ -64,8 +60,10 @@
             default:
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
         } 
-        echo '<br>';
-
+        if ($_SESSION['type'] > 0) {
+            echo "<br>Tu peux donc <a href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour.";
+            echo '<br>';
+        }
         if ($_SESSION['ca'] == 1 && $_SESSION['admin'] == 0) {
             echo "Tu fais partie du CA";
             if ($_SESSION['bureau'] == 1) {
@@ -86,13 +84,13 @@
         <a class="bigtitle">Changement de mot de passe :</a>
         <a> Attention ! Retiens-le bien !</a>
         <table>
-        <form name="formulaire" action="php/change_pwd.php" method="post">
+        <form name="formulaire" action="../php/change_pwd.php" method="post">
         	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>
             <input type="hidden" name="user" value = <?php echo $_SESSION['login']; ?>>
         	<tr><td>Ton ancien mot de passe : </td><td><input type="password" name="ancien"></td></tr>
         	<tr><td>Ton nouveau mot de passe : </td><td><input type="password" name="nouveau"></td></tr>
         	<tr><td>Répète-le : </td><td><input type="password" name="nouveau_test"></td></tr>
-        	<tr><td colspan=2 class="justify_center"><input type="button" value="Changer de mot de passe" onclick="if (document.formulaire.ancien.value == document.formulaire.courant.value && document.formulaire.nouveau.value == document.formulaire.nouveau_test.value && confirm('sur ?') ) {document.formulaire.submit();} else {alert('Mauvais mot de passe !') }"></td></tr>
+        	<tr><td colspan=2 class="justify_center"><input type="button" value="Changer de mot de passe" onclick="if (document.formulaire.ancien.value == document.formulaire.courant.value && document.formulaire.nouveau.value == document.formulaire.nouveau_test.value && confirm('Es-tu sûr(e) de vouloir changer de mot de passe ?') ) {document.formulaire.submit();} else {alert('Mauvais mot de passe !') }"></td></tr>
         </form>
         </table>    
         </div>
@@ -169,7 +167,7 @@
     <!--à de là-->
     </section>    
     </section>
-    <?php include("include/pieddepage.php"); ?>
+    <?php include("../include/pieddepage.php"); ?>
 
 </body>
 

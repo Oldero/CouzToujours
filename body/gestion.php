@@ -2,8 +2,8 @@
 // Gestion des adhésions, édition de fichier csv 
 
     session_start ();
-    include("doctor/bdd.php");
-    include("php/fonctions.php");
+    include("../doctor/bdd.php");
+    include("../php/fonctions.php");
 ?>
   
 
@@ -13,28 +13,22 @@
 
 <head>
 
-    <meta charset="utf-8" />
-
+    <?php include("../include/style.php"); ?>
     <title>Gestion</title>
-
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet"> 
-
 </head>
 
 
 <body>
     
-    <?php include("include/entete.php"); ?>
-    <?php include("include/laterale.php"); ?>
+    <?php include("../include/entete.php"); ?>
+    <?php include("../include/laterale.php"); ?>
 
     <section class="corps">
     <section class="flex_formulaire">
 <!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
         <table class="formulaire_edition">
         <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
-        <form action= "php/editer_tableau.php" method="post"> 
+        <form action= "../php/editer_tableau.php" method="post"> 
                 <tr class="justify_left"><td colspan=3 class="underlined">Trier par : </td></tr>
                     <tr><td><input type="radio" name="tri" value="nom" id="nom" checked /> <label for="nom">Nom</label></td><td>
                     <input type="radio" name="tri" value="type" id="type" /> <label for="type">Type d'adhésion</label></td><td>
@@ -66,7 +60,7 @@
         <div class="ensemble_gauche">
         <table class="event_officiel">
         <tr><td class="caption_center" colspan=2>Réservation des Margots</td></tr>
-        <form class ="simple button" action="php/reservation.php" method="POST">
+        <form class ="simple button" action="../php/reservation.php" method="POST">
             <input type="hidden" name="official" value=1>
             <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
             <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
@@ -84,8 +78,7 @@
         </table>
 
         <?php if ($_SESSION['login'] == 'admin') {
-            echo "prout.";
-            include("doctor/admin.php");
+             include("../doctor/admin.php");
         } ?>
 
         <!--Création du tableau : -->
@@ -133,7 +126,7 @@
                 }
                 //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
                 if (!$test && $donnees['name'] != 'admin') {
-                    echo '<td class="cell_none"><form name="formulaire_type" method="post" action="php/gestion_edit_type.php">
+                    echo '<td class="cell_none"><form name="formulaire_type" method="post" action="../php/gestion_edit_type.php">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="typ" id="typ'. $donnees['numero'] . '">
@@ -202,7 +195,7 @@
                         break;          
                 }
                 if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
-                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post" action="php/gestion_edit_cotiz.php">
+                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post" action="../php/gestion_edit_cotiz.php">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="cotiz" id="cotiz'. $donnees['numero'] . '">
@@ -235,7 +228,7 @@
     </section>
     </section>
 
-    <?php include("include/pieddepage.php"); ?>
+    <?php include("../include/pieddepage.php"); ?>
 
 </body>
 

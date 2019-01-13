@@ -14,7 +14,7 @@ if (isset($_POST['typ']) && isset ($_POST['num']) && isset($_POST['user'])) {
         $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor();     
-        header ('location: ../gestion.php'); //on recharge la page moncompte
+        header ('location: ../body/gestion.php'); //on recharge la page moncompte
     
  }
 else {

@@ -18,7 +18,7 @@ if (isset($_POST['name']) && isset ($_POST['title']) && isset($_POST['msg'])) {
     }
     $req->closeCursor();
     //termine le traitement de la requête    
-    header ('location: ../Accueil.php'); //on recharge la page moncompte
+    header ('location: ../body/Accueil.php'); //on recharge la page moncompte
  }
 else {
         echo 'Les variables du formulaire ne sont pas déclarées.';

@@ -3,9 +3,8 @@
 
     session_start ();
     include("bdd.php");
-    include("../php/fonctions.php");
-
-	echo'<!--Création du tableau : -->
+    include("php/fonctions.php");
+ 	echo '<!--Création du tableau : -->
         <table class="gestion">
             <tl><td class="unique_case" colspan=8>Reset password :</td></tl>
             <tr class ="line">
@@ -22,7 +21,7 @@
             echo '<td class= "cell_left">' . $donnees['name'] . '</td>';            
             echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
             echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
-            echo '<td class="cell_left"><form name="formul" method="post" action="doctor/reset_pwd.php">
+            echo '<td class="cell_left"><form name="formul" method="post" action="../doctor/reset_pwd.php">
                 <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                 <input type="text" name="new_pwd"></td>';
             echo '<td class="cell_right"><input type="submit" value="Générer" /></form></td>';

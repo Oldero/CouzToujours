@@ -18,13 +18,13 @@
         echo '<div class = "nav_tete">';
             // On affiche un lien pour fermer notre session
             echo '<dl><dt><a href="monCompte.php" title="Informations personnelles">Mon compte</a></dt></dl>';
-            echo '<dl><dt><a href="php/logout.php" title="À bientôt ?">Déconnexion</a></dt></dl>';
+            echo '<dl><dt><a href="../php/logout.php" title="À bientôt ?">Déconnexion</a></dt></dl>';
         echo '</div>';
         echo '</body>';
     }
     else {
-        echo '<div class="reconnexion">Session expirée. Tu dois te <a href="index.html">reconnecter</a> !</div>';
-        echo '<meta http-equiv="refresh" content="0;URL=index.html">';
+        echo '<div class="reconnexion">Session expirée. Tu dois te <a href="../index.html">reconnecter</a> !</div>';
+        echo '<meta http-equiv="refresh" content="0;URL=../index.html">';
     }
     ?>    
 </header>

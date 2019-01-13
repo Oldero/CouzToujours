@@ -15,7 +15,7 @@ if (isset($_POST['user']) && isset($_POST['nouveau'])) {
         //changement de valeur de variable de session
         $_SESSION['pwd'] = $_POST['nouveau'];
         //termine le traitement de la requête    
-        header ('location: ../monCompte.php'); //on recharge la page moncompte
+        header ('location: ../body/monCompte.php'); //on recharge la page moncompte
     
  }
 else {

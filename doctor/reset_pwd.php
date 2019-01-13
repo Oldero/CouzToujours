@@ -11,7 +11,7 @@ if (isset ($_POST['num']) && isset($_POST['new_pwd'])) {
         $req->execute(array($nwpwd, $_POST['num']));
         $req->closeCursor();
         //termine le traitement de la requête
-        header ('location: ../gestion.php'); //on recharge la page moncompte
+        header ('location: ../body/gestion.php'); //on recharge la page moncompte
  }
 else {
         echo 'Les variables du formulaire ne sont pas déclarées.';

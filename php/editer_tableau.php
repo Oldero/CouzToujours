@@ -87,7 +87,6 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
             default:
                 break;
         }
-//        echo $sql_query;
         $req = $bdd->query($sql_query);
         //faut rajouter instructions : pas users test.
         while ($tab = $req->fetch()){
@@ -139,9 +138,8 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
     header("Content-Disposition: attachment; filename=" . "tableau.csv");
     echo $csv;
 
-//    header ('location: ../Accueil.php'); //on recharge la page moncompte
- }
-else {
-        echo 'Les variables du formulaire ne sont pas déclarées.';
-    }
+}
+else{
+    echo 'Les variables du formulaire ne sont pas déclarées.';
+}
 ?>

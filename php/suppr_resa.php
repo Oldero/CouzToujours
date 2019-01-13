@@ -11,7 +11,7 @@
             $req->execute(array($_GET['numero']));
             $req->closeCursor();
             //termine le traitement de la requête    
-            header ('location: ../monCompte.php'); //on recharge la page moncompte
+            header ('location: ../body/monCompte.php'); //on recharge la page moncompte
         
      }
     else {
