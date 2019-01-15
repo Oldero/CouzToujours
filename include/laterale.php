@@ -2,6 +2,7 @@
 session_start();
 echo'<nav id="menu">        
     <div class="element_menu">
+        <img src="../favicon.ico">
         <h3>Couz\'Toujours</h3>';
         if(isset($_SESSION['pwd'])){
         echo '<div class="navigation">

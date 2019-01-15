@@ -356,9 +356,10 @@ div.page_connexion{
 	padding: 20px;
 	font-family: 'Patrick Hand', cursive;
 	text-align: center;
-	max-width: 500px;
+/*	max-width: 100%;*/
 	padding-top: 0;
 	order: 2;
+	margin-right: 80px;
 }
 .formulaire_cote textarea {
 	width: 100%;
@@ -366,11 +367,15 @@ div.page_connexion{
 }
 /*-------------------------------------------------------------news*/
 .section_news{
-	font-family: 'Londrina Solid', cursive;
 	margin-right: 80px;
+}
+.news td{
 	order:1;
+	max-width: 500px;
+	text-align: justify;
 }
 .titre_news{
+		font-family: 'Londrina Solid', cursive;
 	font-size:110%;
 	border-top: solid red 1px;
 }
@@ -378,6 +383,7 @@ div.page_connexion{
 	font-family: 'Indie Flower', cursive;
 }
 .sign_news{
+		font-family: 'Londrina Solid', cursive;
 	font-size:70%;
 	font-style: italic;
 }

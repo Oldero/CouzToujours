@@ -41,7 +41,7 @@
             'ca' => $nwca, 
             'cotiz' => 0));
         $gener->closeCursor();
-                echo'Utilisateur ajouté ! <br />';
+        echo'Utilisateur ajouté ! <br />';
     }
     //tableau de génération de password
  	echo '<table class="gestion">

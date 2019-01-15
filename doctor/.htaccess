@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Nope ! Impossible d'y acceder sans montrer patte blanche..."
+AuthUserFile /kunden/homepages/17/d768868834/htdocs/doctor/.htpasswd
+require valid-user

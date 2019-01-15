@@ -4,6 +4,30 @@
     session_start ();
     include("../doctor/bdd.php");
     include("../php/fonctions.php");
+
+//réponse du formulaire suppression de résa
+    if (isset($_POST['param'])) {
+        //delete avec tag numero.
+        $req = $bdd->prepare('DELETE FROM reservation WHERE numero = ?');
+        $req->execute(array($_POST['param']));
+        $req->closeCursor();
+        //termine le traitement de la requête
+        header ('location: ../body/monCompte.php'); //on recharge la page moncompte
+    }
+//réponse du formulaire changement de pwd
+    if (isset($_POST['user']) && isset($_POST['nouveau'])) {
+    //ici crypter.
+        $new_pwd = password_hash($_POST['nouveau'], PASSWORD_DEFAULT);
+        //changement du pwd correspondant.
+        $req = $bdd->prepare('UPDATE users SET password = ? WHERE name = ?');
+        $req->execute(array($new_pwd, $_POST['user']));
+        $req->closeCursor();
+        //changement de valeur de variable de session
+        $_SESSION['pwd'] = $_POST['nouveau'];
+        //termine le traitement de la requête    
+        header ('location: ../body/monCompte.php'); //on recharge la page moncompte
+    
+    }
 ?>
   
 
@@ -14,16 +38,6 @@
 <head>
     <?php include("../include/style.php"); ?>
     <title>Mon compte</title>
-
-    <SCRIPT LANGUAGE="JavaScript">
-    function confirmation(param) {
-        var msg = "Es-tu sûr(e) de vouloir supprimer ce truc ?";
-        if (confirm(msg)){
-            window.location.replace("../php/suppr_resa.php?numero="+param);
-        }
-    }
-    </SCRIPT> 
-
 </head>
 
 
@@ -84,7 +98,7 @@
         <div><a class="bigtitle">Changement de mot de passe :</a>
          &nbsp Attention ! Retiens-le bien !</div>
         <table>
-        <form name="formulaire" action="../php/change_pwd.php" method="post">
+        <form name="formulaire" method="post">
         	<input type="hidden" name="courant" value = <?php echo $_SESSION['pwd']; ?>>
             <input type="hidden" name="user" value = <?php echo $_SESSION['login']; ?>>
         	<tr><td>Ton ancien mot de passe : </td><td><input type="password" name="ancien"></td></tr>
@@ -127,10 +141,16 @@
                     echo " - coût : " . ($donnees['prix']) . " euros";
                     echo '</td>'; 
                         //<!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
-                    echo '<td class="cell_none"><input type="Button" onClick="confirmation(' . $donnees['numero'] . ');" VALUE="Supprimer"> </td>';
+                    echo '<td class="cell_none">';
+                    echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                    echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
+                        <input type="submit" value="Supprimer">
+                        </form>
+                        </td>';
                     echo "</tr> " ;
                 }
             }
+        $reponse->closeCursor();
             // On recommence avec la table des résas passées.
         if ($_SESSION['login'] == "admin") {
             	//Pour admin, juste, toutes.

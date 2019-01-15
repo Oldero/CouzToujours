@@ -4,6 +4,29 @@
     session_start ();
     include("../doctor/bdd.php");
     include("../php/fonctions.php");
+
+//réponse du formulaire d'idée.
+    if (isset($_POST['name']) && isset($_POST['msg']) && isset($_POST['direction'])) {
+        //update avec tag.
+        $msg = htmlspecialchars($_POST['msg']);
+        switch($_POST['direction']) {
+            case "livre":
+            $direct = 1;
+            break;
+            case "idee":
+            $direct = 2;
+            break;
+            default:
+            $direct = 0;
+            break;
+        }
+
+        $req = $bdd->prepare('INSERT INTO livredor(username, type, message) VALUES(?,?,?)');
+        $req->execute(array($_POST['name'], $direct, $msg));
+
+        $req->closeCursor();
+        //termine le traitement de la requête    
+    }
 ?>
 
 
@@ -27,7 +50,7 @@
     <section class="flex_formulaire">
         <table class="formulaire_idees">
             <tr><td></td><td class="underlined">Livre d'or / Boîte à idées</td><td></td></tr>
-        <form action="../php/rediger_idee.php" method="post">
+        <form method="post">
             <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
             <tr><td colspan=3><label for="msg">Une idée à implémenter ? Un message à faire passer ? <br />(N'oublie pas de signer)</label></td></tr>
             <tr><td colspan=3><textarea name="msg" id="msg" required="required"></textarea></td></tr>
@@ -35,7 +58,7 @@
             <tr><td></td><td class="justify_center"><input type="submit" value="Poster"></td><td></td></tr>
         </form>
         </table>
-
+<!-- affichage des messages -->
         <div class="resume_resa">
             <?php
                 $reponse = $bdd->query('SELECT * FROM livredor WHERE type = 1');

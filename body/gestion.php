@@ -4,6 +4,35 @@
     session_start ();
     include("../doctor/bdd.php");
     include("../php/fonctions.php");
+
+    // résultat du formulaire edit-type
+    if (isset($_POST['typ']) && isset ($_POST['num']) && isset($_POST['user'])) {
+            //update avec tag.
+            $req = $bdd->prepare('UPDATE users SET type = ? WHERE numero = ?');
+            $req->execute(array($_POST['typ'], $_POST['num']));
+            $req->closeCursor();
+            //termine le traitement de la requête
+            //changement de date de modif :
+            $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
+            $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
+            $req->closeCursor();     
+            header ('location: ../body/gestion.php'); //on recharge la page moncompte
+        
+    }
+     // résultat du formulaire edit-cotiz
+    if (isset($_POST['cotiz']) && isset ($_POST['num']) && isset($_POST['user'])) {
+            //update avec tag.
+            $req = $bdd->prepare('UPDATE users SET cotiz = ? WHERE numero = ?');
+            $req->execute(array($_POST['cotiz'], $_POST['num']));
+            $req->closeCursor();
+            //termine le traitement de la requête
+            //changement de date de modif :
+            $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
+            $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
+            $req->closeCursor(); 
+            header ('location: ../body/gestion.php'); //on recharge la page moncompte
+        
+    }
 ?>
   
 
@@ -60,7 +89,7 @@
         <div class="ensemble_gauche">
         <table class="event_officiel">
         <tr><td class="caption_center" colspan=2><a>Réservation des Margots</a></td></tr>
-        <form class ="simple button" action="../php/reservation.php" method="POST">
+        <form class ="simple_button" action="../php/reservation.php" method="post">
             <input type="hidden" name="official" value=1>
             <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
             <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
@@ -126,7 +155,7 @@
                 }
                 //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
                 if (!$test && $donnees['name'] != 'admin') {
-                    echo '<td class="cell_none"><form name="formulaire_type" method="post" action="../php/gestion_edit_type.php">
+                    echo '<td class="cell_none"><form name="formulaire_type" method="post">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="typ" id="typ'. $donnees['numero'] . '">
@@ -195,7 +224,7 @@
                         break;          
                 }
                 if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
-                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post" action="../php/gestion_edit_cotiz.php">
+                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post">
                         <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                         <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                         <select name="cotiz" id="cotiz'. $donnees['numero'] . '">
