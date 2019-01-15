@@ -18,6 +18,7 @@ class Calendar{
 	var $year;
 	var $month;
 	var $day;
+	var $limit; //variable de limite des trois événements normaux
 	
 	var $week_start_on = FALSE;
 	var $week_start = 1;// monday
@@ -46,13 +47,14 @@ class Calendar{
 	//event officiel de l'asso
 	var $official_class = 'official';	
 	//event normal, nuances de rouge
-	var $event_04_class = 'red_light';
-	var $event_48_class = 'red_medium';
-	var $event_8plus_class = 'red_dark';
+	var $event_light_class = 'red_light';
+	var $event_medium_class = 'red_medium';
+	var $event_dark_class = 'red_dark';
 	
 	
 	/* CONSTRUCTOR */
-	function Calendar($date = NULL, $year = NULL, $month = NULL){
+	//Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; foo has a deprecated constructor in example.php on line 3
+	function __construct($date = NULL, $year = NULL, $month = NULL){
 		setlocale(LC_TIME, "fr_FR");
 		$self = htmlspecialchars($_SERVER['PHP_SELF']);
 		$this->link_to = $self;
@@ -97,14 +99,14 @@ class Calendar{
     	$bottom = 0;
     	//---------------------------------- répartition dans les trois tableaux
      	while($bottom <= $top){
-	        if ($this->info_normal[$bottom][1] <=4) {
-	            $event_04[] = $this->info_normal[$bottom][0];
+	        if ($this->info_normal[$bottom][1] <= $this->limit) {
+	            $event_light[] = $this->info_normal[$bottom][0];
 	        }
-	        elseif ($this->info_normal[$bottom][1] <= 8 ) {
-	            $event_48[] = $this->info_normal[$bottom][0];
+	        elseif ($this->info_normal[$bottom][1] <= 2*$this->limit ) {
+	            $event_medium[] = $this->info_normal[$bottom][0];
 	        }
 	        else {
-	            $event_8plus[] = $this->info_normal[$bottom][0];
+	            $event_dark[] = $this->info_normal[$bottom][0];
 	        }
 	        $bottom++;
 	    }
@@ -198,19 +200,19 @@ class Calendar{
 					$classes[] = $this->official_class;
 				}
 			}
-			if( is_array($event_04) ){
-				if( in_array($day_date, $event_04) ){
-					$classes[] = $this->event_04_class;
+			if( is_array($event_light) ){
+				if( in_array($day_date, $event_light) ){
+					$classes[] = $this->event_light_class;
 				}
 			}
-			if( is_array($event_48) ){
-				if( in_array($day_date, $event_48) ){
-					$classes[] = $this->event_48_class;
+			if( is_array($event_medium) ){
+				if( in_array($day_date, $event_medium) ){
+					$classes[] = $this->event_medium_class;
 				}
 			}
-			if( is_array($event_8plus) ){
-				if( in_array($day_date, $event_8plus) ){
-					$classes[] = $this->event_8plus_class;
+			if( is_array($event_dark) ){
+				if( in_array($day_date, $event_dark) ){
+					$classes[] = $this->event_dark_class;
 				}
 			}
 			

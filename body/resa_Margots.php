@@ -18,7 +18,10 @@ Dynamic Date
         $date = date("Y-m-d");
     }
     $fin_defaut = date("Y-m-d",strtotime($date . " +2 day"));
-
+//création de l'array evenement normal pour éviter l'erreur warning.
+    $evenement_normal = [];
+//limiteur de personnes pour couleur de case des événements normaux
+    $limiteur = 8;
 ?>
 
 <!DOCTYPE html>
@@ -144,6 +147,7 @@ Dynamic Date
     <?php
 
     //tableaux d'événements du calendrier
+    $calendar->limit = $limiteur;
     $calendar->info_private = $evenement_prive;
     $calendar->info_official = $evenement_officiel;
     $calendar->info_normal = $evenement_normal;
@@ -165,11 +169,11 @@ Dynamic Date
         <td class ="privatised"></td>
             <td class ="legende_element">Séjour privatisé</td>
         </tr><tr><td></td><td class ="red_light"></td>
-            <td class ="legende_element">Moins de 4 personnes</td>
+            <td class ="legende_element">Moins de <?php echo $limiteur; ?> personnes</td>
         <td class ="red_medium"></td>
-            <td class ="legende_element">Entre 4 et 8 personnes</td>
+            <td class ="legende_element">Entre <?php echo $limiteur; ?> et <?php echo 2*$limiteur; ?> personnes</td>
         <td class ="red_dark"></td>
-            <td class ="legende_element">Plus de 8 personnes</td>
+            <td class ="legende_element">Plus de <?php echo 2*$limiteur; ?> personnes</td>
         </tr>
         </tbody>
     </table>
@@ -182,8 +186,9 @@ Dynamic Date
             <tr><td><br /></td></tr>
             <tr><td colspan=2>Visiteurs</td></tr>
             <tr><td>Plein tarif ..............................</td><td>10€ / nuitée</td></tr>
-            <tr><td>Tarif réduit ............................</td><td>10€ / nuitée</td></tr>
-            <tr><td>Enfants / + de 7 ans ..............</td><td>10€ / nuitée</td></tr>
+            <tr><td>Tarif réduit ............................</td><td>7€ / nuitée</td></tr>
+            <tr><td colspan=2>&nbsp &nbsp (RSA, étudiant sans revenu)</td><td></td></tr>
+            <tr><td>Enfants / + de 7 ans ..............</td><td>5€ / nuitée</td></tr>
             <tr><td><br /></td></tr>
             <tr><td>Package week-end ..................</td><td>140€</td></tr>
             <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatisé ........................</td><td>200€</td></tr>

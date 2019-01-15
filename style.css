@@ -99,7 +99,7 @@ div.page_connexion{
 	top: 0;
 	left: 0; 
 	right: 0;
-	background-color: #000000; 
+	background-color: none; 
 	color: white;
 	z-index: 1;
 }
@@ -159,7 +159,7 @@ div.page_connexion{
 	margin-right: auto;
 
 	z-index: 2;
-	background-color: #000000; 
+	background-color: none; 
 	color: white;
 	font-weight: bold;
 }
@@ -262,7 +262,7 @@ div.page_connexion{
 	padding-left: 50px;
 	width: 350px;
 	margin-left: 200px;
-	padding-bottom: 00px;
+	padding-bottom: 20px;
 	padding-top: 10px;
 	align-self: right;
 	background-image : url(img/blackboard.jpg);

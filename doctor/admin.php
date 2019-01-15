@@ -3,7 +3,7 @@
 
     session_start ();
     include("bdd.php");
-    include("php/fonctions.php");
+    //include("../php/fonctions.php");
     //resultat du formulaire de génération d'utilisateur
     if(isset($_POST['gen_login']) && isset($_POST['gen_pass']) && isset($_POST['gen_prenom']) && isset($_POST['gen_nom'])){
         $nwlogin=htmlspecialchars($_POST['gen_login']);

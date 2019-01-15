@@ -4,8 +4,8 @@
 function day($date){
     $tdate_hour = explode("-", $date);
     $tday = explode(" ",$tdate_hour[2]);
-    $day = date("w", mktime(0, 0, 0, $tdate_hour[1], $tday[0], $tdate_hour[0]));
-  switch ($day){
+    $mkday = date("w", mktime(0, 0, 0, $tdate_hour[1], $tday[0], $tdate_hour[0]));
+  switch ($mkday){
         case 1:
             $jour = "lundi";
             break;
