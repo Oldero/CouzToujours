@@ -82,6 +82,9 @@ class Calendar{
 	
 	function output_calendar($year = NULL, $month = NULL, $calendar_class = 'calendar'){
 		setlocale(LC_TIME, "fr_FR");
+		//initialisation des tableaux pour éviter les errurs de définition
+		$event_medium = [];
+		$event_light = [];
 		$event_dark = [];
 		if( $this->week_start_on !== FALSE ){
 			echo "The property week_start_on is replaced due to a bug present in version before 2.6. of this class! Use the property week_start instead!";
@@ -110,7 +113,7 @@ class Calendar{
 	        else {
 	            $event_dark[] = $this->info_normal[$bottom][0];
 	        }
-	    }
+	    	}
 	        $bottom++;
 	    }
 		}
