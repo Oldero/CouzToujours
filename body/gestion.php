@@ -7,31 +7,54 @@
 
     // résultat du formulaire edit-type
     if (isset($_POST['typ']) && isset ($_POST['num']) && isset($_POST['user'])) {
-            //update avec tag.
-            $req = $bdd->prepare('UPDATE users SET type = ? WHERE numero = ?');
-            $req->execute(array($_POST['typ'], $_POST['num']));
-            $req->closeCursor();
-            //termine le traitement de la requête
-            //changement de date de modif :
-            $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
-            $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
-            $req->closeCursor();     
-            header ('location: ../body/gestion.php'); //on recharge la page moncompte
+        //update avec tag.
+        $req = $bdd->prepare('UPDATE users SET type = ? WHERE numero = ?');
+        $req->execute(array($_POST['typ'], $_POST['num']));
+        $req->closeCursor();
+        //termine le traitement de la requête
+        //changement de date de modif :
+        $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
+        $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
+        $req->closeCursor();     
+        header ('location: ../body/gestion.php'); //on recharge la page gestion
         
     }
      // résultat du formulaire edit-cotiz
     if (isset($_POST['cotiz']) && isset ($_POST['num']) && isset($_POST['user'])) {
-            //update avec tag.
-            $req = $bdd->prepare('UPDATE users SET cotiz = ? WHERE numero = ?');
-            $req->execute(array($_POST['cotiz'], $_POST['num']));
-            $req->closeCursor();
-            //termine le traitement de la requête
-            //changement de date de modif :
-            $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
-            $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
-            $req->closeCursor(); 
-            header ('location: ../body/gestion.php'); //on recharge la page moncompte
+        //update avec tag.
+        $req = $bdd->prepare('UPDATE users SET cotiz = ? WHERE numero = ?');
+        $req->execute(array($_POST['cotiz'], $_POST['num']));
+        $req->closeCursor();
+        //termine le traitement de la requête
+        //changement de date de modif :
+        $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
+        $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
+        $req->closeCursor(); 
+        header ('location: ../body/gestion.php'); //on recharge la page gestion
         
+    }
+    //réponse du formulaire suppression de tribu
+    if (isset($_POST['param'])) {
+        //delete avec tag numero.
+        $req = $bdd->prepare('DELETE FROM tribus WHERE numero = ?');
+        $req->execute(array($_POST['param']));
+        $req->closeCursor();
+        //termine le traitement de la requête
+        header ('location: ../body/gestion.php'); //on recharge la page gestion
+    }
+    //réponse du formulaire de création de tribu
+    if (isset($_POST['nom_famille']) && isset($_POST['adh1']) && isset($_POST['adh2']) && isset($_POST['etu'])) {
+        //generate avec tag numero.
+        $req = $bdd->prepare('INSERT INTO tribus(nom,adherent1,adherent2,etudiant) VALUES(:nom,:adherent1,:adherent2,:etudiant)');
+        $req->execute(array(
+            'nom' => $_POST['nom_famille'],
+            'adherent1' => $_POST['adh1'],
+            'adherent2' => $_POST['adh2'],
+            'etudiant' => $_POST['etu'],
+            ));
+        $req->closeCursor();
+        //termine le traitement de la requête
+        header ('location: ../body/gestion.php'); //on recharge la page gestion
     }
     //date temoin pour dernière modification
     $last_date_modif = "2018-01-01";
@@ -128,7 +151,7 @@
             while($donnees = $reponse->fetch()){
                 //On n'affiche pas l'admin
                 if ($donnees['name'] != "admin") {
-                $test = ($donnees['name'] == $_SESSION['login'] );
+                $test = FALSE;//($donnees['name'] == $_SESSION['login'] );
                 echo '<tr>';
                 echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
                 echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
@@ -241,7 +264,7 @@
                     echo '</tr>';
                 }
                 else {
-                    echo '<td class="cell_right"></td>';
+                    echo '<td class="cell_right"></td></tr>';
                 }
                 }
                 //calcul de la dernière date de modif et login correspondant.
@@ -255,7 +278,91 @@
             ?>
             <?php echo '<tr><td class="unique_case" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
         </table>
-    </div>
+<!-- Tableau des tribus -->
+        <table class="gestion">
+            <tl><td class="unique_case" colspan=9>Tribus :</td></tl>
+            <tr class ="line">
+                <th>Nom</th>
+                <th colspan=2>Adhérent 1</th>
+                <th colspan=2>Adhérent 2</th>
+                <th colspan=2>Étudiant à charge</th>
+                <th>Action</th>
+            </tr>
+            <?php 
+            $tribus = $bdd->query('SELECT * FROM tribus ORDER BY nom'); //WHERE name != "admin"');
+
+            while($donnees = $tribus->fetch()){
+                echo '<tr>';
+                echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                
+                //Récupération des noms prénoms des adhérents depuis la table
+                $requ = $bdd->prepare('SELECT nom,prenom FROM users WHERE name = ?');
+                $requ->execute(array($donnees['adherent1']));
+                $nom = $requ->fetch();
+                echo '<td class="cell_left">' . $nom['nom'] . '</td>';
+                echo '<td class="cell_right">' . $nom['prenom'] . '</td>';
+                $requ->closeCursor();
+                
+                $requ = $bdd->prepare('SELECT nom,prenom FROM users WHERE name = ?');
+                $requ->execute(array($donnees['adherent2']));
+                $nom = $requ->fetch();
+                echo '<td class="cell_left">' . $nom['nom'] . '</td>';
+                echo '<td class="cell_right">' . $nom['prenom'] . '</td>';
+                $requ->closeCursor();
+
+                if($donnees['etudiant'] != "Aucun"){
+                $requ = $bdd->prepare('SELECT nom,prenom FROM users WHERE name = ?');
+                $requ->execute(array($donnees['etudiant']));
+                $nom = $requ->fetch();
+                echo '<td class="cell_left">' . $nom['nom'] . '</td>';
+                echo '<td class="cell_right">' . $nom['prenom'] . '</td>';
+                $requ->closeCursor();
+                }
+                else{
+                echo '<td class="cell_left" colspan=2></td>';
+                }
+
+                echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
+                    <input type="submit" value="Supprimer">
+                    </form></td>';
+
+                echo'</tr>';
+               }
+            $tribus->closeCursor();
+
+            echo '<tr><form method="post">';
+            echo '<td class="cell_left"><input type="text" name="nom_famille" required="required"></td>';
+            //case adhérent 1 avec sélecteur
+            echo '<td class="cell_left" colspan=2><select name="adh1" id="adh1">';
+            $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+            while ($dubtribu = $reponse1->fetch()) {
+                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+            }
+            $reponse1->closeCursor();
+            echo '</select></td>';
+            //case adhérent 2 avec sélecteur
+            echo '<td class="cell_left" colspan=2><select name="adh2" id="adh2">';
+            $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+            while ($dubtribu = $reponse2->fetch()) {
+                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+            }
+            $reponse2->closeCursor();
+            //case etudiant avec sélecteur
+            echo '<td class="cell_left" colspan=2><select name="etu" id="etu">';
+            $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4');
+            echo '<option value="Aucun">Aucun</option>';
+            while ($dubtribu = $reponse3->fetch()) {
+                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+            }
+            $reponse3->closeCursor();
+
+            echo '</select></td>';
+            echo '<td class="unique_case"><input type="submit" value="Créer tribu"></td>';
+            echo '</form></tr>';
+            ?>
+         </table>
+        </div>
     </section>
     </section>
 

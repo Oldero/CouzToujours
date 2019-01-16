@@ -1,5 +1,5 @@
 <?php
-//Le Codex, version, à corriger.
+//Adhérer à l'association, faire un don
 
     session_start ();
 ?>
@@ -11,7 +11,7 @@
 
 <head>
     <?php include("../include/style.php"); ?>
-    <title>Codex Margoticus</title>
+    <title>Adhésion et dons</title>
 </head>
 
 
@@ -21,7 +21,7 @@
     <?php include("../include/laterale.php"); ?>
 
     <section class="corps">
-    	<!--<iframe src="../docs/codex.pdf" width="800" height="600" align="middle"></iframe>-->
+        <iframe src="../docs/bulletin_adhesion.pdf" width="800" height="600" align="middle"></iframe>
     </section>
 
     <?php include("../include/pieddepage.php"); ?>

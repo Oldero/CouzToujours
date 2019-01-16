@@ -54,7 +54,7 @@
         echo 'Type d\'adhésion :  ' ;
         switch ($_SESSION['type']) {
             case 0:
-                echo "Tu peux adhérer à l'association quand tu le souhaites !";
+                echo "Tu peux <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">adhérer ou faire un don</a> à l'association quand tu le souhaites !";
                 break;
             case 1:
                 echo "Tu es <strong>P'tit Dub</strong>. C'est grâce à toi que l'association vit, merci !";
@@ -63,10 +63,27 @@
                 echo "Tu es <strong>Gros Dub</strong>. C'est grâce à toi que l'association est si géniale. Merci !";
                 break;
             case 3:
-                echo "Tu es <strong>Gros Dub</strong> et à la tête d'une <strong>tribu</strong>. Que ta tribu soit longue et prospère !";
+                $recherche = $bdd->prepare('SELECT * FROM tribus WHERE adherent1 = ? OR adherent2 = ?');
+                $recherche->execute(array($_SESSION['login'],$_SESSION['login']));
+                echo "Tu es <strong>Gros Dub</strong>";
+                if($tribu = $recherche->fetch()){
+                echo " et à la tête de la <strong>tribu</strong> " . $tribu['nom'] . " avec " ;
+                if ($tribu['adherent1'] == $_SESSION['login']) {echo $tribu['adherent2'];}
+                else {echo $tribu['adherent1'];}
+                if ($tribu['etudiant'] != "Aucun") {echo " et dont fait partie " . $tribu['etudiant'] . ".";}
+                else{echo ".";}}
+                else{echo " et à la tête d'une tribu.";}
+                echo " Que ta tribu soit longue et prospère !";
+                $recherche->closeCursor();
                 break;
             case 4:
-                echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie d'une tribu. ";
+                $recherche = $bdd->prepare('SELECT * FROM tribus WHERE etudiant = ?');
+                $recherche->execute(array($_SESSION['login']));
+                echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie";
+                if( $tribu = $recherche->fetch()){
+                echo" de la tribu " . $tribu['nom'] . " chapeautée par " . $tribu['adherent1'] . " et " . $tribu['adherent2'] . ". ";}
+                else{echo " d'une tribu.";}
+                $recherche->closeCursor();
                 break;
             case 5:
                 echo "Tu es <strong>membre honoraire</strong> de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
@@ -75,20 +92,25 @@
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
         } 
         if ($_SESSION['type'] > 0) {
-            echo "<br>Tu peux donc <a class=\"lien\" href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour.";
-            echo '<br>';
+            echo "<br>Tu peux donc <a class=\"lien\" href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour. ";
+        }
+        if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] > 0) {
+            echo "<br>Tu n'as pas encore payé ta cotiz ! <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">C'est par ici</a> ! ";
+        }
+        if ( $_SESSION['type'] > 0) {
+            echo "Si cela t'intéresse, tu peux aussi <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">faire un don</a> à l'association.";
         }
         if ($_SESSION['ca'] == 1 && $_SESSION['admin'] == 0) {
-            echo "Tu fais partie du CA";
+            echo "<br>Tu fais partie du CA";
             if ($_SESSION['bureau'] == 1) {
                 echo " et même du bureau élu démocratiquement puisqu'il y a eu des votes contre";
             }
-            echo ".<br>Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
+            echo ". Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';
         }
 
         if ($_SESSION['admin'] == 1) {
-            echo "Tu es super-admin !";
+            echo "<br>Tu es super-admin !";
             echo " Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';
         }
