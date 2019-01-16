@@ -1,5 +1,4 @@
 <?php 
-session_start();
 echo'<nav id="menu">        
     <div class="element_menu">
         <img src="../favicon.ico">

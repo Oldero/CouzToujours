@@ -1,0 +1,47 @@
+
+Chouette le tutoiement et les petits messages!!
+    - :)
+
+- > pourquoi avoir choisi 8 personnes pour mettre en rouge? Les Margots peuvent accueillir beaucoup de monde, je mettrai rouge à partir de 12 ou 15 personnes, non?
+    - Comme ça au pif, pour voir si j'arrivais à séparer en trois couleurs les occupations normales. C'est pour ça que je t'avais demandé l'occupation max. Je peux faire autant de catégories que désirées, mais trois me semblent bien. 0-4-8 pour l'instant, mais on peut imaginer un 0-6-12, ou ce qu'on veut.
+
+- > effectivement, appeler la réservation sur 2 jours  "WEEK END", ca porte à confusion... du coup mettre 2 nuités? ou explicatif à droite du tableau de résa?
+    - Week-end est l'appellation officielle, je planche en ce moment sur le truc explicatif. J'essaierai de faire une petite vidéo démo aussi.
+
+- > on ne compte pas le nombre de personnes non plus quand c'est en package.. à voir pour la formulation.. "Si non privatisé, pour combien de personnes ? " Par contre pour mes stats ca m'intéresse de savoir combien de personnes sont là.... ;);) même les moins de 7 ans... si possible ajouter une ligne?
+    - Pour les stats, oui, il y aura même une édition possible sur la page de gestion de l'asso (plus tard). Mais c'est surtout pour compter les personnes et les afficher avec la couleur correspondante. Si il y a déjà une réservation non privatisée, ça permet de compter les personnes, les afficher dans le calendrier et pouvoir faire une autre réservation à ce moment là, puisque les Margots restent ouverts.
+Pour les stats, doit-on compter aussi les personnes en séjour privatisé ? En tout cas, ajouter les moins de 7 ans est assez simple.
+
+- > Comment je fais pour faire ma résa WE gratuit gros dub?
+    - Je suis dessus. Les tribus me compliquent la tâche... Il y a un compteur de nuitées en cours d'implémentation, dont les résultats seront affichés sur la page de gestion et individuellement sur la page mon compte. Pour l'instant, on réserve comme un WE payant, à défaut.
+
+- Top les messages d'erreur!!
+    - Il y a plusieurs cas d'erreur, notamment impossible de privatiser les nuitées, ou de réserver si il y a un événement officiel ou un événement privatisé (hors le premier jour et le dernier jour puisque l'on compte les nuitées). "Période : hors 15 juillet à 15 août, sauf à j-15" : j'avais oublié cette règle, je vais essayer de l'ajouter.
+
+-> Top le message qui confirme la réservation avec le montant final!! Peut etre mettre directement sur cette page comment payer (RIB couz toujours ou adresse où envoyer le chèque  - cf PJ)
+    - Ce sera aussi mis en forme. Pour l'instant c'est moche. Mais le RIB, carrément.
+
+-> Dire où et comment modifier une réservation?? =====> VU après coup : possibilité de supprimer un évènement, SUPER, ca fait le job!
+    - Je me suis demandé si ça valait le coup de modifier la réservation (pas si simple) ou si le bouton supprimer suffisait.
+
+CCL pour plus de clareté, je pense qu'il faudra mettre les règles de réservations à côté du tableau de résa (cf CR de la première AG, et aussi sur le bulletin d'adhésion (PJ)
+    - Oui, je prévois aussi une vidéo explicative.
+
+QUESTION :
+- Le compte visiteur c'est pour les cousins qui adhèrent pas? Bonne idée dans ce cas. Peut etre juste leur rappeler que s'ils veulent séjourner aux Margots, il faut la présence d'un membre?
+    - C'est exactement ça, c'est pour les adhérents potentiels. Le compte visiteur n'a même pas accès à la page réservation, en fait. Je pense changer en n'affichant tout simplement pas le formulaire de réservation, au lieu de la page entière. À discuter.
+
+- Proposer une page ADHESION (avec tarifs, RIB, adresse pour envoyer le chèque) accessible à tous les types de compte
+    - Ok, c'est une bonne idée. Sur la page mon compte ?
+
+SUGGESTIONS :
+- Photo des Margots et plan avec les lits?
+    - Carrément, mais il faudra m'aider à trouver les docs. Je n'ai même pas de photo des Margots de l'extérieur..
+- Codex Margoticus
+    - Anne est dessus, je peux mettre une ancienne version.
+
+voili.. c'est plein d'idées comme ca, mais déjà c'est super chouette et sympa!!!!
+    - Merci ! Faut le remplir maintenant et je vais avoir besoin d'aide pour toutes les idées.
+
+    As-tu vu les petits trucs cachés ? Par exemple l'infobulle qui s'affiche quand tu pointes sur une réservation ? Le fait que tu puisse cliquer sur une date du calendrier pour commencer à remplir le formulaire ? Et la page GESTION de l'association qui n'est accessible qu'aux membres du CA (et à l'admin, pour des raisons pratiques) ? le logo temporaire ?
+

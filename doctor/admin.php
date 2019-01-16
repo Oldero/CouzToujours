@@ -1,7 +1,6 @@
 <?php
 	//page d'administration, reset de mdp, génération de nouvel user, etc.
 
-    session_start ();
     include("bdd.php");
     //include("../php/fonctions.php");
     //resultat du formulaire de génération d'utilisateur

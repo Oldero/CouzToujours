@@ -77,8 +77,10 @@ function convertdate($date){
 
     $output = day($date) . " " . $tday_hour[0] . " " . $mois . " " . $tdate[0] . " " ;
     //on rajoute l'heure éventuelle
+    if(isset($tday_hour[1])){
     if ($tday_hour[1] != "") {
         $output .= " à ". $tday_hour[1];
+    }
     }
     return $output;
 }

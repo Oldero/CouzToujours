@@ -68,7 +68,7 @@ Dynamic Date
                     <tr><td class="justify_right"><label for="ptitdub">Nombre de P'tit Dub :</label></td><td><input type="number" name="ptitdub" id="ptitdub" value=0 min="0" max="64"/></td></tr>
                     <tr><td class="justify_right"><label for="grosdub">Nombre de Gros Dub :</label></td><td><input type="number" name="grosdub" id="grosdub" value=0 min="0" max="64"/></td></tr>
                     <tr><td class="justify_right"><label for="pleintarif">Nombre de visiteurs plein tarif :</label></td><td><input type="number" name="pleintarif" id="pleintarif" value=0 min="0" max="64"/></td></tr>
-                    <tr><td class="justify_right"><label for="tarifreduit">Nombre de visiteurs tarif réduit (chômeurs, étudiants) :</label></td><td><input type="number" name="tarifreduit" id="tarifreduit" value=0 min="0" max="64"/></td></tr>
+                    <tr><td class="justify_right"><label for="tarifreduit">Nombre de visiteurs tarif réduit (RSA, étudiants sans revenus) :</label></td><td><input type="number" name="tarifreduit" id="tarifreduit" value=0 min="0" max="64"/></td></tr>
                     <tr><td class="justify_right"><label for="enfants">Nombre de visiteurs de plus de 7 ans et de moins de 18 ans :</label></td><td><input type="number" name="enfants" id="enfants" value=0 min="0" max="64"/></td></tr>
                 <?php echo '<input type="hidden" name="login" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
                     <input type="hidden" name="official" value=0>

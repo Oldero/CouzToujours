@@ -33,6 +33,8 @@
             header ('location: ../body/gestion.php'); //on recharge la page moncompte
         
     }
+    //date temoin pour dernière modification
+    $last_date_modif = "2018-01-01";
 ?>
   
 

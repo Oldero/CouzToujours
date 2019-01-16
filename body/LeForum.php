@@ -5,7 +5,6 @@
 ?>
   
  
-
 <!DOCTYPE html>
 
 <html>
@@ -20,15 +19,13 @@
 
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
-    
 
     <section class="corps">
         <?php include("../include/avenir.php"); ?>           
     </section>
 
-</body>
-
     <?php include("../include/pieddepage.php"); ?>
 
+</body>
 
 </html>
