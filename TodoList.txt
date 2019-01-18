@@ -1,6 +1,27 @@
 ﻿Todo list et idées
 
-Habillage...
+À implémenter :
+---------------
+
+compteur de nuitées
+
+check pour l'été 15 juillet 15 aout.
+
+Gérer le style des pages...
+
+onglets de la page gestion
+
+afficher aide sur page réservation.
+
+gestion réservation, avec colonne payé, ou non.
+
+écrire un mail à couz'toujours + infos de l'asso
+
+page gestion : changement de bureau, compteur de résa, RàZ en septembre.
+RàZ : compteur de nuitées, cotiz non payées
+
+TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
+
 
 
 Versions ultérieures :
@@ -29,31 +50,20 @@ faire des demi cases ? Dur !
 
 
 
-À implémenter :
----------------
+Questions en suspens :
+-----------
 date selector pour safari -> jqueries ? javascript en tout cas
 
 Ajuster le gestionnaire de résa avec nouvelles infos. -> présence nécessaire d'un adhérent !
 Remplacé par non accès pour les visiteurs.
 
-compteur de nuitées et lien étudiant-tribu avec jointure de tables
-
-Gérer le style des pages...
-
 livre d'or/boite à idées avec dix trucs par page. Fait mais réfléchir à la mise en page.
-
-écrire un mail à couz'toujours + infos de l'asso
-
-page gestion : changement de bureau, compteur de résa, RàZ en septembre.
 
 tests et limitateurs pour les différents formulaires
 régler les soucis de caractères spéciaux AVEC utf8_decode()
 Notamment page les MArgots -> créer des variables utf8_decode ?!?
 
 Dans le style, fusionner les type de formulaires en réglant mieux la taille relative. Faire un check-up des répétitions d'attributs (réfléchir sur la mep classique)
-
-TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
-
 limte Nb de personnes ? pas vraiment
 
 comprendre le fonctionnement des fichiers externes. ini, tout ça tout ça.
@@ -63,6 +73,7 @@ fichier .htaccess ?
 Obtenir un https ?
 
 frame/iframe
+
 
 
 Calendrier :

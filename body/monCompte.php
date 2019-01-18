@@ -63,25 +63,33 @@
                 echo "Tu es <strong>Gros Dub</strong>. C'est grâce à toi que l'association est si géniale. Merci !";
                 break;
             case 3:
-                $recherche = $bdd->prepare('SELECT * FROM tribus WHERE adherent1 = ? OR adherent2 = ?');
-                $recherche->execute(array($_SESSION['login'],$_SESSION['login']));
+            //case 3 and 4 : recherche des noms associés dans la tribu.
                 echo "Tu es <strong>Gros Dub</strong>";
-                if($tribu = $recherche->fetch()){
-                echo " et à la tête de la <strong>tribu</strong> " . $tribu['nom'] . " avec " ;
-                if ($tribu['adherent1'] == $_SESSION['login']) {echo $tribu['adherent2'];}
-                else {echo $tribu['adherent1'];}
-                if ($tribu['etudiant'] != "Aucun") {echo " et dont fait partie " . $tribu['etudiant'] . ".";}
-                else{echo ".";}}
+                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
+                $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
+                if($_SESSION['tribu'] != ""){
+                    echo " et à la tête de la <strong>tribu</strong> " . $_SESSION['tribu'] . " avec " ;
+                    $tribu = $recherche->fetch();
+                    echo $tribu['prenom'] . " " . $tribu['nom'];
+                    if($tribu = $recherche->fetch()){
+                        echo " et dont fait partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                    }
+                    echo ".";
+                }
                 else{echo " et à la tête d'une tribu.";}
                 echo " Que ta tribu soit longue et prospère !";
                 $recherche->closeCursor();
                 break;
             case 4:
-                $recherche = $bdd->prepare('SELECT * FROM tribus WHERE etudiant = ?');
-                $recherche->execute(array($_SESSION['login']));
+                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?)');
+                $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
                 echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie";
-                if( $tribu = $recherche->fetch()){
-                echo" de la tribu " . $tribu['nom'] . " chapeautée par " . $tribu['adherent1'] . " et " . $tribu['adherent2'] . ". ";}
+                if($_SESSION['tribu'] != ""){
+                    echo" de la tribu " . $_SESSION['tribu'] . " chapeautée par ";
+                    $tribu = $recherche->fetch();
+                    echo $tribu['prenom'] . " " . $tribu['nom'] . " et ";
+                    $tribu = $recherche->fetch();
+                    echo $tribu['prenom'] . " " . $tribu['nom'] . ". ";}
                 else{echo " d'une tribu.";}
                 $recherche->closeCursor();
                 break;
@@ -94,11 +102,23 @@
         if ($_SESSION['type'] > 0) {
             echo "<br>Tu peux donc <a class=\"lien\" href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour. ";
         }
+        if ($_SESSION['type'] >=2 && $_SESSION['type'] <=4) {
+            switch ($_SESSION['we_offert']) {
+                case 0:
+                    echo "Tu as déjà utilisé ton pack WE offert avec l'adhésion. ";
+                    break;
+                case 1:
+                    echo "D'ailleurs il te reste une réservation d'un pack WE à utiliser. ";
+                    break;
+                default:
+                    break;
+            }
+        }
         if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] > 0) {
             echo "<br>Tu n'as pas encore payé ta cotiz ! <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">C'est par ici</a> ! ";
         }
         if ( $_SESSION['type'] > 0) {
-            echo "Si cela t'intéresse, tu peux aussi <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">faire un don</a> à l'association.";
+            echo "<br>Si cela t'intéresse, tu peux aussi <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">faire un don</a> à l'association.";
         }
         if ($_SESSION['ca'] == 1 && $_SESSION['admin'] == 0) {
             echo "<br>Tu fais partie du CA";

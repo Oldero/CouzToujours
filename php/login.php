@@ -24,6 +24,8 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $_SESSION['cotiz'] = $donnees['cotiz'];
             $_SESSION['prenom'] = $donnees['prenom'];
             $_SESSION['nom'] = $donnees['nom'];
+            $_SESSION['tribu'] = $donnees['tribu'];
+            $_SESSION['we_offert'] = $donnees['we_offert'];
             // on redirige notre visiteur vers l'accueil
             header('location: ../body/Accueil.php');
         }

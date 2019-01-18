@@ -34,23 +34,36 @@
         
     }
     //réponse du formulaire suppression de tribu
-    if (isset($_POST['param'])) {
+    if (isset($_POST['a_suppr'])) {
         //delete avec tag numero.
-        $req = $bdd->prepare('DELETE FROM tribus WHERE numero = ?');
-        $req->execute(array($_POST['param']));
+        echo $_POST['a_suppr'];
+        $req = $bdd->prepare('UPDATE users SET tribu = "" WHERE tribu = ?');
+        $req->execute(array($_POST['a_suppr']));
         $req->closeCursor();
         //termine le traitement de la requête
         header ('location: ../body/gestion.php'); //on recharge la page gestion
     }
     //réponse du formulaire de création de tribu
     if (isset($_POST['nom_famille']) && isset($_POST['adh1']) && isset($_POST['adh2']) && isset($_POST['etu'])) {
-        //generate avec tag numero.
-        $req = $bdd->prepare('INSERT INTO tribus(nom,adherent1,adherent2,etudiant) VALUES(:nom,:adherent1,:adherent2,:etudiant)');
+        //update adherent1
+        $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
         $req->execute(array(
-            'nom' => $_POST['nom_famille'],
-            'adherent1' => $_POST['adh1'],
-            'adherent2' => $_POST['adh2'],
-            'etudiant' => $_POST['etu'],
+            'tribu' => $_POST['nom_famille'],
+            'name' => $_POST['adh1'],
+            ));
+        $req->closeCursor();
+        //update adherent2
+        $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
+        $req->execute(array(
+            'tribu' => $_POST['nom_famille'],
+            'name' => $_POST['adh2'],
+            ));
+        $req->closeCursor();
+        //update etudiant
+        $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
+        $req->execute(array(
+            'tribu' => $_POST['nom_famille'],
+            'name' => $_POST['etu'],
             ));
         $req->closeCursor();
         //termine le traitement de la requête
@@ -137,10 +150,12 @@
 
         <!--Création du tableau : -->
         <table class="gestion">
-            <tl><td class="unique_case" colspan=8>Gestion des adhésions :</td></tl>
+            <tl><td class="unique_case" colspan=10>Gestion des adhésions :</td></tl>
             <tr class ="line">
                 <th colspan=2>Nom</th>
                 <th colspan=2>Type d'adhésion</th>
+                <th>Tribu</th>
+                <th>WE offert</th>
                 <th>CA</th>
                 <th>Bureau</th>
                 <th colspan=2>Cotiz ?</th>
@@ -205,6 +220,16 @@
                         </select>';
                     echo '<input type="submit" value="Modifier" /></form></td>';}
                 else {echo '<td class="cell_none"></td>';}
+                if ($donnees['type'] == 3 or $donnees['type'] == 4) {
+                    echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
+                }
+                else {
+                    echo '<td class="cell_left"></td>';
+                }
+                if ($donnees['type'] >= 2 && $donnees['type'] <= 4) {
+                    echo '<td class="cell_left">' . $donnees['we_offert'] . '</td>';
+                }
+                else {echo '<td class="cell_left"></td>';}
                 switch($donnees['ca']){
                     case 0:
                         echo '<td class="cell_left"> </td>';
@@ -276,11 +301,11 @@
             }
             $reponse->closeCursor();
             ?>
-            <?php echo '<tr><td class="unique_case" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
+            <?php echo '<tr><td class="unique_case" colspan=10><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
         </table>
 <!-- Tableau des tribus -->
         <table class="gestion">
-            <tl><td class="unique_case" colspan=9>Tribus :</td></tl>
+            <tl><td class="unique_case" colspan=8>Tribus :</td></tl>
             <tr class ="line">
                 <th>Nom</th>
                 <th colspan=2>Adhérent 1</th>
@@ -289,9 +314,30 @@
                 <th>Action</th>
             </tr>
             <?php 
-            $tribus = $bdd->query('SELECT * FROM tribus ORDER BY nom'); //WHERE name != "admin"');
-
-            while($donnees = $tribus->fetch()){
+            $tribus = $bdd->query('SELECT nom,prenom,type,tribu FROM users WHERE (type = 3 OR type = 4) AND tribu != "" ORDER BY tribu,type');
+            while ($donnees = $tribus->fetch()) {
+                    $ex_famille = $donnees['tribu'];
+                    echo '<tr>';
+                    echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
+                    echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                    echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                    $donnees = $tribus->fetch();
+                    echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                    echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                    $donnees = $tribus->fetch();
+                    if ($donnees['type'] == 4) {
+                        echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                        echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                    }
+                    else {
+                        echo '<td class="unique_case" colspan=2> - </td>';
+                    }
+                    echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                    echo'<input type="hidden" name="a_suppr" value=' . $ex_famille .'>
+                        <input type="submit" value="Supprimer">
+                        </form></td>';
+            }
+            /*while($donnees = $tribus->fetch()){
                 echo '<tr>';
                 echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
                 
@@ -322,13 +368,13 @@
                 echo '<td class="cell_left" colspan=2></td>';
                 }
 
-                echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                /*echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
                 echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
                     <input type="submit" value="Supprimer">
-                    </form></td>';
+                    </form></td>'; 
 
                 echo'</tr>';
-               }
+               }*/
             $tribus->closeCursor();
 
             echo '<tr><form method="post">';

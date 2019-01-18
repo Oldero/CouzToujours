@@ -1,11 +1,12 @@
 <?php
 //résultat du formulaire de réservation pour inscription bdd
 
+    session_start();
     include("../doctor/bdd.php");
     include("fonctions.php");
 
 // on teste si nos variables sont définies
-if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && isset($_POST['prive']) && isset($_POST['package']) && isset($_POST['ptitdub']) && isset($_POST['grosdub']) && isset($_POST['pleintarif']) && isset($_POST['tarifreduit']) && isset($_POST['enfants']) && isset($_POST['login']) && isset($_POST['official'])) {
+if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && isset($_POST['prive']) && isset($_POST['package']) && isset($_POST['ptitdub']) && isset($_POST['grosdub']) && isset($_POST['pleintarif']) && isset($_POST['tarifreduit']) && isset($_POST['enfants']) && isset($_POST['login']) && isset($_POST['official']) && isset($_POST['we'])) {
 /*    echo $_POST['login'];*/
 /*  echappement des caractères html*/
     $nom = htmlspecialchars($_POST['nom']);
@@ -20,7 +21,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         } 
     }
     $reponse->closeCursor();
-
+    echo $_POST['we'];
     echo "Résumé de la réservation :  ";
     echo $nom . "<br />";
     echo "Du " . convertdate($_POST['debut']) . "au " .  convertdate($_POST['fin']) . " " ;
@@ -60,8 +61,14 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     //si semaine plus de 7 jours
-    elseif ( NbJours($_POST['debut'], $_POST['fin']) > 7 && $_POST['package'] == "semaine"){
+    elseif (NbJours($_POST['debut'], $_POST['fin']) > 7 && $_POST['package'] == "semaine"){
         echo "<body onLoad=\"alert('Une semaine dure au plus 7 nuitées, c\'est mieux. ')\">";
+        // puis on le redirige vers la page précédente
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
+    }
+    //si we_offert = oui alors que pas pack WE non privatisé
+    elseif ($_POST['we'] == "Oui" && $_POST['package'] != "weekend" && $_POST['prive']!="Non") {
+        echo "<body onLoad=\"alert('Le WE offert ne concerne que le package WE non privatisé !')\">";
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
@@ -99,6 +106,19 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                     echo "pour une semaine complète <br />";
                     break;
             }
+            //màj de la bdd, we_offert passe à 0.
+            if ($_POST['we'] == "Oui") {
+                $prix = 0;
+                $_SESSION['we_offert'] = 0;
+                $request = $bdd->prepare('UPDATE users SET we_offert = 0 WHERE tribu = ?');
+                $request->execute(array($_SESSION['tribu']));
+                $request->closeCursor();
+                echo "Tu as utilisé le WE offert";
+                if ($_SESSION['type'] == 3 || $_SESSION['type'] == 4) {
+                    echo " de ta tribu";
+                }
+                echo ". ";
+            }
             echo "Le prix total du séjour est de $prix euros. ";
         }
         else {
@@ -107,26 +127,26 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
             $prix = 0;
         }
         if($nope == 0){
-        //enregistrement dans la base de données
-        $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nbvis_pt, nbvis_tr, nbvis_enf, prive, officiel, package, prix, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nbvis_pt, :nbvis_tr, :nbvis_enf, :prive, :officiel, :package, :prix, :date_resa)');
+            //enregistrement dans la base de données
+            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nbvis_pt, nbvis_tr, nbvis_enf, prive, officiel, package, prix, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nbvis_pt, :nbvis_tr, :nbvis_enf, :prive, :officiel, :package, :prix, :date_resa)');
 
-        $req->execute(array(
-            'username' => $_POST['login'],
-            'nom' => $nom,
-            'debut' => $_POST['debut'],
-            'fin' => $_POST['fin'],
-            'nbptitdub' => $_POST['ptitdub'],
-            'nbgrosdub' => $_POST['grosdub'],
-            'nbvis_pt' => $_POST['pleintarif'],
-            'nbvis_tr' => $_POST['tarifreduit'],
-            'nbvis_enf' => $_POST['enfants'],
-            'prive' => $prive,
-            'officiel' => $_POST['official'],
-            'package' => $package,
-            'prix' => $prix,
-            'date_resa' => date("Y-m-d H:i:s")
-        ));
-    }
+            $req->execute(array(
+                'username' => $_POST['login'],
+                'nom' => $nom,
+                'debut' => $_POST['debut'],
+                'fin' => $_POST['fin'],
+                'nbptitdub' => $_POST['ptitdub'],
+                'nbgrosdub' => $_POST['grosdub'],
+                'nbvis_pt' => $_POST['pleintarif'],
+                'nbvis_tr' => $_POST['tarifreduit'],
+                'nbvis_enf' => $_POST['enfants'],
+                'prive' => $prive,
+                'officiel' => $_POST['official'],
+                'package' => $package,
+                'prix' => $prix,
+                'date_resa' => date("Y-m-d H:i:s")
+            ));
+        }
         echo '<br /> <a href="../body/resa_Margots.php" title="Retour"> Ok !</a><br />';
     }
 }
