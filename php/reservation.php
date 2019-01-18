@@ -21,7 +21,6 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         } 
     }
     $reponse->closeCursor();
-    echo $_POST['we'];
     echo "Résumé de la réservation :  ";
     echo $nom . "<br />";
     echo "Du " . convertdate($_POST['debut']) . "au " .  convertdate($_POST['fin']) . " " ;
@@ -110,9 +109,16 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
             if ($_POST['we'] == "Oui") {
                 $prix = 0;
                 $_SESSION['we_offert'] = 0;
-                $request = $bdd->prepare('UPDATE users SET we_offert = 0 WHERE tribu = ?');
-                $request->execute(array($_SESSION['tribu']));
-                $request->closeCursor();
+                if($_SESSION['tribu'] != NULL){
+                    $request = $bdd->prepare('UPDATE users SET we_offert = 0 WHERE tribu = ?');
+                    $request->execute(array($_SESSION['tribu']));
+                    $request->closeCursor();
+                }
+                else{
+                    $request = $bdd->prepare('UPDATE users SET we_offert = 0 WHERE name = ?');
+                    $request->execute(array($_SESSION['login']));
+                    $request->closeCursor();
+                }
                 echo "Tu as utilisé le WE offert";
                 if ($_SESSION['type'] == 3 || $_SESSION['type'] == 4) {
                     echo " de ta tribu";
@@ -126,9 +132,15 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
             $package = 1;
             $prix = 0;
         }
+        if ($_POST['we'] == "Oui") {
+            $we_off = 1;
+        }
+        else {
+            $we_off = 0;
+        }
         if($nope == 0){
             //enregistrement dans la base de données
-            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nbvis_pt, nbvis_tr, nbvis_enf, prive, officiel, package, prix, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nbvis_pt, :nbvis_tr, :nbvis_enf, :prive, :officiel, :package, :prix, :date_resa)');
+            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nbvis_pt, nbvis_tr, nbvis_enf, prive, officiel, package, prix, we_gratuit, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nbvis_pt, :nbvis_tr, :nbvis_enf, :prive, :officiel, :package, :prix, :we_offert, :date_resa)');
 
             $req->execute(array(
                 'username' => $_POST['login'],
@@ -144,6 +156,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                 'officiel' => $_POST['official'],
                 'package' => $package,
                 'prix' => $prix,
+                'we_offert' => $we_off,
                 'date_resa' => date("Y-m-d H:i:s")
             ));
         }

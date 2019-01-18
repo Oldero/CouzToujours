@@ -6,7 +6,7 @@
     // on teste si nos variables sont définies
 if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && isset($_POST['select'])) {
         //query à distinquer selon les critères de choix.
-        $csvcsv="Nom;Prénom;Type;Cotiz\n";
+        $csvcsv="Tribu;Nom;Prénom;Type;Cotiz\n";
         //construction du sql_query qui va dépendre des options cochées
         $sql_query = "SELECT * FROM users";
         switch ($_POST['cotiz']) {
@@ -76,13 +76,13 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
         }
         switch ($_POST['tri']) {
             case "nom":
-                $sql_query .= " ORDER BY nom, prenom, type, cotiz";
+                $sql_query .= " ORDER BY tribu IS NULL,tribu,nom, prenom, type, cotiz";
                 break;
             case "type":
-                $sql_query .= " ORDER BY type, nom, prenom, cotiz";
+                $sql_query .= " ORDER BY tribu IS NULL,tribu,type, nom, prenom, cotiz";
                 break;
             case "cotiz":
-                $sql_query .= " ORDER BY cotiz DESC, nom, prenom, type";
+                $sql_query .= " ORDER BY tribu IS NULL,tribu,cotiz DESC, nom, prenom, type";
                 break;
             default:
                 break;
@@ -126,7 +126,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
                     $cotiz = "";
                     break;
             } 
-            $csvcsv .=  $tab['nom'] . ";" . $tab['prenom'] . ";" . $type . ";" . $cotiz . "\n";
+            $csvcsv .=  $tab['tribu'] . ";" . $tab['nom'] . ";" . $tab['prenom'] . ";" . $type . ";" . $cotiz . "\n";
             }
         }
         $csv = utf8_decode($csvcsv);

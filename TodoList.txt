@@ -3,24 +3,34 @@
 À implémenter :
 ---------------
 
-compteur de nuitées
+Gestion :
+- onglets de la page gestion
+- page gestion : changement de bureau, compteur de résa, RàZ en septembre.
+- RàZ : compteur de nuitées, cotiz non payées
+- modification par le bureau only.
 
-check pour l'été 15 juillet 15 aout.
+- gestion réservation, avec colonne payé, ou non.
 
-Gérer le style des pages...
+Réservation :
+- compteur de nuitées
+- check pour l'été 15 juillet 15 aout.
+- afficher aide sur page réservation.
+- ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats.
+- prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel.
 
-onglets de la page gestion
+Autre :
+- Gérer le style des pages...
 
-afficher aide sur page réservation.
+- écrire un mail à couz'toujours + infos de l'asso
 
-gestion réservation, avec colonne payé, ou non.
+- Accès super-admin où on peut tout changer
 
-écrire un mail à couz'toujours + infos de l'asso
+En cours de test:
+- TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
+- édition des tableaux avec le nom de tribu. V
+- pas payé, payé -> pour toute la tribu. V
 
-page gestion : changement de bureau, compteur de résa, RàZ en septembre.
-RàZ : compteur de nuitées, cotiz non payées
 
-TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
 
 
 
@@ -48,6 +58,7 @@ faire des demi cases ? Dur !
 	images nb = (N+3)^2-1 images où N est le nb de rouges différents.
 	pour 1 -> 15	3 -> 35	   5 -> 63
 
+créer des variables globales pour les différents tarifs/ autres variables.
 
 
 Questions en suspens :
@@ -73,6 +84,8 @@ fichier .htaccess ?
 Obtenir un https ?
 
 frame/iframe
+
+include/require/include_once/require_once
 
 
 

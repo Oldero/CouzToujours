@@ -63,6 +63,16 @@ Dynamic Date
                     <input type="radio" name="prive" value="Non" id="Non" checked /> <label for="Non">Non</label> &nbsp &nbsp
                     <input type="radio" name="prive" value="Oui" id="Oui" /><label for="Oui">Oui</label>
                 </td></tr>
+                <?php 
+                    if ($_SESSION['type'] >= 2 && $_SESSION['type'] <= 4 && $_SESSION['we_offert'] == 1){
+                        echo '<tr><td colspan=2>Utiliser mon WE offert
+                            <input type="radio" name="we" value="Non" id="we_Non" checked /> <label for="we_Non">Non</label> &nbsp &nbsp
+                            <input type="radio" name="we" value="Oui" id="we_Oui" /><label for="we_Oui">Oui</label></td></tr>';
+                    }
+                    else {
+                        echo '<input type="hidden" name="we" value="Non">';
+                    }
+                ?>
                 <tr><td colspan=2>
                     Si non privatisé, pour combien de personnes ? </td></tr>
                     <tr><td class="justify_right"><label for="ptitdub">Nombre de P'tit Dub :</label></td><td><input type="number" name="ptitdub" id="ptitdub" value=0 min="0" max="64"/></td></tr>
@@ -72,16 +82,6 @@ Dynamic Date
                     <tr><td class="justify_right"><label for="enfants">Nombre de visiteurs de plus de 7 ans et de moins de 18 ans :</label></td><td><input type="number" name="enfants" id="enfants" value=0 min="0" max="64"/></td></tr>
                 <?php echo '<input type="hidden" name="login" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
                     <input type="hidden" name="official" value=0>
-                <?php 
-                    if ($_SESSION['type'] >= 2 && $_SESSION['type'] <= 4 && $_SESSION['we_offert'] == 1){
-                        echo '<tr><td colspan=2>Utiliser mon WE offert
-                            <input type="radio" name="we" value="Non" id="Non" checked /> <label for="Non">Non</label> &nbsp &nbsp
-                            <input type="radio" name="we" value="Oui" id="Oui" /><label for="Oui">Oui</label></td></tr>';
-                    }
-                    else {
-                        echo '<input type="hidden" name="we" value="Non">';
-                    }
-                ?>
                 <tr><td colspan=2><input type="submit" value="Envoyer" /></td></tr>
             </form>
         </table>

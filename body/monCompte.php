@@ -6,11 +6,26 @@
     include("../php/fonctions.php");
 
 //réponse du formulaire suppression de résa
-    if (isset($_POST['param'])) {
+    if (isset($_POST['param']) && isset($_POST['tribu']) && isset($_POST['we_off'])) {
         //delete avec tag numero.
         $req = $bdd->prepare('DELETE FROM reservation WHERE numero = ?');
         $req->execute(array($_POST['param']));
         $req->closeCursor();
+        if ($_POST['we_off'] == 1) {
+            //remise à 1 du WE offert de la tribu
+            if ($_POST['tribu'] != NULL) {
+                $req = $bdd->prepare('UPDATE users SET we_offert = 1 WHERE tribu = ?');
+                $req->execute(array($_POST['tribu']));
+                $req->closeCursor();
+            }
+            else{
+                //remise à 1 du WE offert du GROS Dub solo
+                $req = $bdd->prepare('UPDATE users SET we_offert = 1 WHERE name = ?');
+                $req->execute(array($_SESSION['login']));
+                $req->closeCursor();
+            }
+            $_SESSION['we_offert'] = 1;
+        }
         //termine le traitement de la requête
         header ('location: ../body/monCompte.php'); //on recharge la page moncompte
     }
@@ -108,7 +123,7 @@
                     echo "Tu as déjà utilisé ton pack WE offert avec l'adhésion. ";
                     break;
                 case 1:
-                    echo "D'ailleurs il te reste une réservation d'un pack WE à utiliser. ";
+                    echo "D'ailleurs, il te reste une réservation d'un pack WE à utiliser. ";
                     break;
                 default:
                     break;
@@ -181,11 +196,16 @@
                         echo "- pour " . ($donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'] + $donnees['nbvis_enf']) . " personnes";
                     } 
                     echo " - coût : " . ($donnees['prix']) . " euros";
+                    if($donnees['we_gratuit'] == 1){
+                        echo ' (WE offert)';
+                    }
                     echo '</td>'; 
                         //<!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
                     echo '<td class="cell_none">';
                     echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
                     echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
+                        <input type="hidden" name="tribu" value=' . $_SESSION['tribu'] .'>
+                        <input type="hidden" name="we_off" value=' . $donnees['we_gratuit'] .'>
                         <input type="submit" value="Supprimer">
                         </form>
                         </td>';
