@@ -1,0 +1,21 @@
+nav ul{
+	padding: 0px;
+	margin: 0px;
+	list-style-type:none;
+	background-color: #33333;
+}
+
+nav li{
+	display:inline-block;
+	margin: 0px;
+	padding: 0px;
+	width: 100px;
+	height: 40px;
+	border-right: 1px solid #CCCCCC;
+	text-align:center;
+	line-height: 40px;
+} 
+
+nac li a{
+	text-decoration: none;
+	color: #FFFFF
