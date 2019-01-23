@@ -17,7 +17,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
                 $sql_query .= " WHERE cotiz = 1";
                 break;
             case "les_deux":
-                $sql_query .= " WHERE (cotiz = 1 OR cotiz = 0)";
+                $sql_query .= " WHERE cotiz IN (0,1)";
                 break;
             default:
                 break;
@@ -129,7 +129,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
             $csvcsv .=  $tab['tribu'] . ";" . $tab['nom'] . ";" . $tab['prenom'] . ";" . $type . ";" . $cotiz . "\n";
             }
         }
-        $csv = utf8_decode($csvcsv);
+    $csv = utf8_decode($csvcsv);
     $req->closeCursor();
     //termine le traitement de la requête   
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -137,7 +137,173 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
     header("Content-type: text/x-csv");
     header("Content-Disposition: attachment; filename=" . "tableau.csv");
     echo $csv;
-
+}
+//réponse du formulaire édition réservation
+elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['reglement'])){
+    $date = date("Y-m-d");
+    $csvcsv="Du;Au;Nom;Par;Privatisé;WE offert;Réglé ?\n";
+    $sql_query = "SELECT * FROM reservation";
+    switch ($_POST['reglement']) {
+        case "resa_non_payee":
+            $sql_query .= " WHERE paye = 0";
+            break;
+        case "resa_payee":
+            $sql_query .= " WHERE paye = 1";
+            break;
+        case "resa_les_deux":
+            $sql_query .= " WHERE paye IN (0,1)";
+            break;
+        default:
+            break;
+    }
+    switch ($_POST['passe']) {
+        case "past":
+            $sql_query .= " AND fin <= " . date("Y-m-d");
+            break;
+        case "future":
+            $sql_query .= " AND fin >= " . date("Y-m-d");
+            break;
+        case "toutes":
+            break;
+        default:
+            break;
+    }
+    switch ($_POST['resa_tri']) {
+        case "tri_login":
+            $sql_query .= " ORDER BY username,debut,fin,paye ";
+            break;
+        case "tri_resa_regle":
+            $sql_query .= " ORDER BY paye,debut,fin,username";
+            break;
+        case "tri_resa_date":
+        //marche pas :
+//            $sql_query_past = $sql_query . " AND (DATEDIFF(fin," . date("Y-m-d") . ")) < 0 ORDER BY debut,fin,username,paye";
+//            $sql_query_future = $sql_query . " AND (DATEDIFF(fin," . date("Y-m-d") . ")) >= 0 ORDER BY debut,fin,username,paye";
+            $sql_query .= " ORDER BY debut,fin,username,paye";
+            break;
+        default:
+            break;
+    }
+    $csvcsv .= date("Y-m-d") . "\n";
+/*    if ($_POST['resa_tri'] != "tri_resa_date"){ */
+        $reponse = $bdd->query($sql_query);
+        while ($tab = $reponse->fetch()){
+            switch ($tab['prive']) {
+                case 0:
+                    $privatise = "Non";
+                    break;
+                case 1:
+                    $privatise = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['we_gratuit']) {
+                case 0:
+                    $we_off = "Non";
+                    break;
+                case 1:
+                    $we_off = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['paye']) {
+                case 0:
+                    $reglement = "Non";
+                    break;
+                case 1:
+                    $reglement = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['nom'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
+        }
+        $reponse->closeCursor();
+/*    }
+    else{
+        $csvcsv .= "Réservations passées : \n";
+        echo $sql_query_past;
+        $reponse = $bdd->query($sql_query_past);
+        while ($tab = $reponse->fetch()){
+            switch ($tab['prive']) {
+                case 0:
+                    $privatise = "Non";
+                    break;
+                case 1:
+                    $privatise = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['we_gratuit']) {
+                case 0:
+                    $we_off = "Non";
+                    break;
+                case 1:
+                    $we_off = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['paye']) {
+                case 0:
+                    $reglement = "Non";
+                    break;
+                case 1:
+                    $reglement = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
+        }
+        $reponse->closeCursor();
+        $csvcsv .= "Réservations à venir : \n";
+        $reponse = $bdd->query($sql_query_future);
+        while ($tab = $reponse->fetch()){
+            switch ($tab['prive']) {
+                case 0:
+                    $privatise = "Non";
+                    break;
+                case 1:
+                    $privatise = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['we_gratuit']) {
+                case 0:
+                    $we_off = "Non";
+                    break;
+                case 1:
+                    $we_off = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['paye']) {
+                case 0:
+                    $reglement = "Non";
+                    break;
+                case 1:
+                    $reglement = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
+        }
+        $reponse->closeCursor();
+    }*/
+    $csv = utf8_decode($csvcsv);
+    //termine le traitement de la requête   
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Content-Length: " . strlen($csv));
+    header("Content-type: text/x-csv");
+    header("Content-Disposition: attachment; filename=" . "tableau.csv");
+    echo $csv;
 }
 else{
     echo 'Les variables du formulaire ne sont pas déclarées.';

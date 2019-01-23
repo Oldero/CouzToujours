@@ -123,7 +123,7 @@
                     echo "Tu as déjà utilisé ton pack WE offert avec l'adhésion. ";
                     break;
                 case 1:
-                    echo "D'ailleurs, il te reste une réservation d'un pack WE à utiliser. ";
+                    echo "D'ailleurs, il te reste la réservation offerte d'un pack WE à utiliser. ";
                     break;
                 default:
                     break;
@@ -170,7 +170,6 @@
     <?php
     if($_SESSION['type']>0){
         echo '<div class="resa_moncompte">';
-        $date = date("Y-m-d");
         $nom_de_resa = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
         // On récupère tout le contenu de la table réservations
         if ($_SESSION['login'] == "admin") {

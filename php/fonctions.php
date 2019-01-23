@@ -84,7 +84,89 @@ function convertdate($date){
     }
     return $output;
 }
+function short_day($date){
+    $tdate_hour = explode("-", $date);
+    $tday = explode(" ",$tdate_hour[2]);
+    $mkday = date("w", mktime(0, 0, 0, $tdate_hour[1], $tday[0], $tdate_hour[0]));
+  switch ($mkday){
+        case 1:
+            $jour = "lun";
+            break;
+        case 2:
+            $jour = "mar";
+            break;    
+        case "3":
+            $jour = "mer";
+            break;
+        case 4:
+            $jour = "jeu";
+            break;
+        case 5:
+            $jour = "ven";
+            break;
+        case 6:
+            $jour = "sam";
+            break;
+        case 0:
+            $jour = "dim";
+            break;
+        default:
+            $jour = "pif";
+    }
+    return ($jour); 
+}
+function short_convertdate($date){
+    $tdate = explode("-", $date);
+    $tday_hour = explode(" ",$tdate[2]);
+    //$frenchdate = array($tdate[2], "mois", $tdate[0]);
+    switch ($tdate[1]){
+        case 1:
+            $mois = "janvier";
+            break;
+        case 2:
+            $mois = "février";
+            break;    
+        case 3:
+            $mois = "mars";
+            break;
+        case 4:
+            $mois = "avril";
+            break;
+        case 5:
+            $mois = "mai";
+            break;
+        case 6:
+            $mois = "juin";
+            break;
+        case 7:
+            $mois = "juillet";
+            break;
+        case 8:
+            $mois = "août";
+            break;
+        case 9:
+            $mois = "septembre";
+            break;
+        case 10:
+            $mois = "octobre";
+            break;
+        case 11:
+            $mois = "novembre";
+            break;
+        case 12:
+            $mois = "décembre";
+            break;
+    }
 
+    $output = short_day($date) . " " . $tday_hour[0] . " " . $mois . " " . $tdate[0] . " " ;
+    //on rajoute l'heure éventuelle
+    if(isset($tday_hour[1])){
+    if ($tday_hour[1] != "") {
+        $output .= " à ". $tday_hour[1];
+    }
+    }
+    return $output;
+}
 // NbJours("2000-10-20", "2000-10-21") retourne 1
 
 function NbJours($debut, $fin) {

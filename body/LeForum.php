@@ -21,7 +21,7 @@
     <?php include("../include/laterale.php"); ?>
 
     <section class="corps">
-        <?php include("../include/avenir.php"); ?>           
+        <?php include("../fluxbb-1.5.11/index.php"); ?>           
     </section>
 
     <?php include("../include/pieddepage.php"); ?>

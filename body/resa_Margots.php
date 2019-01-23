@@ -65,7 +65,7 @@ Dynamic Date
                 </td></tr>
                 <?php 
                     if ($_SESSION['type'] >= 2 && $_SESSION['type'] <= 4 && $_SESSION['we_offert'] == 1){
-                        echo '<tr><td colspan=2>Utiliser mon WE offert
+                        echo '<tr><td colspan=2>Utiliser le bon WE offert : 
                             <input type="radio" name="we" value="Non" id="we_Non" checked /> <label for="we_Non">Non</label> &nbsp &nbsp
                             <input type="radio" name="we" value="Oui" id="we_Oui" /><label for="we_Oui">Oui</label></td></tr>';
                     }

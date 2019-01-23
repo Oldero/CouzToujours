@@ -16,10 +16,10 @@
         $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor();     
-        header ('location: ../body/gestion.php'); //on recharge la page gestion
+        header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
         
     }
-     // résultat du formulaire edit-cotiz
+    // résultat du formulaire edit-cotiz
     if (isset($_POST['cotiz']) && isset ($_POST['num']) && isset($_POST['user'])) {
         //update avec tag.
         if ($_POST['tribu'] != NULL) {
@@ -37,9 +37,17 @@
         $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor(); 
-        //header ('location: ../body/gestion.php'); //on recharge la page gestion
-        
+        header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
     }
+    // résultat du formulaire reglement de reservation
+    if (isset($_POST['reglement_resa']) && isset ($_POST['num_resa'])) {
+        //update avec tag.
+            $req = $bdd->prepare('UPDATE reservation SET paye = ? WHERE numero = ?');
+            $req->execute(array($_POST['reglement_resa'], $_POST['num_resa']));
+            $req->closeCursor();
+        //termine le traitement de la requête
+        header ('location: ../body/gestion.php?page=3'); //on recharge la page gestion
+    }    
     //réponse du formulaire suppression de tribu
     if (isset($_POST['a_suppr'])) {
         //delete avec tag numero.
@@ -48,7 +56,7 @@
         $req->execute(array($_POST['a_suppr']));
         $req->closeCursor();
         //termine le traitement de la requête
-        header ('location: ../body/gestion.php'); //on recharge la page gestion
+        header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
     }
     //réponse du formulaire de création de tribu
     if (isset($_POST['nom_famille']) && isset($_POST['adh1']) && isset($_POST['adh2']) && isset($_POST['etu'])) {
@@ -74,10 +82,18 @@
             ));
         $req->closeCursor();
         //termine le traitement de la requête
-        header ('location: ../body/gestion.php'); //on recharge la page gestion
+        header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
     }
     //date temoin pour dernière modification
     $last_date_modif = "2018-01-01";
+    //page par défaut
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    }
+    else {$page = 1;}
+    if ($_SESSION['ca'] != 1 && $_SESSION['bureau'] != 1 && $_SESSION['admin'] != 1) {
+        header ('location: ../body/Accueil.php');
+    }
 ?>
   
 
@@ -96,291 +112,429 @@
     
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
-
-    <section class="corps">
-    <section class="flex_formulaire">
-<!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
-        <table class="formulaire_edition">
-        <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
-        <form action= "../php/editer_tableau.php" method="post"> 
+    <?php
+    //menu en onglets
+    echo '<section class="corps">
+    <div class="menu_gestion">
+        <ul id="onglets">';
+        switch ($page) {
+            case 1:
+                echo'<li class="active"><a href="gestion.php?page=1">Gestion</a></li>
+                <li><a href="gestion.php?page=2">Cotiz\'</a></li>
+                <li><a href="gestion.php?page=3">Résas</a></li>
+                <li><a href="gestion.php?page=4">Tribus</a></li>';
+                if($_SESSION['admin'] == 1) {echo '<li><a href="gestion.php?page=5">Admin</a></li>';}
+                break;
+            case 2:
+                echo'<li><a href="gestion.php?page=1">Gestion</a></li>
+                <li class="active"><a href="gestion.php?page=2">Cotiz\'</a></li>
+                <li><a href="gestion.php?page=3">Résas</a></li>
+                <li><a href="gestion.php?page=4">Tribus</a></li>';
+                if($_SESSION['admin'] == 1) {echo '<li><a href="gestion.php?page=5">Admin</a></li>';}
+                break;
+            case 3:
+                echo'<li><a href="gestion.php?page=1">Gestion</a></li>
+                <li><a href="gestion.php?page=2">Cotiz\'</a></li>
+                <li class="active"><a href="gestion.php?page=3">Résas</a></li>
+                <li><a href="gestion.php?page=4">Tribus</a></li>';
+                if($_SESSION['admin'] == 1) {echo '<li><a href="gestion.php?page=5">Admin</a></li>';}
+                break;
+            case 4:
+                echo'<li><a href="gestion.php?page=1">Gestion</a></li>
+                <li><a href="gestion.php?page=2">Cotiz\'</a></li>
+                <li><a href="gestion.php?page=3">Résas</a></li>
+                <li class="active"><a href="gestion.php?page=4">Tribus</a></li>';
+                if($_SESSION['admin'] == 1) {echo '<li><a href="gestion.php?page=5">Admin</a></li>';}
+                break;
+            case 5:
+                echo'<li><a href="gestion.php?page=1">Gestion</a></li>
+                <li><a href="gestion.php?page=2">Cotiz\'</a></li>
+                <li><a href="gestion.php?page=3">Résas</a></li>
+                <li><a href="gestion.php?page=4">Tribus</a></li>';
+                if($_SESSION['admin'] == 1) {echo '<li class="active"><a href="gestion.php?page=5">Admin</a></li>';}
+                break;
+            default:
+                # code...
+                break;
+        }
+        echo '</ul>
+    </div>';
+    switch($page) {
+        case 1:?>
+        <p>Page de gestion de l'association Couz'Toujours. Pour commencer, clique sur un onglet ci-dessus.</p>
+        
+            <table class="event_officiel">
+            <tr><td class="caption_center" colspan=2><a>Réservation des Margots</a></td></tr>
+            <form class ="simple_button" action="../php/reservation.php" method="post">
+                <input type="hidden" name="official" value=1>
+                <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
+                <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
+                <tr><td colspan=2 class="justify_center"><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" placeholder="AAAA-MM-JJ" required />
+                <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" placeholder="AAAA-MM-JJ" required /></td></tr>
+                <input type="hidden" name="prive" value=0>
+                <input type="hidden" name="package" value="OSEF">
+                <input type="hidden" name="ptitdub" value=0>
+                <input type="hidden" name="grosdub" value=0>
+                <input type="hidden" name="pleintarif" value=0>
+                <input type="hidden" name="tarifreduit" value=0>
+                <input type="hidden" name="enfants" value=0>
+                <tr><td colspan=2 class="justify_center"><input type="submit" value="Déclarer un événement officiel"></td></tr>
+            </form>
+            </table>
+        <?php break;
+        case 5: ?>
+            <?php if ($_SESSION['login'] == 'admin') {
+                 include("../doctor/admin.php");
+            } ?>
+        <?php break;
+        case 2: ?>
+            <section class="flex_formulaire">
+    <!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
+            <table class="formulaire_edition">
+            <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
+            <form action= "../php/editer_tableau.php" method="post"> 
                 <tr class="justify_left"><td colspan=3 class="underlined">Trier par : </td></tr>
-                    <tr><td><input type="radio" name="tri" value="nom" id="nom" checked /> <label for="nom">Nom</label></td><td>
-                    <input type="radio" name="tri" value="type" id="type" /> <label for="type">Type d'adhésion</label></td><td>
-                    <input type="radio" name="tri" value="cotiz" id="cotiz" /> <label for="cotiz">Cotiz payée</label></td></tr>
+                    <tr><td><input type="radio" name="tri" value="nom" id="nom" checked /><label for="nom">Nom</label></td><td>
+                    <input type="radio" name="tri" value="type" id="type" /><label for="type">Type d'adhésion</label></td><td>
+                    <input type="radio" name="tri" value="cotiz" id="cotiz" /><label for="cotiz">Cotiz payée</label></td></tr>
                 <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
-                    <tr><td><input type="radio" name="cotiz" value="non_payee" id="non_payee" /> <label for="non_payee">Cotiz non payée</label></td><td>
-                    <input type="radio" name="cotiz" value="payee" id="payee" /> <label for="payee">Cotiz payée</label></td><td>
-                    <input type="radio" name="cotiz" value="les_deux" id="les_deux" checked /> <label for="les_deux">Les deux</label></td></tr>
+                    <tr><td><input type="radio" name="cotiz" value="non_payee" id="non_payee" /><label for="non_payee">Cotiz non payée</label></td><td>
+                    <input type="radio" name="cotiz" value="payee" id="payee" /><label for="payee">Cotiz payée</label></td><td>
+                    <input type="radio" name="cotiz" value="les_deux" id="les_deux" checked /><label for="les_deux">Les deux</label></td></tr>
                 <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
                     <tr><td><input type="radio" name="adh" value="adherents" id="adherents" checked /> <label for="adherents">Les adhérents</label></td><td>
-                    <input type="radio" name="adh" value="non_adherents" id="non_adherents" /> <label for="non_adherents">Les non adhérents</label></td><td>
-                    <input type="radio" name="adh" value="tous" id="tous" /> <label for="tous">Tous</label></td></tr>
+                    <input type="radio" name="adh" value="non_adherents" id="non_adherents" /><label for="non_adherents">Les non adhérents</label></td><td>
+                    <input type="radio" name="adh" value="tous" id="tous" /><label for="tous">Tous</label></td></tr>
                 <tr class="justify_left"><td colspan=3 class="underlined">Faire apparaître :</td></tr>
                     <tr><td><input type="radio" name="select" value="dubus" id="dubus" checked /> <label for="dubus">Tous</label></td><td><input type="radio" name="select" value="selection" id="selection" /> <label for="selection">Sélection :</label></td>
                     <td class="justify_left"><input type="checkbox" name="ptitsdub" id="ptitsdub" /> <label for="ptitsdub">Les p'tits Dub</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grossolo" id="grossolo" /> <label for="grossolo">Les gros Dub solo</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grostribu" id="grostribu" /> <label for="grostribu">Les gros Dub tribu</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="etudiants" id="etudiants" /> <label for="etudiants">Les étudiants-parasites</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="honneur" id="honneur" /> <label for="honneur">Les membres d'honneur</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="visiteurs" id="visiteurs" /> <label for="visiteurs">Les non-adhérents</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grossolo" id="grossolo" /><label for="grossolo">Les gros Dub solo</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grostribu" id="grostribu" /><label for="grostribu">Les gros Dub tribu</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="etudiants" id="etudiants" /><label for="etudiants">Les étudiants-parasites</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="honneur" id="honneur" /><label for="honneur">Les membres d'honneur</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="visiteurs" id="visiteurs" /><label for="visiteurs">Les non-adhérents</label></td></tr>
                     <tr></tr>
                     <tr></tr>
-                    <tr><td colspan="3"><input type="submit" value="Créer"> </td></tr>
-                </table>
-                </p>        
-        </form>
-        </table>
-
-        <div class="ensemble_gauche">
-        <table class="event_officiel">
-        <tr><td class="caption_center" colspan=2><a>Réservation des Margots</a></td></tr>
-        <form class ="simple_button" action="../php/reservation.php" method="post">
-            <input type="hidden" name="official" value=1>
-            <?php echo '<input type="hidden" name="login" value=' . $_SESSION['login'] . '>'; ?>
-            <tr><td colspan=2 class="justify_center"><label for="nom">Nom de l'événement : &nbsp </label> <input type="text" name="nom" id="nom" value="Fête des Margots" required /></td></tr>
-            <tr><td colspan=2 class="justify_center"><label for="debut">Date de début :</label> <input type="date" name="debut" id="debut" placeholder="AAAA-MM-JJ" required />
-            <label for="fin"> &nbsp &nbsp Date de fin  :</label> <input type="date" name="fin" id="fin" placeholder="AAAA-MM-JJ" required /></td></tr>
-            <input type="hidden" name="prive" value=0>
-            <input type="hidden" name="package" value="OSEF">
-            <input type="hidden" name="ptitdub" value=0>
-            <input type="hidden" name="grosdub" value=0>
-            <input type="hidden" name="pleintarif" value=0>
-            <input type="hidden" name="tarifreduit" value=0>
-            <input type="hidden" name="enfants" value=0>
-            <tr><td colspan=2 class="justify_center"><input type="submit" value="Déclarer un événement officiel"></td></tr>
-        </form>
-        </table>
-
-        <?php if ($_SESSION['login'] == 'admin') {
-             include("../doctor/admin.php");
-        } ?>
-
-        <!--Création du tableau : -->
-        <table class="gestion">
-            <tl><td class="unique_case" colspan=10>Gestion des adhésions :</td></tl>
-            <tr class ="line">
-                <th colspan=2>Nom</th>
-                <th colspan=2>Type d'adhésion</th>
-                <th>Tribu</th>
-                <th>WE offert</th>
-                <th>CA</th>
-                <th>Bureau</th>
-                <th colspan=2>Cotiz ?</th>
-            </tr>
-            <?php 
-            $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
-
-            while($donnees = $reponse->fetch()){
-                //On n'affiche pas l'admin
-                if ($donnees['name'] != "admin") {
-                $test = FALSE;//($donnees['name'] == $_SESSION['login'] );
-                echo '<tr>';
-                echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
-                switch($donnees['type']){
-                    case 0:
-                        echo '<td class="cell_left">Non adhérent</td>';
-                        break;
-                    case 1:
-                        echo '<td class="cell_left">P\'tit Dub</td>';
-                        break;
-                    case 2:
-                        echo '<td class="cell_left">Gros Dub solo</td>';
-                        break;
-                    case 3:
-                        echo '<td class="cell_left">Gros Dub tribu</td>';
-                        break;
-                    case 4:
-                        echo '<td class="cell_left">Étudiant-parasite</td>';
-                        break;
-                    case 5:
-                        echo '<td class="cell_left">Membre d\'honneur</td>';
-                        break;
-                    default:
-                        echo '<td class="cell_left">Superhéros</td>';
-                        break;          
-                }
-                //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
-                if (!$test && $donnees['name'] != 'admin') {
-                    echo '<td class="cell_none"><form name="formulaire_type" method="post">
-                        <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
-                        <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
-                        <select name="typ" id="typ'. $donnees['numero'] . '">
-                            <option value=0';
-                            if($donnees['type'] == 0) {echo ' selected="selected"';}
-                            echo '>Non adhérent</option>
-                            <option value=1';
-                            if($donnees['type'] == 1) {echo ' selected="selected"';}
-                            echo '>P\'tit Dub</option>
-                            <option value=2';
-                            if($donnees['type'] == 2) {echo ' selected="selected"';}
-                            echo '>Gros Dub solo</option>
-                            <option value=3';
-                            if($donnees['type'] == 3) {echo ' selected="selected"';}
-                            echo '>Gros Dub tribu</option>
-                            <option value=4';
-                            if($donnees['type'] == 4) {echo ' selected="selected"';}
-                            echo '>Étudiant-parasite</option>
-                            <option value=5';
-                            if($donnees['type'] == 5) {echo ' selected="selected"';}
-                            echo '>Membre d\'honneur</option>
-                        </select>';
-                    echo '<input type="submit" value="Modifier" /></form></td>';}
-                else {echo '<td class="cell_none"></td>';}
-                if ($donnees['type'] == 3 or $donnees['type'] == 4) {
-                    echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
-                }
-                else {
-                    echo '<td class="cell_left"></td>';
-                }
-                if ($donnees['type'] >= 2 && $donnees['type'] <= 4) {
-                    echo '<td class="cell_left">' . $donnees['we_offert'] . '</td>';
-                }
-                else {echo '<td class="cell_left"></td>';}
-                switch($donnees['ca']){
-                    case 0:
-                        echo '<td class="cell_left"> </td>';
-                        break;
-                    case 1:
-                        echo '<td class="cell_left">membre</td>';
-                        break;
-                    default:
-                        echo '<td class="cell_left">superhéros</td>';
-                        break;          
-                }
-                switch($donnees['bureau']){
-                    case 0:
-                        echo '<td class="cell_left"> </td>';
-                        break;
-                    case 1:
-                        echo '<td class="cell_left">membre</td>';
-                        break;
-                    default:
-                        echo '<td class="cell_left">superhéros</td>';
-                        break;          
-                }
-                switch($donnees['cotiz']){
-                    case 0:
-                        if ($donnees['type'] < 5 && $donnees['type'] > 0){
-                            echo '<td class="cell_left">non payée</td>';
-                        }
-                        else {
-                            echo '<td class="cell_left"></td>';
-                        }
-                        break;
-                    case 1:
-                        if ($donnees['type'] < 5 && $donnees['type'] > 0){
-                            echo '<td class="cell_left">payée</td>';
-                        }
-                        else {
-                            echo '<td class="cell_left"></td>';
-                        }                    
-                        break;
-                    default:
-                        echo '<td class="cell_left">superhéros</td>';
-                        break;          
-                }
-                if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
-                    echo '<td class="cell_right"><form name="formulaire_cotiz" method="post">
-                        <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
-                        <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>';
-                    echo '<input name="tribu" type="hidden" value=' . $donnees['tribu'] . '></input>';
-                    echo '<select name="cotiz" id="cotiz'. $donnees['numero'] . '">
-                            <option value=0';
-                            if($donnees['cotiz'] == 0) {echo ' selected="selected"';}
-                            echo '>non payée</option>
-                            <option value=1';
-                            if($donnees['cotiz'] == 1) {echo ' selected="selected"';}
-                            echo '>payée</option>
-                        </select>';
-                    echo '<input type="submit" value="Modifier" /></form></td>';
-                    echo '</tr>';
-                }
-                else {
-                    echo '<td class="cell_right"></td></tr>';
-                }
-                }
-                //calcul de la dernière date de modif et login correspondant.
-                if ($donnees['modif'] > $last_date_modif) {
-                    $last_date_modif = $donnees['modif'];
-                    $last_name_modif = $donnees['name'];
-                }
-
-            }
-            $reponse->closeCursor();
-            ?>
-            <?php echo '<tr><td class="unique_case" colspan=10><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
-        </table>
-<!-- Tableau des tribus -->
-        <table class="gestion">
-            <tl><td class="unique_case" colspan=8>Tribus :</td></tl>
-            <tr class ="line">
-                <th>Nom</th>
-                <th colspan=2>Adhérent 1</th>
-                <th colspan=2>Adhérent 2</th>
-                <th colspan=2>Étudiant à charge</th>
-                <th>Action</th>
-            </tr>
-            <?php
-            //difficulté : deux ou trois personnes par tribu
-            $tribus = $bdd->query('SELECT nom,prenom,type,tribu FROM users WHERE type IN (3,4) AND tribu != "" ORDER BY tribu,type');
-            while ($donnees = $tribus->fetch()) {
-                    $ex_famille = $donnees['tribu'];
+                    <tr><td colspan=3><input type="submit" value="Créer"> </td></tr>  
+            </form>
+            </table>
+            <section class="ensemble_gauche">
+            <!--Création du tableau de gestion des adhérents: -->
+            <table class="gestion">
+                <tl><td class="unique_case" colspan=10>Gestion des adhésions :</td></tl>
+                <tr class ="line">
+                    <th colspan=2>Nom</th>
+                    <th colspan=2>Type d'adhésion</th>
+                    <th>Tribu</th>
+                    <th>WE offert</th>
+                    <th>CA</th>
+                    <th>Bureau</th>
+                    <th colspan=2>Cotiz ?</th>
+                </tr>
+                <?php 
+                $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
+                while($donnees = $reponse->fetch()){
+                    //On n'affiche pas l'admin
+                    if ($donnees['name'] != "admin") {
+                    $test = FALSE;//($donnees['name'] == $_SESSION['login'] );
                     echo '<tr>';
-                    echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
                     echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                    echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
-                    $donnees = $tribus->fetch();
-                    echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                    echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
-                    $donnees = $tribus->fetch();
-                    if ($donnees['type'] == 4) {
-                        echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                        echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                    echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
+                    switch($donnees['type']){
+                        case 0:
+                            echo '<td class="cell_left">Non adhérent</td>';
+                            break;
+                        case 1:
+                            echo '<td class="cell_left">P\'tit Dub</td>';
+                            break;
+                        case 2:
+                            echo '<td class="cell_left">Gros Dub solo</td>';
+                            break;
+                        case 3:
+                            echo '<td class="cell_left">Gros Dub tribu</td>';
+                            break;
+                        case 4:
+                            echo '<td class="cell_left">Étudiant-parasite</td>';
+                            break;
+                        case 5:
+                            echo '<td class="cell_left">Membre d\'honneur</td>';
+                            break;
+                        default:
+                            echo '<td class="cell_left">Superhéros</td>';
+                            break;          
+                    }
+                    //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
+                    if (!$test && $donnees['name'] != 'admin') {
+                        echo '<td class="cell_none"><form name="formulaire_type" method="post">
+                            <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
+                            <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
+                            <select name="typ" id="typ'. $donnees['numero'] . '">
+                                <option value=0';
+                                if($donnees['type'] == 0) {echo ' selected="selected"';}
+                                echo '>Non adhérent</option>
+                                <option value=1';
+                                if($donnees['type'] == 1) {echo ' selected="selected"';}
+                                echo '>P\'tit Dub</option>
+                                <option value=2';
+                                if($donnees['type'] == 2) {echo ' selected="selected"';}
+                                echo '>Gros Dub solo</option>
+                                <option value=3';
+                                if($donnees['type'] == 3) {echo ' selected="selected"';}
+                                echo '>Gros Dub tribu</option>
+                                <option value=4';
+                                if($donnees['type'] == 4) {echo ' selected="selected"';}
+                                echo '>Étudiant-parasite</option>
+                                <option value=5';
+                                if($donnees['type'] == 5) {echo ' selected="selected"';}
+                                echo '>Membre d\'honneur</option>
+                            </select>';
+                        echo '<input type="submit" value="Modifier" /></form></td>';}
+                    else {echo '<td class="cell_none"></td>';}
+                    if ($donnees['type'] == 3 or $donnees['type'] == 4) {
+                        echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
                     }
                     else {
-                        echo '<td class="unique_case" colspan=2> - </td>';
+                        echo '<td class="cell_left"></td>';
                     }
-                    echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
-                    echo'<input type="hidden" name="a_suppr" value=' . $ex_famille .'>
-                        <input type="submit" value="Supprimer">
-                        </form></td>';
-            }
-            $tribus->closeCursor();
+                    if ($donnees['type'] >= 2 && $donnees['type'] <= 4) {
+                        echo '<td class="cell_left">' . $donnees['we_offert'] . '</td>';
+                    }
+                    else {echo '<td class="cell_left"></td>';}
+                    switch($donnees['ca']){
+                        case 0:
+                            echo '<td class="cell_left"> </td>';
+                            break;
+                        case 1:
+                            echo '<td class="cell_left">membre</td>';
+                            break;
+                        default:
+                            echo '<td class="cell_left">superhéros</td>';
+                            break;          
+                    }
+                    switch($donnees['bureau']){
+                        case 0:
+                            echo '<td class="cell_left"> </td>';
+                            break;
+                        case 1:
+                            echo '<td class="cell_left">membre</td>';
+                            break;
+                        default:
+                            echo '<td class="cell_left">superhéros</td>';
+                            break;          
+                    }
+                    switch($donnees['cotiz']){
+                        case 0:
+                            if ($donnees['type'] < 5 && $donnees['type'] > 0){
+                                echo '<td class="cell_left">non payée</td>';
+                            }
+                            else {
+                                echo '<td class="cell_left"></td>';
+                            }
+                            break;
+                        case 1:
+                            if ($donnees['type'] < 5 && $donnees['type'] > 0){
+                                echo '<td class="cell_left">payée</td>';
+                            }
+                            else {
+                                echo '<td class="cell_left"></td>';
+                            }                    
+                            break;
+                        default:
+                            echo '<td class="cell_left">superhéros</td>';
+                            break;          
+                    }
+                    if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
+                        echo '<td class="cell_right"><form name="formulaire_cotiz" method="post">
+                            <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
+                            <input name="num" type="hidden" value=' . $donnees['numero'] .'>';
+                        echo '<input name="tribu" type="hidden" value=' . $donnees['tribu'] . '>';
+                        echo '<select name="cotiz" id="cotiz'. $donnees['numero'] . '">
+                                <option value=0';
+                                if($donnees['cotiz'] == 0) {echo ' selected="selected"';}
+                                echo '>non payée</option>
+                                <option value=1';
+                                if($donnees['cotiz'] == 1) {echo ' selected="selected"';}
+                                echo '>payée</option>
+                            </select>';
+                        echo '<input type="submit" value="Modifier" /></form></td>';
+                        echo '</tr>';
+                    }
+                    else {
+                        echo '<td class="cell_right"></td></tr>';
+                    }
+                    }
+                    //calcul de la dernière date de modif et login correspondant.
+                    if ($donnees['modif'] > $last_date_modif) {
+                        $last_date_modif = $donnees['modif'];
+                        $last_name_modif = $donnees['name'];
+                    }
 
-            echo '<tr><form method="post">';
-            echo '<td class="cell_left"><input type="text" name="nom_famille" required="required"></td>';
-            //case adhérent 1 avec sélecteur
-            echo '<td class="cell_left" colspan=2><select name="adh1" id="adh1">';
-            $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
-            while ($dubtribu = $reponse1->fetch()) {
-                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
-            }
-            $reponse1->closeCursor();
-            echo '</select></td>';
-            //case adhérent 2 avec sélecteur
-            echo '<td class="cell_left" colspan=2><select name="adh2" id="adh2">';
-            $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
-            while ($dubtribu = $reponse2->fetch()) {
-                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
-            }
-            $reponse2->closeCursor();
-            //case etudiant avec sélecteur
-            echo '<td class="cell_left" colspan=2><select name="etu" id="etu">';
-            $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4');
-            echo '<option value="Aucun">Aucun</option>';
-            while ($dubtribu = $reponse3->fetch()) {
-                echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
-            }
-            $reponse3->closeCursor();
+                }
+                $reponse->closeCursor();
+                ?>
+                <?php echo '<tr><td class="unique_case" colspan=10><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
+            </table>
+            </section>
+        <?php break;
+        case 3: ?>
+        <section class="flex_formulaire">
+            <section class="ensemble_gauche">
+            <!--Création du tableau de réservations: -->
+            <table class="gestion">
+                <tr><td class="unique_case" colspan=9>Gestion des réservations :</td></tr>
+                <tr class ="line">
+                    <th>Adhérent</th>
+                    <th>Nom de réservation</th>
+                    <th>Du</th>
+                    <th>Au</th>
+                    <th>nb d'adhérents</th>
+                    <th>nb de visiteurs</th>
+                    <th>prix</th>
+                    <th colspan=2>réglé ?</th>
+                </tr>
+                <?php
+                    $reque = $bdd->query('SELECT * FROM reservation ORDER BY fin');
+                    while ($resass = $reque->fetch()){
+                        echo '<tr><td class="cell_left">';
+                        echo $resass['username'];
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nom'];
+                        echo '</td><td class="cell_left">';
+                        echo short_convertdate($resass['debut']);
+                        echo '</td><td class="cell_left">';
+                        echo short_convertdate($resass['fin']);
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nbptitdub'] + $resass['nbgrosdub'];
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
+                        echo '</td><td class="cell_left">';
+                        if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
+                        else {echo $resass['prix'] . " €";
+                        if ($resass['prive'] == 1) {echo ' (privatisé)';}}
+                        echo '</td><td class="cell_left">';
+                        switch ($resass['paye']) {
+                            case 0:
+                                echo 'non';
+                                break;
+                            case 1:
+                                echo 'oui';
+                                break;
+                            default:
+                                break;
+                        }
+                        echo '</td><td class="cell_right">';
+                        echo '<form name="resa_reglement" method="post">
+                            <input name="num_resa" type="hidden" value=' . $resass['numero'] .'>';
+                        echo '<select name="reglement_resa" id="reglement'. $resass['numero'] . '">
+                                <option value=0';
+                                if($resass['paye'] == 0) {echo ' selected="selected"';}
+                                echo '>non réglé</option>
+                                <option value=1';
+                                if($resass['paye'] == 1) {echo ' selected="selected"';}
+                                echo '>réglé</option>
+                            </select>';
+                        echo '<input type="submit" value="Modifier" /></form>';
+                        echo '</td></tr>';
+                    }
+                    $reque->closeCursor();
+                ?>
+            </table>
+            </section>
+            <table class="formulaire_edition">
+            <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
+            <form action= "../php/editer_tableau.php" method="post">
+                <tr class="justify_left"><td colspan=3 class="underlined">Trier par : </td></tr>
+                    <tr><td>
+                    <input type="radio" name="resa_tri" value="tri_login" id="tri_login" checked /><label for="tri_login">Adhérent</label></td><td>
+                    <input type="radio" name="resa_tri" value="tri_resa_regle" id="tri_resa_regle" /><label for="tri_resa_regle">Facture réglée</label></td><td><input type="radio" name="resa_tri" value="tri_resa_date" id="tri_resa_date" /><label for="tri_resa_date">Date</label></td></tr>
+                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
+                    <tr><td><input type="radio" name="reglement" value="resa_non_payee" id="resa_non_payee" /><label for="resa_non_payee">Facture non réglée</label></td><td>
+                    <input type="radio" name="reglement" value="resa_payee" id="resa_payee" /> <label for="resa_payee">Facture réglée</label></td><td>
+                    <input type="radio" name="reglement" value="resa_les_deux" id="resa_les_deux" checked /><label for="resa_les_deux">Les deux</label></td></tr>
+                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner les réservations : (NE MARCHE PAS ENCORE)</td></tr>
+                    <tr class="justify_left"><td><input type="radio" name="passe" value="future" id="future"><label for="future">À venir</label></td><td>
+                    <input type="radio" name="passe" value="past" id="past"><label for="past">Passées</label></td><td>
+                    <input type="radio" name="passe" value="toutes" id="toutes" checked><label for="toutes">Toutes</label>
+                    </td></tr>
+                <tr><td colspan=3><input type="submit" value="Créer"> </td></tr>  
+            </form>
+            </table>
+        </section>
+        <?php break;
+        case 4: ?>
+    <!-- Tableau des tribus -->
+            <section class="ensemble_gauche">
+            <table class="gestion">
+                <tl><td class="unique_case" colspan=8>Tribus :</td></tl>
+                <tr class ="line">
+                    <th>Nom</th>
+                    <th colspan=2>Adhérent 1</th>
+                    <th colspan=2>Adhérent 2</th>
+                    <th colspan=2>Étudiant à charge</th>
+                    <th>Action</th>
+                </tr>
+                <?php
+                //difficulté : deux ou trois personnes par tribu
+                $tribus = $bdd->query('SELECT nom,prenom,type,tribu FROM users WHERE type IN (3,4) AND tribu != "" ORDER BY tribu,type');
+                while ($donnees = $tribus->fetch()) {
+                        $ex_famille = $donnees['tribu'];
+                        echo '<tr>';
+                        echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
+                        echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                        echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                        $donnees = $tribus->fetch();
+                        echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                        echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                        $donnees = $tribus->fetch();
+                        if ($donnees['type'] == 4) {
+                            echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                            echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                        }
+                        else {
+                            echo '<td class="unique_case" colspan=2> - </td>';
+                        }
+                        echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                        echo'<input type="hidden" name="a_suppr" value=' . $ex_famille .'>
+                            <input type="submit" value="Supprimer">
+                            </form></td>';
+                }
+                $tribus->closeCursor();
 
-            echo '</select></td>';
-            echo '<td class="unique_case"><input type="submit" value="Créer tribu"></td>';
-            echo '</form></tr>';
-            ?>
-         </table>
-        </div>
-    </section>
+                echo '<tr><form method="post">';
+                echo '<td class="cell_left"><input type="text" name="nom_famille" required="required"></td>';
+                //case adhérent 1 avec sélecteur
+                echo '<td class="cell_left" colspan=2><select name="adh1" id="adh1">';
+                $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+                while ($dubtribu = $reponse1->fetch()) {
+                    echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+                }
+                $reponse1->closeCursor();
+                echo '</select></td>';
+                //case adhérent 2 avec sélecteur
+                echo '<td class="cell_left" colspan=2><select name="adh2" id="adh2">';
+                $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+                while ($dubtribu = $reponse2->fetch()) {
+                    echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+                }
+                $reponse2->closeCursor();
+                //case etudiant avec sélecteur
+                echo '<td class="cell_left" colspan=2><select name="etu" id="etu">';
+                $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4');
+                echo '<option value="Aucun">Aucun</option>';
+                while ($dubtribu = $reponse3->fetch()) {
+                    echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
+                }
+                $reponse3->closeCursor();
+
+                echo '</select></td>';
+                echo '<td class="unique_case"><input type="submit" value="Créer tribu"></td>';
+                echo '</form></tr>';
+                ?>
+            </table>
+            </section>
+        </section>
+    <?php break; 
+    } ?>
     </section>
 
     <?php include("../include/pieddepage.php"); ?>

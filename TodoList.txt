@@ -1,25 +1,39 @@
 ﻿Todo list et idées
 
+Étapes avant beta :
+-------------------
+- Aide sur la réservation
+- Ajouts d'Anne
+- https
+- bdd
+
+
+
 À implémenter :
 ---------------
 
+- email sur monCompte.
+
 Gestion :
-- onglets de la page gestion
 - page gestion : changement de bureau, compteur de résa, RàZ en septembre.
 - RàZ : compteur de nuitées, cotiz non payées
 - modification par le bureau only.
+- édition de tableau résa : test sur date ???
 
-- gestion réservation, avec colonne payé, ou non.
+- tableau réservation : séparer passées/ à venir (sur csv et sur site), limite à l'année en cours.
+
+- FACTURES : reservation.php, monCompte, gestion
 
 Réservation :
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
 - afficher aide sur page réservation.
 - ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats.
-- prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel.
+- Impossible de cliquer à nouveau sur la date d'aujourd'hui.
+- Améliorer les liens sur les cases
 
 Autre :
-- Gérer le style des pages...
+- Gérer le style des pages... -> Page réservation, IE !
 
 - écrire un mail à couz'toujours + infos de l'asso
 
@@ -29,8 +43,9 @@ En cours de test:
 - TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
 - édition des tableaux avec le nom de tribu. V
 - pas payé, payé -> pour toute la tribu. V
-
-
+- onglets de la page gestion
+- gestion réservation, avec colonne payé, ou non.
+- prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel.
 
 
 
