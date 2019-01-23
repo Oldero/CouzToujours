@@ -5,9 +5,9 @@
 ?>
   
 
-<!DOCTYPE php>
+<!DOCTYPE html>
 
-<php>
+<html>
 
 <head>
     <?php include("../include/style.php"); ?>
@@ -48,4 +48,4 @@ La présente notice d'utilisation porte sur la réservation et les tarifs des s�
 
 </body>
 
-</php>
+</html>
