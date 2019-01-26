@@ -241,7 +241,7 @@ class Calendar{
 			if (is_array($this->info_private)) {
 				if (in_array($jour_compare, array_column($this->info_private,0))) {
 					$key = array_search($jour_compare, array_column($this->info_private, 0));
-					$infobulle .= "séjour privatisé \n" . $this->info_private[$key][2];
+					$infobulle .= "Séjour privatisé \n" . $this->info_private[$key][2];
 				}
 			}
 			if (is_array($this->info_official)) {
@@ -253,7 +253,11 @@ class Calendar{
 			if (is_array($this->info_normal)) {
 				if (in_array($jour_compare, array_column($this->info_normal,0))) {
 					$key = array_search($jour_compare, array_column($this->info_normal, 0));
-					$infobulle .= $this->info_normal[$key][1] . " personnes \n" . $this->info_normal[$key][2];
+					$infobulle .= $this->info_normal[$key][1] . " personne";
+					if ($this->info_normal[$key][1] > 1) {$infobulle .= "s";} 
+					if ($this->info_normal[$key][3] != 0) {$infobulle .= " dont " . $this->info_normal[$key][3] . " enfant";}
+					if ($this->info_normal[$key][3] > 1) {$infobulle .= "s";} 
+					$infobulle .= "\n" . $this->info_normal[$key][2];
 				}
 			}
 			$output .= "\t<td" . $day_class . " title=\"" . $infobulle . "\">";
@@ -271,7 +275,7 @@ class Calendar{
 				break;
 				
 				case 1 :
-					if ($day_date > date("Y-m-d")) {
+					if ($day_date >= date("Y-m-d")) {
 						if( empty($this->formatted_link_to) ){
 							$output .= "<a href=\"" . $this->link_to . "?date=" . $day_date . "\">" . $day . "</a>";
 						} else {
@@ -282,7 +286,7 @@ class Calendar{
 				break;
 				
 				case 2 :
-					if ($day_date > date("Y-m-d")) {
+					if ($day_date >= date("Y-m-d")) {
 						if( is_array($this->privatised_event) ){
 							if( in_array($day_date, $this->privatised_event) ){
 								if( empty($this->formatted_link_to) ){

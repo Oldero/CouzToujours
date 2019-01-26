@@ -42,7 +42,8 @@
     
 
     <section class="corps">
-    <section class="flex_formulaire">
+    <section class="page_deuxcolonnes">
+        <section class="colonne_droite">
         <table class="formulaire_cote">
             <tr><td class="underlined" colspan=2>Rédaction de news</td></tr>
         <form method="post">
@@ -54,7 +55,8 @@
             <tr><td colspan=2><input type="submit" value="Poster"></td></tr>
         </form>
         </table>
-
+        </section>
+        <section class="ensemble_gauche">
         <div class="section_news">
             <?php
                 $reponse = $bdd->query('SELECT * FROM news ORDER BY date_du_jour DESC LIMIT 0, 10');
@@ -70,6 +72,7 @@
                 $reponse->closeCursor(); // Termine le traitement de la requête
             ?>
         </div>
+        </section>
     </section>
     </section>
 

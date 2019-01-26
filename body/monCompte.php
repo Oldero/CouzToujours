@@ -60,8 +60,9 @@
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
     <section class ="corps">
+    <section class ="page_deuxcolonnes">
+    <section class="ensemble_gauche">
         Laisser un <a class="lien" href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.
-    <section class ="flex_formulaire">
     <div class="infos_persos">
         <?php echo "<a class='bigtitle'>Informations : </a><br />"; 
         echo 'Tu t\'appelles ' .$_SESSION['prenom'] . ' ' . $_SESSION['nom'].'.<br>';
@@ -166,6 +167,8 @@
         </table>    
         </div>
     </div>
+    </section>
+    <section class="colonne_droite">
     <!--De là-->
     <?php
     if($_SESSION['type']>0){
@@ -247,6 +250,7 @@
     ?>
     <!--à de là-->
     </section>    
+    </section>
     </section>
     <?php include("../include/pieddepage.php"); ?>
 

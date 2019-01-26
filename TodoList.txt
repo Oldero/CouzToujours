@@ -28,8 +28,6 @@ Réservation :
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
 - afficher aide sur page réservation.
-- ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats.
-- Impossible de cliquer à nouveau sur la date d'aujourd'hui.
 - Améliorer les liens sur les cases
 
 Autre :
@@ -46,6 +44,7 @@ En cours de test:
 - onglets de la page gestion
 - gestion réservation, avec colonne payé, ou non.
 - prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel.
+- ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats -> dans bdd
 
 
 

@@ -112,10 +112,10 @@
     
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
+    <section class="corps">
     <?php
     //menu en onglets
-    echo '<section class="corps">
-    <div class="menu_gestion">
+    echo '<div class="menu_gestion">
         <ul id="onglets">';
         switch ($page) {
             case 1:
@@ -161,6 +161,7 @@
     </div>';
     switch($page) {
         case 1:?>
+        <section class="ensemble_gauche">
         <p>Page de gestion de l'association Couz'Toujours. Pour commencer, clique sur un onglet ci-dessus.</p>
         
             <table class="event_officiel">
@@ -181,6 +182,7 @@
                 <tr><td colspan=2 class="justify_center"><input type="submit" value="Déclarer un événement officiel"></td></tr>
             </form>
             </table>
+        </section>
         <?php break;
         case 5: ?>
             <?php if ($_SESSION['login'] == 'admin') {
@@ -188,7 +190,8 @@
             } ?>
         <?php break;
         case 2: ?>
-            <section class="flex_formulaire">
+            <section class="page_deuxcolonnes">
+            <section class="colonne_droite">
     <!--          ? setlocale(LC_ALL,'french'); echo "Dernière modification effectuée le ".date("l j F Y à H:i", getlastmod()); ?> -->
             <table class="formulaire_edition">
             <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
@@ -218,6 +221,7 @@
                     <tr><td colspan=3><input type="submit" value="Créer"> </td></tr>  
             </form>
             </table>
+            </section>
             <section class="ensemble_gauche">
             <!--Création du tableau de gestion des adhérents: -->
             <table class="gestion">
@@ -375,9 +379,10 @@
                 <?php echo '<tr><td class="unique_case" colspan=10><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
             </table>
             </section>
+            </section>
         <?php break;
         case 3: ?>
-        <section class="flex_formulaire">
+        <section class="page_deuxcolonnes">
             <section class="ensemble_gauche">
             <!--Création du tableau de réservations: -->
             <table class="gestion">
@@ -440,6 +445,7 @@
                 ?>
             </table>
             </section>
+            <section class="colonne_droite">
             <table class="formulaire_edition">
             <tr><td class="underlined" colspan=3>Édition de tableau récapitulatif</td></tr>
             <form action= "../php/editer_tableau.php" method="post">
@@ -459,6 +465,7 @@
                 <tr><td colspan=3><input type="submit" value="Créer"> </td></tr>  
             </form>
             </table>
+            </section>
         </section>
         <?php break;
         case 4: ?>
@@ -532,7 +539,6 @@
                 ?>
             </table>
             </section>
-        </section>
     <?php break; 
     } ?>
     </section>

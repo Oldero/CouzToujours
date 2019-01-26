@@ -17,20 +17,40 @@ body {
 	font-size: 100%;
 	color: #555753; 
 	}
+input[type=submit], input[type=button]{
+	border-radius: 3px 3px 3px 3px;
+	font-family: "Source Sans Pro", sans-serif;
+}
 /*----------------------------------------------------------Page de connection*/
-div.page_connexion{
+.page_connexion{
 }
 .tableau_connexion{
+	border-radius: 0px 0px 10px 10px;
 	margin:auto;
 	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
   	transform: translateY(-100%); /* tiré de la moitié de sa propre hauteur */
 	border: 1px solid black;
+	border-top: none;
 	padding: 10px;
-	background-color: #CCDDEE;
+	background-color: #303030;
+	font-family: 'Kalam', cursive;
+	font-weight: bold;
+	color: #C9A0DC;
+	box-shadow: 3px 6px 12px #303030;
 }
-.tableau_connexion{
-	font-family: verdana;
+.tableau_connexion caption{
+	border-radius: 10px 10px 0px 0px;
+	background-color: #303030;
+	border: 1px solid black;
+	border-bottom: none;
+	padding-top: 10px;
 }
+.tableau_connexion td{
+	font-style: italic;
+}
+/*.tableau_connexion input[type=submit]{
+	border-radius: 3px 3px 3px 3px;
+}*/
 /*----------------------------------------------------------éléments classiques*/
 .underlined{
 	text-decoration: underline; 
@@ -54,6 +74,7 @@ div.page_connexion{
 }
 .caption_center{
 	text-decoration: underline;
+	text-align: center;
 }
 /*-------------------------------------------------------------------Les liens */
 .lien:link { 
@@ -99,7 +120,7 @@ div.page_connexion{
 	top: 0;
 	left: 0; 
 	right: 0;
-	background-color: none; 
+	background-color: #000000; 
 	color: white;
 	z-index: 1;
 }
@@ -157,9 +178,8 @@ div.page_connexion{
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-
 	z-index: 2;
-	background-color: none; 
+	background-color: #000000; 
 	color: white;
 	font-weight: bold;
 }
@@ -222,55 +242,79 @@ div.page_connexion{
   	transform: translateY(-100%); /* tiré de 100% de sa propre hauteur */
 }
 /*------------------------------------------------------page réservation*/
-.flex_formulaire {
+.page_deuxcolonnes{
 /*    height: 100%;*/
 	width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 100px;
+    margin-bottom: 0px;
     /*justify-content: space-between;*/
 } 
+.colonne_droite{
+	order: 2;
+}
+.colonne_gauche{
+	order: 1;
+	max-width: 50% ;
+	min-width: 500px;
+	margin-right: 0px;
+	margin-bottom: 80px;
+	display: flex;
+	flex-direction: column;
+}
 .formulaire_resa{
 	border-style: solid;
  	position: relative;
-	max-width: 700px;
 	padding: 20px;
 	font-family: 'Patrick Hand', cursive;
 	text-align: center;
 	max-height: 50%;
-	order: 2;
 	flex:2;
 	margin-bottom: 80px;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
+/*cellule séparatrice du formulaire*/
+.seconde_partie{
+	height: 10px;
+	border-bottom: solid silver 1px;
+}
+.aide{
+	text-align: left;
+	font-size: 80%;
+}
+.icone_help{
+}
+
 .resume_resa{
 	font-family: 'Kalam', cursive;
 	border-collapse: collapse;
 	max-width: 1000px;
-	order: 3;
 	margin-right: 20px;
 	margin-bottom: 50px;
+	margin-top: 20px;
+	order: 2;
 }
 .almanach{
-	margin-right: 20px;
-	max-width: 50%;
 	min-height: 50%;
 	order: 1;
-	margin-bottom: 80px;
 }
 .tableau_noir{
 	order: 4;
 	padding-left: 50px;
 	width: 350px;
-	margin-left: 200px;
+	margin-left: auto;
+	margin-right: auto;
 	padding-bottom: 20px;
 	padding-top: 10px;
 	align-self: right;
 	background-image : url(img/blackboard.jpg);
 	background-repeat:no-repeat;
 	border-collapse: collapse;
-	transform: matrix(1, 0.05, 0, 1, 0, -200);
+	transform: matrix(1, 0.05, 0, 1, 0, 0);
 }
 .tarifs{
+	margin-bottom: 50px;
 }
 .tableau_noir th{
 	text-decoration: underline;
@@ -279,6 +323,9 @@ div.page_connexion{
 	font-family: "chalk";
 	font-size: x-large;
 }
+.tableau_noir span{
+	font-size: small;
+}
 .tableau_noir td{
 	padding:0;
 	color: white;
@@ -286,34 +333,68 @@ div.page_connexion{
 	font-size: 100%;
 }
 .separateur{
-	height: 200px;
+	height: 50px;
+}
+/*infobulles d'aide*/
+.span_help {
+	position: relative;  /* les .infobulle deviennent référents */
+	cursor: help;
+	font-size: 90%;
+	line-height: 100%;
+	font-family: 'Kalam', cursive;
+	color: black;
+	text-align: justify;
+}
+/* on génère un élément :after lors du survol et du focus :*/
+.span_help:hover::after,
+.span_help:focus::after {
+	width: 200px;
+	content: attr(span_label);  /* on affiche aria-label */
+	position: absolute;
+	z-index: 10; /* pour s'afficher au dessus des éléments en position relative */
+	background-color: #fff5f2;
+	border: solid red 1px;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 3px 6px 12px #303030;
+	padding: 10px;
 }
 /*-----------------------------------------------page mon compte*/
 .infos_persos{
 	width: 600px;
 	margin-right: 80px;
+	text-align: justify;
 }
 .resume_resa_moncompte{
 	border-collapse: collapse;
 	font-family: cursive;	
 	margin-bottom: 50px; 
 }
+.pwd_block{
+	padding: 20px;
+	width: 450px;
+	border: 1px solid black;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
+	margin-bottom: 100px;
+}
 /*------------------------------------------------page gestion*/
 .ensemble_gauche{
 	order: 1;
-	width: auto;
-	margin-right: 100px;
+	margin-right: 40px;
 	margin-bottom: 80px;
 }
 .event_officiel{
 	margin: auto;
 	margin-bottom: 20px;
+	border: 1px solid black;
+	font-family: 'Patrick Hand', cursive;
+	padding: 10px;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
 .event_officiel a{
-
 }
 .formulaire_edition {
-	/*height: 600px;*/
 	border: 1px solid black;
 	padding: 15px;
 	font-family: 'Patrick Hand', cursive;
@@ -321,6 +402,8 @@ div.page_connexion{
 	max-width: 700px;
 	padding-top: 0;
 	order: 2;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
 /*------------------------------------------------menu gestion*/
 #onglets{
@@ -389,14 +472,18 @@ div.page_connexion{
 	padding-top: 0;
 	order: 2;
 	margin-right: 80px;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
 .formulaire_cote textarea {
 	width: 100%;
 	height: 200px;
+	border-radius: 3px 3px 3px 3px;
 }
 /*-------------------------------------------------------------news*/
 .section_news{
-	margin-right: 80px;
+	margin-right: 200px;
+	margin-bottom: 100px;
 }
 .news td{
 	order:1;
@@ -404,17 +491,20 @@ div.page_connexion{
 	text-align: justify;
 }
 .titre_news{
-		font-family: 'Londrina Solid', cursive;
+	font-family: 'Patrick Hand', cursive;
 	font-size:110%;
-	border-top: solid red 1px;
 }
 .msg_news{
 	font-family: 'Indie Flower', cursive;
 }
 .sign_news{
-		font-family: 'Londrina Solid', cursive;
+	font-family: 'Londrina Solid', cursive;
 	font-size:70%;
 	font-style: italic;
+	border-bottom: solid red 1px;
+}
+.news td.sign_news{
+	text-align: right;
 }
 /*--------------------------------------------------boite à idées*/
 .formulaire_idees{
@@ -427,6 +517,8 @@ div.page_connexion{
 	border-color:black;
 	padding: 20px;
 	font-family: 'Patrick Hand', cursive;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
 .formulaire_idees textarea {
 	width: 100%;
@@ -533,7 +625,7 @@ div.page_connexion{
 	}
 /*style des highlights*/
 .calendar td.today, .legende td.today {
-	background: #ffc;
+	background: #d8fbf3;
 	border-radius: 5px 5px 5px 5px;
 	}
 .calendar td.selected, .legende td.selected {
@@ -583,6 +675,7 @@ div.page_connexion{
 	border: 1px solid #09f;
 	cursor: pointer;
 	border-radius: 5px 5px 5px 5px;
+	text-decoration: underline;
 	}
 .legende caption{
 	text-decoration: underline;
@@ -629,7 +722,7 @@ table.calendar td.pad:hover {
 	max-width: 1000px;
 	list-style: none;
 	padding-bottom: 10px;
-	margin-right: 500px;
+	margin-right: 100px;
 	flex-wrap: wrap;
 	}
 #year:after {

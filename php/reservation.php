@@ -6,7 +6,7 @@
     include("fonctions.php");
 
 // on teste si nos variables sont définies
-if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && isset($_POST['prive']) && isset($_POST['package']) && isset($_POST['ptitdub']) && isset($_POST['grosdub']) && isset($_POST['pleintarif']) && isset($_POST['tarifreduit']) && isset($_POST['enfants']) && isset($_POST['login']) && isset($_POST['official']) && isset($_POST['we'])) {
+if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && isset($_POST['prive']) && isset($_POST['package']) && isset($_POST['ptitdub']) && isset($_POST['grosdub']) && isset($_POST['pleintarif']) && isset($_POST['tarifreduit']) && isset($_POST['enfants']) && isset($_POST['login']) && isset($_POST['official']) && isset($_POST['we']) && isset($_POST['adh_enfants']) && isset($_POST['adh_moins7']) && isset($_POST['vis_moins7'])) {
 /*    echo $_POST['login'];*/
 /*  echappement des caractères html*/
     $nom = htmlspecialchars($_POST['nom']);
@@ -32,7 +32,6 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
     while ($date_compare <= $_POST['fin']) {
         //si officiel ou prive, on peut séparer ici.
         if (in_array($date_compare, $deja_reserve)) {
-
             echo "<body onLoad=\"alert('Ce n\'est pas possible ! La date est déjà réservée. Vérifie le calendrier !')\">";
             // puis on le redirige vers la page précédente
             echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
@@ -71,6 +70,12 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
+    //si pas au moins un adhérent majeur
+    elseif ($_POST['prive'] == "Non" && ($_POST['ptitdub'] == 0 && $_POST['grosdub'] == 0)) {
+        echo "<body onLoad=\"alert('Il faut au moins un adhérent présent lors de la réservation !')\">";
+        // puis on le redirige vers la page précédente
+        echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
+    }
     else{
         if($_POST['official'] == 0){
             if($_POST['prive'] == "Oui"){
@@ -86,9 +91,14 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                     $package = 1;
                     $nbnuitee = NbJours($_POST['debut'], $_POST['fin']);
                     $prix =($_POST['ptitdub']*6 + $_POST['pleintarif']*10 + $_POST['tarifreduit']*7 + $_POST['enfants']*4.5)*$nbnuitee ;
-                    $nbpersonnes = $_POST['ptitdub'] + $_POST['grosdub'] + $_POST['pleintarif'] + $_POST['tarifreduit'] + $_POST['enfants'];
+                    $nb_adultes = $_POST['ptitdub'] + $_POST['grosdub'] + $_POST['pleintarif'] + $_POST['tarifreduit'];
+                    $nb_enfants = $_POST['adh_enfants'] + $_POST['adh_moins7'] + $_POST['vis_moins7'] + $_POST['enfants'];
                     echo "soit $nbnuitee nuitée(s) <br />";
-                    echo "Nombre de personnes : $nbpersonnes <br />";
+                    echo "Nombre de personnes : $nb_adultes adulte";
+                    if ($nb_adultes > 1) {echo "s";}
+                    if ($nb_enfants != 0) {echo " et $nb_enfants enfant";}
+                    if ($nb_enfants > 1) {echo "s";}
+                    echo '<br />';
                     break;
     
                 case "weekend":
@@ -140,7 +150,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         }
         if($nope == 0){
             //enregistrement dans la base de données
-            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nbvis_pt, nbvis_tr, nbvis_enf, prive, officiel, package, prix, we_gratuit, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nbvis_pt, :nbvis_tr, :nbvis_enf, :prive, :officiel, :package, :prix, :we_offert, :date_resa)');
+            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nb_adh_plus7, nb_adh_toddler, nbvis_pt, nbvis_tr, nbvis_enf, nbvis_toddler, prive, officiel, package, prix, we_gratuit, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nb_adh_plus7, :nb_adh_toddler, :nbvis_pt, :nbvis_tr, :nbvis_enf, :nbvis_toddler, :prive, :officiel, :package, :prix, :we_offert, :date_resa)');
 
             $req->execute(array(
                 'username' => $_POST['login'],
@@ -149,9 +159,12 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                 'fin' => $_POST['fin'],
                 'nbptitdub' => $_POST['ptitdub'],
                 'nbgrosdub' => $_POST['grosdub'],
+                'nb_adh_plus7' => $_POST['adh_enfants'],
+                'nb_adh_toddler' => $_POST['adh_moins7'],
                 'nbvis_pt' => $_POST['pleintarif'],
                 'nbvis_tr' => $_POST['tarifreduit'],
                 'nbvis_enf' => $_POST['enfants'],
+                'nbvis_toddler' => $_POST['vis_moins7'],
                 'prive' => $prive,
                 'officiel' => $_POST['official'],
                 'package' => $package,
