@@ -545,6 +545,113 @@ input[type=submit], input[type=button]{
  	padding-left: 5px;
 	font-size: 90%;
 }
+/*------------------------------------------------------------Forum*/
+.page_forum{
+	/*background: darkgrey;*/
+	width: 100%;
+}
+.f_list_theme{
+}
+.f_list_theme td.f_theme{
+	border-radius: 10px 10px 10px 10px;
+	border: 1px solid silver;
+	background: #0dba86;
+	text-align: center;
+	width: 500px;
+	padding-right: 15px;
+	padding-top: 10px;
+}
+.f_list_theme a{
+	text-decoration: none;
+	color: orange;
+	text-shadow: black 1px 1px 1px, black -1px 1px 1px, black -1px -1px 1px, black 1px -1px 1px; 
+	font-size: larger;
+	font-family: 'Permanent Marker', cursive;
+	line-height: 125%;
+}
+.f_list_theme a:hover{
+	color: red;
+	font-size: x-large;
+	line-height: 80%;
+}
+.f_list_theme p{
+	text-align: right;
+	color: white;
+	line-height: 80%;
+}
+.f_subtitle{
+	font-style: italic;
+}
+.f_separator{
+	height: 10px;
+}
+.f_list{
+	width:100%;
+}
+.big_theme{
+	font-size: xx-large;
+	font-family: 'Permanent Marker', cursive;
+	width:500px;
+}
+.cell_return{
+	text-align: right;
+	width: 230px;
+}
+.pin_topic{
+	border-radius: 10px 10px 10px 10px;
+	border: 1px solid silver;
+	width:500px;
+	padding-left: 20px;
+	font-family: 'Kalam', cursive;
+	font-size: large;
+	color: red;
+	text-decoration: none;
+}
+.notpin_topic{
+	border-radius: 10px 10px 10px 10px;
+	border: 1px solid silver;
+	width:500px;
+	padding-left: 20px;
+	font-family: 'Kalam', cursive;
+	font-size: large;
+	color: purple;
+}
+.f_list a{
+	text-decoration: none;
+}
+.pin_topic a{
+	color: red;
+}
+.notpin_topic a{
+	color: purple;
+}
+.f_list a:hover{
+	font-size: 102%;
+	text-shadow: 2px 2px 2px salmon;
+}
+.last{
+	font-size: small;
+	font-style: italic;
+	width: 230px;
+	text-align: justify;
+}
+.titre_topic{
+	font-family: 'Kalam', cursive;
+	font-size: large;
+}
+.f_message{
+	border-radius: 10px 10px 0px 0px;
+	border: 1px solid silver;
+	padding: 5px;
+	text-align: justify;
+}
+.f_signature{
+	border-radius: 0px 0px 10px 10px;
+	border: 1px solid silver;
+	text-align: right;
+	font-style: italic;
+	font-size: 80%;
+}
 /*-----------------------------------------------style des cellules*/
 .cell_left{
 	border-left-width: 1px;

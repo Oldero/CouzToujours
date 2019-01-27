@@ -237,27 +237,26 @@ class Calendar{
 			//---------------------------------- avec l'infobulle !
 			$jour_compare = $year . "-" . $month ."-" . $day;
 			$infobulle = utf8_encode(strftime("%A %e %B %Y", strtotime($day_date)));
-			$infobulle .= " \n";
 			if (is_array($this->info_private)) {
 				if (in_array($jour_compare, array_column($this->info_private,0))) {
 					$key = array_search($jour_compare, array_column($this->info_private, 0));
-					$infobulle .= "Séjour privatisé \n" . $this->info_private[$key][2];
+					$infobulle .= "\nSéjour privatisé \n" . $this->info_private[$key][2];
 				}
 			}
 			if (is_array($this->info_official)) {
 				if (in_array($jour_compare, array_column($this->info_official,0))) {
 					$key = array_search($jour_compare, array_column($this->info_official, 0));
-					$infobulle .= $this->info_official[$key][2];
+					$infobulle .= "\n" . $this->info_official[$key][2];
 				}
 			}
 			if (is_array($this->info_normal)) {
 				if (in_array($jour_compare, array_column($this->info_normal,0))) {
 					$key = array_search($jour_compare, array_column($this->info_normal, 0));
-					$infobulle .= $this->info_normal[$key][1] . " personne";
+					$infobulle .= "\n" . $this->info_normal[$key][1] . " personne";
 					if ($this->info_normal[$key][1] > 1) {$infobulle .= "s";} 
 					if ($this->info_normal[$key][3] != 0) {$infobulle .= " dont " . $this->info_normal[$key][3] . " enfant";}
 					if ($this->info_normal[$key][3] > 1) {$infobulle .= "s";} 
-					$infobulle .= "\n" . $this->info_normal[$key][2];
+					$infobulle .= " : \n" . $this->info_normal[$key][2];
 				}
 			}
 			$output .= "\t<td" . $day_class . " title=\"" . $infobulle . "\">";

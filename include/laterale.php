@@ -33,7 +33,7 @@ echo'<nav id="menu">
                 echo '<li><a class="lien" href="gestion.php">Gestion de l\'association</a></li>';
             }
                 echo '</ul></dd></dl>
-            <dl><dt><a class="lien" href="../fluxbb-1.5.11/index.php" title="Pour discuter bien sûr !">Le Forum</a></dt></dl>
+            <dl><dt><a class="lien" href="LeForum.php" title="Pour discuter bien sûr !">Le Forum</a></dt></dl>
         </div>';
         }
     echo '</div>

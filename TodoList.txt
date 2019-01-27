@@ -2,11 +2,9 @@
 
 Étapes avant beta :
 -------------------
-- Aide sur la réservation
 - Ajouts d'Anne
 - https
 - bdd
-
 
 
 À implémenter :
@@ -17,7 +15,7 @@
 Gestion :
 - page gestion : changement de bureau, compteur de résa, RàZ en septembre.
 - RàZ : compteur de nuitées, cotiz non payées
-- modification par le bureau only.
+- modification par le bureau only ?
 - édition de tableau résa : test sur date ???
 
 - tableau réservation : séparer passées/ à venir (sur csv et sur site), limite à l'année en cours.
@@ -27,11 +25,20 @@ Gestion :
 Réservation :
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
-- afficher aide sur page réservation.
-- Améliorer les liens sur les cases
+- Améliorer les liens sur les cases -> pas de solution ?
+- résumé réservation : fautes pluriel 1 personne(s)
+- mon compte : mettre bouton (à régler)
+
+Forum : 
+- gérer le dix messages/topics par page. 
+- Créer la fonction modérateur (accès dans super-admin)
+- Fonction rechercher
+- boutons de mise en page
+- bouton supprimer mon message ?
 
 Autre :
-- Gérer le style des pages... -> Page réservation, IE !
+
+- Gérer le style des pages... -> IE !
 
 - écrire un mail à couz'toujours + infos de l'asso
 
@@ -56,7 +63,6 @@ Contact avec Ribo
 Récupérer les infos des Camps Couz
 
 Rédiger bureau/statuts
-Forum ?
 
 page mon compte, modif résa ?
 
@@ -74,6 +80,7 @@ faire des demi cases ? Dur !
 
 créer des variables globales pour les différents tarifs/ autres variables.
 
+cookies plus session
 
 Questions en suspens :
 -----------

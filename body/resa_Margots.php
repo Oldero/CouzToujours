@@ -137,6 +137,7 @@ Dynamic Date
                 echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Réservations à venir :";
                 if ($help) {echo '<span class="span_help" span_label="Résumé des prochaines réservations."><img src="../img/help.ico" height=22px width=22px></span>';}
                 if ($help) {echo '<span class="span_help" span_label="Pour supprimer une réservation, rends-toi sur la page &#34mon Compte&quot."><img src="../img/help.ico" height=22px width=22px></span>';}
+                if ($help) {echo '<span class="span_help" span_label="Il est encore impossible de modifier une réservation autrement qu\'en la supprimant et en la recréant."><img src="../img/help.ico" height=22px width=22px></span>';}
                 echo "</a></tr>";
                 // On récupère tout le contenu de la table reservation
                 $reponse = $bdd->query('SELECT * FROM reservation ORDER BY debut');
@@ -219,7 +220,8 @@ Dynamic Date
     if ($help) {echo '<span class="span_help" span_label="En pointant sur une case, tu peux voir quelles sont les réservations en cours."><img src="../img/help.ico" height=22px width=22px></span>';}
     if ($help) {echo '<span class="span_help" span_label="En cliquant sur une case, tu peux sélectionner une date pour commencer ta réservation."><img src="../img/help.ico" height=22px width=22px></span>';}
     if ($help) {echo '<span class="span_help" span_label="Pour info, les réservations sont à la nuitée. Aussi, tu peux sélectionner la date de début ou de fin d\'une réservation privatisée."><img src="../img/help.ico" height=22px width=22px></span>';}
-    if ($help) {echo '<span class="span_help" span_label="Pour supprimer une réservation, rends-toi sur la page &#34mon Compte&quot."><img src="../img/help.ico" height=22px width=22px></span>';}
+    if ($help) {echo '<span class="span_help" span_label="Pour supprimer une réservation, rends-toi sur la page &#34Mon compte&quot."><img src="../img/help.ico" height=22px width=22px></span>';}
+    if ($help) {echo '<span class="span_help" span_label="Il est encore impossible de modifier une réservation autrement qu\'en la supprimant et en la recréant."><img src="../img/help.ico" height=22px width=22px></span>';}
     echo ("<ol id=\"year\">\n");
     for($i=1;$i<=12;$i++){
         echo ("<li class =\"month\">");

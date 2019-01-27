@@ -62,7 +62,6 @@
     <section class ="corps">
     <section class ="page_deuxcolonnes">
     <section class="ensemble_gauche">
-        Laisser un <a class="lien" href="BoiteIdees.php" title="Livre d'or / Boîte à idées">message</a> pour améliorer le site.
     <div class="infos_persos">
         <?php echo "<a class='bigtitle'>Informations : </a><br />"; 
         echo 'Tu t\'appelles ' .$_SESSION['prenom'] . ' ' . $_SESSION['nom'].'.<br>';
