@@ -5,9 +5,9 @@
 ?>
   
 
-<!DOCTYPE html>
+<!DOCTYPE php>
 
-<html>
+<php>
 
 <head>
     <?php include("../include/style.php"); ?>
@@ -16,17 +16,25 @@
 
 
 <body>
-	<p>La maison des Margots est un lieu de rencontres familiales où nous pouvons nous retrouver tout au long de l’année et où nous pouvons organiser des cousinades annuelles, AG, fête des Margots…  
+	<pre>
+	<center>	La maison des Margots est un lieu de rencontres familiales où nous pouvons nous retrouver tout au long de l’année et où nous pouvons organiser des cousinades annuelles, AG, fête des Margots…  
+
 En dehors de ces temps forts, la maison des Margots est ouverte à tous les membres de la famille, éventuellement accompagnés d'amis, moyennant une contribution ou une adhésion.
+
 Les Margots sont loués en meublé par l’ASSOCIATION COUZ’ TOUJOURS, qui fixe les tarifs d’adhésion et les règles de vie.
-La présente notice d'utilisation porte sur la réservation et les tarifs des séjours, le fonctionnement général de la maison, et donne les éléments nécessaires pour l'ouverture et la fermeture de la maison.</p> 
+
+La présente notice d'utilisation porte sur la réservation et les tarifs des séjours, le fonctionnement général de la maison, et donne les éléments nécessaires pour l'ouverture et la fermeture de la maison.</center></pre> 
 	<link rel="stylesheet" href="menu.css"/>
+	<br/>
+	<br/>
 	<nav>
 	<ul>
-		<li><a href="Enarrivant.php">En Arrivant</a></li><!--
-	    --><li><a href="Enpartant.php">En Partant</a></li><!--
+	<center>
+		<li><a href="Enarrivant.php">En arrivant</a></li><!--
+	    --><li><a href="Enpartant.php">En partant</a></li><!--
 		--><li><a href="Fonctionnementcourant.php">Fonctionnement courant</a></li><!--
 		--><li><a href="Quandvientl(hiver.php">Quand vient l'hiver</a></li><!--
+	</center>
 	</ul>
 	</nav>
     <?php include("../include/entete.php"); ?>
@@ -40,4 +48,4 @@ La présente notice d'utilisation porte sur la réservation et les tarifs des s�
 
 </body>
 
-</html>
+</php>

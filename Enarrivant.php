@@ -16,10 +16,13 @@
 
 
 <body>
-	<p> Avant de venir : 
+	<p>
+		<pre>
+<b>Avant de venir :</b> 
+	
 Il est vivement recommandé d’apporter son linge de maison (draps de lit, serviettes de toilette, etc.). La maison est équipée de couvertures, ainsi que de draps et serviettes que vous pouvez utiliser à condition d’être sûr de pouvoir les laver et ranger avant de partir !
 
-Vérifier où sont les clés et se les faire envoyer par la poste ?
+Vérifier où sont les clés ! Vous pouvez vous les faire envoyer par la poste si nécessaire. A terme, nous aimerions qu'un membre de chaque famille possède une clé.
 
 GAZ
 - ouvrir les bouteilles situées à l'extérieur, à côté de la fenêtre de la cuisine.
@@ -27,17 +30,18 @@ GAZ
 ELECTRICITE
 
 - l'interrupteur général est au dessus du frigo (vert visible = ouvert)
-- rebrancher et refermer le frigo+
+- rebrancher et refermer le frigo
 
 EAU 
 Voir annexe
 
 COURSES
--	Marché jeudi matin à Yssingeaux
--	Fromagerie d’Araules chez Gérintes
--	Magasin de producteur « produits d’Yssi » à Yssingeaux en face de l’intermarché
--	A COMPLETER…
+- Marché le jeudi matin à Yssingeaux
+- Fromagerie d’Araules "chez Gérintes"
+- Magasin de producteur "Produits d’Yssi" à Yssingeaux en face de l’Intermarché
+- A Compléter…
 
+</center></pre> 
 </p> 
 
 

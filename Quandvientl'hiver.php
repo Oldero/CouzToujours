@@ -16,26 +16,31 @@
 
 
 <body>
-	<p> 
+	<p>
+		<pre>
+<b>Quand vient l'hiver:</b>
 
 GAZ
 - Fermer les bouteilles de gaz à l'extérieur, à côté de la fenêtre de la cuisine. Et également fermer la vanne (commutateur) à l'intérieur de la cuisine.
 
 ELECTRICITE
--	Couper l'interrupteur général à côté du frigo.
--	Débrancher le frigo après l'avoir vidé et nettoyé, et laisser la porte ouverte.
--	Couper le ballon d'eau chaude dans la cuisine (boitier noir à gauche en entrant) : bouton rouge à enfoncer.  Peut se faire une demi-journée à l'avance, vue l'autonomie de 100 litres.
+- Couper l'interrupteur général à côté du frigo.
+- Débrancher le frigo après l'avoir vidé et nettoyé, et laisser la porte ouverte.
+- Couper le ballon d'eau chaude dans la cuisine (boitier noir à gauche en entrant) : bouton rouge à enfoncer.  Peut se faire une demi-journée à l'avance, vue l'autonomie de 100 litres.
 
 COUCHAGE
 - Laver, sécher et repasser les draps avant de les ranger dans l'armoire du palier.
 
 HUISSERIES
--	Fixer les volets de bois intérieurs du salon, la salle à manger et du jaurinus, fermer les volets métalliques du salon (côté terrasse) et de la grande salle du haut. 
--	Vérifier la fermeture des fenêtres
--	Vérifier la fermeture du bûcher
+- Fixer les volets de bois intérieurs du salon, la salle à manger et du jaurinus, fermer les volets métalliques du salon (côté terrasse) et de la grande salle du haut. 
+- Vérifier la fermeture des fenêtres
+- Vérifier la fermeture du bûcher
+
 
 EAU (peu prendre du temps, notamment pour la vidange des chauffe-eaux, compter 2-3h)
+
 Astuce : vous pouvez débrancher les chauffe-eau la veille pour ne pas vidanger de l’eau chaude 😉
+
 Comment on fait pour fermer l’eau?
  Fermer l’eau du Jaurinus
 . sous l’évier de la cuisine, fermer le robinet d’amenée d’eau au Jaurinus. Robinet sur le tuyau supérieur.
@@ -47,15 +52,15 @@ Comment on fait pour fermer l’eau?
 . une fois que le robinet de vidange du Jaurinus sous l’évier de la cuisine ne coule plus, que le chauffe eau ne coule plus, et que les deux petits robinets de vidange sous la soupente ne coule plus, refermer tous les robinets de vidange (sous l’évier, le robinet du groupe de sécurité sous le chauffe-eau, les deux petits robinets de vidange)
 
 Vidange de la maison principale
-1-	Fermer le robinet extérieur sous la dalle de béton de la terrasse (derrière la maison) au niveau des toilettes de la cuisine.
-2-	Vidanger les différents circuits : 
-a.	Ouvrir les robinets d'éviers, lavabos, douches, baignoire, en commençant par ceux du haut
-b.	Ouvrir les diverses purges cf notice ouverture ci-dessus, notamment : 
-c.	Purge du ballon d'eau chaude de la cuisine : bouton-virole bleu à faire tourner (dévisser) d'un quart de tour, il faut forcer un peu. Ne pas fermer le robinet (noir) d'arrivée d'eau
-d.	Machine à laver le linge : débrancher l'électricité ; couper le robinet d'arrivée d'eau, débrancher le tuyau d'arrivée d'eau et le tuyau de vidange, les vider et mettre les extrémités à l'intérieur de la machine, de manière à garder le couvercle entrouvert ; ouvrir la trappe de la pompe, en bas de la face avant à gauche, enlever le filtre, incliner la machine pour vider le reliquat d'eau, remettre le filtre et fermer la trappe.
-e.	Machine à laver la vaisselle : débrancher l'électricité, couper le robinet d'arrivée d'eau, débrancher le tuyau d'arrivée d'eau et le tuyau de vidange, les vidanger ; enlever les filtres pour enlever le résidu d'eau au fond de la machine, les nettoyer,  mettre une poignée de sel et les remettre ; mettre les extrémités des deux tuyaux dans la machine de manière à garder la porte entrouverte.
-f.	WC (salle de bain, cuisine, jaurinus) : tirer au moins deux fois la chasse d'eau jusqu'à vider le réservoir ; mettre une poignée de gros sel dans la cuvette, ou à défaut vider l'eau et boucher avec un papier journal pour empêcher les remontées d'odeurs. 
-</p>
+. Fermer le robinet extérieur sous la dalle de béton de la terrasse (derrière la maison) au niveau des toilettes de la cuisine.
+. Vidanger les différents circuits : 
+. Ouvrir les robinets d'éviers, lavabos, douches, baignoire, en commençant par ceux du haut
+. Ouvrir les diverses purges cf notice ouverture ci-dessus, notamment : 
+. Purge du ballon d'eau chaude de la cuisine : bouton-virole bleu à faire tourner (dévisser) d'un quart de tour, il faut forcer un peu. Ne pas fermer le robinet (noir) d'arrivée d'eau
+. Machine à laver le linge : débrancher l'électricité ; couper le robinet d'arrivée d'eau, débrancher le tuyau d'arrivée d'eau et le tuyau de vidange, les vider et mettre les extrémités à l'intérieur de la machine, de manière à garder le couvercle entrouvert ; ouvrir la trappe de la pompe, en bas de la face avant à gauche, enlever le filtre, incliner la machine pour vider le reliquat d'eau, remettre le filtre et fermer la trappe.
+. Machine à laver la vaisselle : débrancher l'électricité, couper le robinet d'arrivée d'eau, débrancher le tuyau d'arrivée d'eau et le tuyau de vidange, les vidanger ; enlever les filtres pour enlever le résidu d'eau au fond de la machine, les nettoyer,  mettre une poignée de sel et les remettre ; mettre les extrémités des deux tuyaux dans la machine de manière à garder la porte entrouverte.
+. WC (salle de bain, cuisine, jaurinus) : tirer au moins deux fois la chasse d'eau jusqu'à vider le réservoir ; mettre une poignée de gros sel dans la cuvette, ou à défaut vider l'eau et boucher avec un papier journal pour empêcher les remontées d'odeurs. 
+</pre>
 
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
