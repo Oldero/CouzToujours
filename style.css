@@ -241,6 +241,29 @@ input[type=submit], input[type=button]{
 	margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
   	transform: translateY(-100%); /* tiré de 100% de sa propre hauteur */
 }
+/*-------------------------------------------------------Menu du Codex */
+.menu_codex ul{
+	padding: 0px;
+	margin: 0px;
+	list-style-type:none;
+	background-color: #33333;
+}
+
+.menu_codex li{
+	display:inline-block;
+	margin: 0px;
+	padding: 0px;
+	width: 200px;
+	height: 40px;
+	border-right: 1px solid #CCCCCC;
+	text-align:center;
+	line-height: 40px;
+} 
+
+.menu_codex li a{
+	text-decoration: none;
+	color: #FFFFF;
+}
 /*------------------------------------------------------page réservation*/
 .page_deuxcolonnes{
 /*    height: 100%;*/
