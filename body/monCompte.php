@@ -186,6 +186,9 @@
         echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
         while ($donnees = $reponse->fetch())
             {
+            $nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
+            $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];
+            $nb_total = $nb_adultes + $nb_enfants;
             echo '<tr>';
             if($donnees['fin'] > date("Y-m-d")){
                 echo '<td class="cell_none">';
@@ -193,10 +196,14 @@
                     if ($donnees['prive'] == 1){ 
                         echo "- Séjour privatisé";
                     }
+                    elseif ($donnees['officiel'] == 1){
+                        echo "- Événement Couz'Toujours ";
+                    }
                     else { 
-                        echo "- pour " . ($donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'] + $donnees['nbvis_enf']) . " personnes";
-                    } 
-                    echo " - coût : " . ($donnees['prix']) . " euros";
+                        echo "- pour " . $nb_total . " personne";
+                        if ($nb_total>1) {echo "s";}
+                    }
+                    if ($donnees['officiel'] != 1){echo " - coût : " . ($donnees['prix']) . " euros";}
                     if($donnees['we_gratuit'] == 1){
                         echo ' (WE offert)';
                     }

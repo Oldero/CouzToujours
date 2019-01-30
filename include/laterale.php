@@ -26,7 +26,7 @@ echo'<nav id="menu">
                 echo '</ul></dd></dl>
             <dl><dt><a class="lien" href="Lassociation.php" title="L\'association"> L\'association</a></dt>
                 <dd><ul>
-                    <li>Les statuts</li>
+                    <li><a class="lien" href="statuts.php" title="Statuts et CR d\'AG">Les statuts</a></li>
                     <li>Le bureau</li>
                     <li><a class="lien" href="adhesion.php" title="Adhérer ou faire un don">Adhérer à Couz\'Toujours</a></li>';
             if ($_SESSION['ca'] == 1 || $_SESSION['admin'] == 1) {

@@ -20,6 +20,8 @@
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
 
+    <div class="img_fixed"><img src="../img/styled_margots2.jpg"></div>
+
     <section class="corps">
         <?php include("../include/enconstruction.php"); ?>
     </section>

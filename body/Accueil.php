@@ -40,6 +40,7 @@
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
     
+    <div class="img_fixed"><img src="../img/styled_view.jpg"></div>
 
     <section class="corps">
     <section class="page_deuxcolonnes">

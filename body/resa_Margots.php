@@ -143,8 +143,7 @@ Dynamic Date
                 $reponse = $bdd->query('SELECT * FROM reservation ORDER BY debut');
 
                 // On affiche chaque entrée une à une
-                while ($donnees = $reponse->fetch())
-                    {
+                while ($donnees = $reponse->fetch()){
                         $nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
                         $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];
                         $nb_total = $nb_adultes + $nb_enfants;
@@ -160,7 +159,9 @@ Dynamic Date
                                 echo "- Événement Couz'Toujours ";
                             }
                             else { 
-                                echo "- pour " . $nb_total . " personnes ";
+                                echo "- pour " . $nb_total . " personne";
+                                if ($nb_total > 1) {echo "s";}
+                                echo " ";
                             }
                         echo "<br />(par " . $donnees['username'] . " le " . convertdate($donnees['date_resa']) . ")" ;
                         echo'</td>';

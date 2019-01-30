@@ -93,6 +93,17 @@ input[type=submit], input[type=button]{
 	}
 
 /*------------------------------------------------Éléments de la page*/
+.img_fixed{
+	position: fixed;
+	left:200px;
+	z-index: -2;
+	opacity: 0.5;
+	width: 100%;
+	height: 100%;
+}
+.img_fixed img{
+	width: 100%
+}
 .corps {
 	margin-top: 50px;
 	margin-bottom: 50px;
@@ -105,6 +116,7 @@ input[type=submit], input[type=button]{
 	line-height: 1.88889;
 	font-size: 100%;
 	color: #555753;
+	padding-bottom: 50px;
 }
 
 /*Trois sections du cadre*/
@@ -296,6 +308,7 @@ input[type=submit], input[type=button]{
 	margin-bottom: 80px;
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 3px 6px 12px #303030;
+	background: rgba(255,255,255, 0.8);
 }
 /*cellule séparatrice du formulaire*/
 .seconde_partie{
@@ -319,8 +332,8 @@ input[type=submit], input[type=button]{
 	order: 2;
 }
 .almanach{
-	min-height: 50%;
 	order: 1;
+	margin-bottom: 20px;
 }
 .tableau_noir{
 	order: 4;
@@ -386,11 +399,6 @@ input[type=submit], input[type=button]{
 	width: 600px;
 	margin-right: 80px;
 	text-align: justify;
-}
-.resume_resa_moncompte{
-	border-collapse: collapse;
-	font-family: cursive;	
-	margin-bottom: 50px; 
 }
 .pwd_block{
 	padding: 20px;
@@ -497,6 +505,7 @@ input[type=submit], input[type=button]{
 	margin-right: 80px;
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 3px 6px 12px #303030;
+	background: rgba(255,255,255, 0.6);
 }
 .formulaire_cote textarea {
 	width: 100%;
@@ -505,6 +514,7 @@ input[type=submit], input[type=button]{
 }
 /*-------------------------------------------------------------news*/
 .section_news{
+	background: rgba(255,255,255, 0.6);
 	margin-right: 200px;
 	margin-bottom: 100px;
 }
@@ -529,44 +539,32 @@ input[type=submit], input[type=button]{
 .news td.sign_news{
 	text-align: right;
 }
-/*--------------------------------------------------boite à idées*/
-.formulaire_idees{
-	width: 500px;
-	margin-bottom: 80px;
-	margin-left: auto;
-	margin-right: auto;
-	border-width:1px; 
-	border-style:solid; 
-	border-color:black;
-	padding: 20px;
-	font-family: 'Patrick Hand', cursive;
-	border-radius: 10px 10px 10px 10px;
-	box-shadow: 3px 6px 12px #303030;
+/*--------------------------------------------------Tableau télécharger docs*/
+.table_docs {
+	border-collapse: collapse;
+	font-family: 'Kalam', cursive;
+	width:800px;
 }
-.formulaire_idees textarea {
-	width: 100%;
-	height: 200px;
+.table_docs td {
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border: 1px solid red;
 }
-.livre{
-	order: 4;
-	width: 50%;
+.table_docs form{
+	text-align: center;
 }
-.idees{
-	order: 5;
-	width: 50%;
-	border-collapse:collapse;
-	margin-right: 50px;
+.table_docs a{
+	text-decoration: none;
 }
-.idees th, .idees td{
-	border-width: 1px;
-  	border-style: solid; 
- 	border-color: red;
- 	border-width: 1px;
- 	border-style: solid; 
- 	border-color: red;
- 	padding-right: 5px;
- 	padding-left: 5px;
-	font-size: 90%;
+.table_docs a:hover{
+	background: silver;
+	text-decoration: underline;
+	color: black;
+}
+.affiche_docs{
+	margin-bottom: 50px;
 }
 /*------------------------------------------------------------Forum*/
 .page_forum{
@@ -863,9 +861,13 @@ table.calendar td.pad:hover {
 	visibility: hidden;
 	}
 /* disposition d'un bloc mois*/
-#year li {
+#year li{
 	float: left;
 	padding: 0 .5em .5em 0;
 	height: 150px;
-	margin-bottom: 55px;
+	margin-bottom: 50px;
+	text-align: center;
 	}
+#year table{
+	width:160px;
+}
