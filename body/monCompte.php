@@ -184,42 +184,50 @@
         // On affiche chaque entrée une à une
         echo '<table class="resume_resa">';
         echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
-        while ($donnees = $reponse->fetch())
-            {
+        while ($donnees = $reponse->fetch()){
             $nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
             $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];
             $nb_total = $nb_adultes + $nb_enfants;
             echo '<tr>';
             if($donnees['fin'] > date("Y-m-d")){
                 echo '<td class="cell_none">';
-                    echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
-                    if ($donnees['prive'] == 1){ 
-                        echo "- Séjour privatisé";
-                    }
-                    elseif ($donnees['officiel'] == 1){
-                        echo "- Événement Couz'Toujours ";
-                    }
-                    else { 
-                        echo "- pour " . $nb_total . " personne";
-                        if ($nb_total>1) {echo "s";}
-                    }
-                    if ($donnees['officiel'] != 1){echo " - coût : " . ($donnees['prix']) . " euros";}
-                    if($donnees['we_gratuit'] == 1){
-                        echo ' (WE offert)';
-                    }
-                    echo '</td>'; 
-                        //<!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
-                    echo '<td class="cell_none">';
-                    echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
-                    echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
-                        <input type="hidden" name="tribu" value=' . $_SESSION['tribu'] .'>
-                        <input type="hidden" name="we_off" value=' . $donnees['we_gratuit'] .'>
-                        <input type="submit" value="Supprimer">
-                        </form>
-                        </td>';
-                    echo "</tr> " ;
+                echo $donnees['nom'] . " : du " . convertdate($donnees['debut']) . "au " . convertdate($donnees['fin']);
+                if ($donnees['prive'] == 1){ 
+                    echo "- Séjour privatisé";
                 }
+                elseif ($donnees['officiel'] == 1){
+                    echo "- Événement Couz'Toujours ";
+                }
+                else { 
+                    echo "- pour " . $nb_total . " personne";
+                    if ($nb_total>1) {echo "s";}
+                }
+                if ($donnees['officiel'] != 1){
+                	echo " - coût : " . ($donnees['prix']) . " euros";
+	                if ($donnees['paye']){
+	                	echo " (déjà payé)";
+	                }
+	                else{
+	                	echo " (à régler)";
+	                }
+                } 
+                if($donnees['we_gratuit'] == 1){
+                    echo ' (WE offert)';
+                }
+                echo '</td>'; 
+                    //<!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
+                echo '<td class="cell_none">';
+                echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
+                    <input type="hidden" name="tribu" value=' . $_SESSION['tribu'] .'>
+                    <input type="hidden" name="we_off" value=' . $donnees['we_gratuit'] .'>
+                    <input type="submit" value="Supprimer">
+                    </form>
+                    </td>';
+                echo "</tr> " ;
             }
+        }
+        echo '</table>';
         $reponse->closeCursor();
             // On recommence avec la table des résas passées.
         if ($_SESSION['login'] == "admin") {
@@ -230,10 +238,12 @@
         else{$reponse = $bdd->prepare('SELECT * FROM reservation WHERE username = ? ORDER BY debut');
             $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
-        echo '</table>';
         echo '<table class="resume_resa">';
         echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations passées :</a></td></tr>";
         while ($donnees = $reponse->fetch()){
+        	$nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
+            $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];
+            $nb_total = $nb_adultes + $nb_enfants;
             echo '<tr>';
             if($donnees['fin'] <= date("Y-m-d")){
                 echo '<td class="cell_none">';
@@ -241,10 +251,25 @@
                 if ($donnees['prive'] == 1){ 
                     echo "- Séjour privatisé";
                 }
+                elseif ($donnees['officiel'] == 1){
+                    echo "- Événement Couz'Toujours ";
+                }
                 else { 
-                    echo "- pour " . ($donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'] + $donnees['nbvis_enf']) . " personnes";
+                    echo "- pour " . $nb_total . " personne";
+                    if ($nb_total>1) {echo "s";}
+                }
+                if ($donnees['officiel'] != 1){
+                	echo " - coût : " . ($donnees['prix']) . " euros";
+	                if ($donnees['paye']){
+	                	echo " (déjà payé)";
+	                }
+	                else{
+	                	echo " (à régler)";
+	                }
                 } 
-                echo " - coût : " . ($donnees['prix']) . " euros";
+                if($donnees['we_gratuit'] == 1){
+                    echo ' (WE offert)';
+                }
                 echo '</td>';
                 echo "</tr> " ;
             }       

@@ -94,6 +94,19 @@
     if ($_SESSION['ca'] != 1 && $_SESSION['bureau'] != 1 && $_SESSION['admin'] != 1) {
         header ('location: ../body/Accueil.php');
     }
+    //if septembre passé, nouvelle année scolaire. Sinon, c'est l'année en cours.
+    //marqueur aujourd'hui : séparer année en cours des autres.
+    if (date("m")>= 9) {$cur_year = date("Y");} else {$cur_year = date("Y")-1;}
+    //Réponse de la sélection de la tranche année
+    if (isset($_POST['tranche_annee']) && ($_POST['tranche_annee'] != "0000")){
+        $tranche = $_POST['tranche_annee'] . "-09-01";
+        $tranche_fin = $_POST['tranche_annee'] + 1 . "-08-31";
+        $aujourdhui = 0;
+    }
+    else {
+    	$tranche = $cur_year . "-09-01";
+        $aujourdhui = 1;
+    }
 ?>
   
 
@@ -384,9 +397,19 @@
         case 3: ?>
         <section class="page_deuxcolonnes">
             <section class="ensemble_gauche">
-            <!--Création du tableau de réservations: -->
+                <?php //sélecteur d'année - année en cours est galère.
+                echo '<form method="post"><select name="tranche_annee">';
+                echo '<option value="0000">Année en cours</option>';
+                for ($i=$cur_year-1; $i >= 2017 ; $i--) { 
+                    echo '<option value="' . $i . '">Année ' . $i . ' - ' . ($i+1) . '</option>';
+                }
+                echo '</select>
+                <input type="submit" value="Afficher"></form>'; ?>
+
+            <?php if ($aujourdhui) { ?>
+            <!--Création du tableau de réservations à venir : -->
             <table class="gestion">
-                <tr><td class="unique_case" colspan=9>Gestion des réservations :</td></tr>
+                <tr><td class="unique_case" colspan=9>Réservations à venir :</td></tr>
                 <tr class ="line">
                     <th>Adhérent</th>
                     <th>Nom de réservation</th>
@@ -398,7 +421,76 @@
                     <th colspan=2>réglé ?</th>
                 </tr>
                 <?php
-                    $reque = $bdd->query('SELECT * FROM reservation ORDER BY fin');
+                    $sql_req = "SELECT * FROM reservation WHERE fin >= '" . date("Y-m-d") . "' ORDER BY fin";
+                    $reque = $bdd->query($sql_req);
+                    while ($resass = $reque->fetch()){
+                        echo '<tr><td class="cell_left">';
+                        echo $resass['username'];
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nom'];
+                        echo '</td><td class="cell_left">';
+                        echo short_convertdate($resass['debut']);
+                        echo '</td><td class="cell_left">';
+                        echo short_convertdate($resass['fin']);
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nbptitdub'] + $resass['nbgrosdub'];
+                        echo '</td><td class="cell_left">';
+                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
+                        echo '</td><td class="cell_left">';
+                        if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
+                        else {echo $resass['prix'] . " €";
+                        if ($resass['prive'] == 1) {echo ' (privatisé)';}}
+                        echo '</td><td class="cell_left">';
+                        switch ($resass['paye']) {
+                            case 0:
+                                echo 'non';
+                                break;
+                            case 1:
+                                echo 'oui';
+                                break;
+                            default:
+                                break;
+                        }
+                        echo '</td><td class="cell_right">';
+                        echo '<form name="resa_reglement" method="post">
+                            <input name="num_resa" type="hidden" value=' . $resass['numero'] .'>';
+                        echo '<select name="reglement_resa" id="reglement'. $resass['numero'] . '">
+                                <option value=0';
+                                if($resass['paye'] == 0) {echo ' selected="selected"';}
+                                echo '>non réglé</option>
+                                <option value=1';
+                                if($resass['paye'] == 1) {echo ' selected="selected"';}
+                                echo '>réglé</option>
+                            </select>';
+                        echo '<input type="submit" value="Modifier" /></form>';
+                        echo '</td></tr>';
+                    }
+                    $reque->closeCursor();
+                ?>
+            </table>
+            <!--Création du tableau de réservations passées: -->
+            <?php
+            	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . date("Y-m-d") . "' ORDER BY fin DESC";
+            	echo '<table class="gestion">
+                <tr><td class="unique_case" colspan=9>Réservations passées :</td></tr>';
+            }
+            else { 
+            	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . $tranche_fin . "' ORDER BY fin DESC";
+        	    echo '<table class="gestion">
+                	<tr><td class="unique_case" colspan=9>Réservations du ' . convertdate($tranche) . ' au ' . convertdate($tranche_fin)  . ':</td></tr>';
+            } ?>
+                <tr class ="line">
+                    <th>Adhérent</th>
+                    <th>Nom de réservation</th>
+                    <th>Du</th>
+                    <th>Au</th>
+                    <th>adh</th>
+                    <th>vis</th>
+                    <th>prix</th>
+                    <th colspan=2>réglé ?</th>
+                </tr>
+                <?php
+                    $reque = $bdd->query($sql_req);
                     while ($resass = $reque->fetch()){
                         echo '<tr><td class="cell_left">';
                         echo $resass['username'];
@@ -455,13 +547,24 @@
                     <input type="radio" name="resa_tri" value="tri_resa_regle" id="tri_resa_regle" /><label for="tri_resa_regle">Facture réglée</label></td><td><input type="radio" name="resa_tri" value="tri_resa_date" id="tri_resa_date" /><label for="tri_resa_date">Date</label></td></tr>
                 <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner uniquement : </td></tr>
                     <tr><td><input type="radio" name="reglement" value="resa_non_payee" id="resa_non_payee" /><label for="resa_non_payee">Facture non réglée</label></td><td>
-                    <input type="radio" name="reglement" value="resa_payee" id="resa_payee" /> <label for="resa_payee">Facture réglée</label></td><td>
+                    <input type="radio" name="reglement" value="resa_payee" id="resa_payee" /><label for="resa_payee">Facture réglée</label></td><td>
                     <input type="radio" name="reglement" value="resa_les_deux" id="resa_les_deux" checked /><label for="resa_les_deux">Les deux</label></td></tr>
-                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner les réservations : (NE MARCHE PAS ENCORE)</td></tr>
-                    <tr class="justify_left"><td><input type="radio" name="passe" value="future" id="future"><label for="future">À venir</label></td><td>
+                <tr class="justify_left"><td colspan=3 class="underlined">Sélectionner les réservations :</td></tr>
+                    <tr><td><input type="radio" name="passe" value="future" id="future"><label for="future">À venir</label></td><td>
                     <input type="radio" name="passe" value="past" id="past"><label for="past">Passées</label></td><td>
-                    <input type="radio" name="passe" value="toutes" id="toutes" checked><label for="toutes">Toutes</label>
+                    <input type="radio" name="passe" value="toutes" id="toutes" checked><label for="toutes">Les deux</label>
                     </td></tr>
+                <tr class="justify_left"><td colspan=2 class="underlined">Sélectionner : </td><td><select name="annee_resa">
+                	<option value="0000" selected="selected">Année en cours</option>
+                	<?php for ($i=$cur_year-1; $i >= 2017 ; $i--) { 
+                    	echo '<option value="' . $i . '">Année ' . $i . ' - ' . ($i+1) . '</option>';
+                	} ?>
+                	<option value="9999">Toutes</option>
+                	</select></td></tr>
+	                <?php echo	'<input type="hidden" name="cur_year" value="' . $cur_year . '">'; ?>
+	            <tr class="justify_left"><td colspan=2 class="underlined">Faire apparaître le détail des occupants :</td>
+                    <td><input type="radio" name="show_occ" value="Oui" id="Oui"><label for="Oui">Oui</label>
+                    <input type="radio" name="show_occ" value="Non" id="Non" checked><label for="Non">Non</label></td></tr>    
                 <tr><td colspan=3><input type="submit" value="Créer"> </td></tr>  
             </form>
             </table>

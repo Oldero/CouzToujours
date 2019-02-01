@@ -139,9 +139,12 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
     echo $csv;
 }
 //réponse du formulaire édition réservation
-elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['reglement'])){
+elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['reglement']) && isset($_POST['annee_resa'])){
     $date = date("Y-m-d");
-    $csvcsv="Du;Au;Nom;Par;Privatisé;WE offert;Réglé ?\n";
+    $csvcsv = "Date d'édition :;" . date("Y-m-d") . "\n";
+    $csvcsv .= "Du;Au;Nom;Par;;Privatisé;WE offert;;Réglé ?";
+    if($_POST['show_occ'] == "Oui") {$csvcsv .= ";;grosdub;ptitdub;7-18ans;0-7ans;;visi PR;visi TR;7-18ans;0-7ans;;total";}
+    $csvcsv .= "\n";
     $sql_query = "SELECT * FROM reservation";
     switch ($_POST['reglement']) {
         case "resa_non_payee":
@@ -158,14 +161,24 @@ elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['regl
     }
     switch ($_POST['passe']) {
         case "past":
-            $sql_query .= " AND fin <= " . date("Y-m-d");
+            $sql_query .= " AND fin < CURDATE()";
             break;
         case "future":
-            $sql_query .= " AND fin >= " . date("Y-m-d");
+            $sql_query .= " AND fin >= CURDATE()";
             break;
         case "toutes":
             break;
         default:
+            break;
+    }
+    switch ($_POST['annee_resa']) {
+        case "0000":
+            $sql_query .= " AND fin >= '" . $_POST['cur_year'] . "-09-01'";
+            break;
+        case '9999':
+            break;
+        default:
+            $sql_query .= " AND fin BETWEEN '" . $_POST['annee_resa'] . "-09-01' AND '" . ($_POST['annee_resa']+1) . "-08-31'";
             break;
     }
     switch ($_POST['resa_tri']) {
@@ -176,16 +189,18 @@ elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['regl
             $sql_query .= " ORDER BY paye,debut,fin,username";
             break;
         case "tri_resa_date":
-        //marche pas :
-//            $sql_query_past = $sql_query . " AND (DATEDIFF(fin," . date("Y-m-d") . ")) < 0 ORDER BY debut,fin,username,paye";
-//            $sql_query_future = $sql_query . " AND (DATEDIFF(fin," . date("Y-m-d") . ")) >= 0 ORDER BY debut,fin,username,paye";
-            $sql_query .= " ORDER BY debut,fin,username,paye";
+            $sql_query_past = $sql_query . " AND fin < CURDATE()";
+            $sql_query_future = $sql_query . " AND fin >= CURDATE()";
+            $sql_query_past .= " ORDER BY debut,fin,username,paye";
+            $sql_query_future .= " ORDER BY debut,fin,username,paye";
             break;
         default:
             break;
     }
-    $csvcsv .= date("Y-m-d") . "\n";
-/*    if ($_POST['resa_tri'] != "tri_resa_date"){ */
+/*    echo $sql_query . ";";
+    echo $sql_query_past . ";";
+    echo $sql_query_future . ";"; */
+    if ($_POST['resa_tri'] != "tri_resa_date" || $_POST['annee_resa'] != "0000"){
         $reponse = $bdd->query($sql_query);
         while ($tab = $reponse->fetch()){
             switch ($tab['prive']) {
@@ -218,48 +233,14 @@ elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['regl
                 default:
                     break;
             }
-            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['nom'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
+            $total_occ = $tab['nbgrosdub'] + $tab['nbptitdub'] + $tab['nb_adh_plus7'] + $tab['nb_adh_toddler'] + $tab['nbvis_pt'] + $tab['nbvis_tr'] + $tab['nbvis_enf'] + $tab['nbvis_toddler'];
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['nom'] . ";" . $tab['username'] . ";;" . $privatise . ";" . $we_off . ";;" . $reglement;
+            if($_POST['show_occ'] == "Oui") {$csvcsv .= ";;" . $tab['nbgrosdub'] . ";" . $tab['nbptitdub'] . ";" . $tab['nb_adh_plus7'] . ";" . $tab['nb_adh_toddler'] . ";;" . $tab['nbvis_pt'] . ";" . $tab['nbvis_tr'] . ";" . $tab['nbvis_enf'] . ";" . $tab['nbvis_toddler'] . ";;" . $total_occ;}
+            $csvcsv .= "\n";
         }
         $reponse->closeCursor();
-/*    }
+    }
     else{
-        $csvcsv .= "Réservations passées : \n";
-        echo $sql_query_past;
-        $reponse = $bdd->query($sql_query_past);
-        while ($tab = $reponse->fetch()){
-            switch ($tab['prive']) {
-                case 0:
-                    $privatise = "Non";
-                    break;
-                case 1:
-                    $privatise = "Oui";
-                    break;
-                default:
-                    break;
-            }
-            switch ($tab['we_gratuit']) {
-                case 0:
-                    $we_off = "Non";
-                    break;
-                case 1:
-                    $we_off = "Oui";
-                    break;
-                default:
-                    break;
-            }
-            switch ($tab['paye']) {
-                case 0:
-                    $reglement = "Non";
-                    break;
-                case 1:
-                    $reglement = "Oui";
-                    break;
-                default:
-                    break;
-            }
-            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
-        }
-        $reponse->closeCursor();
         $csvcsv .= "Réservations à venir : \n";
         $reponse = $bdd->query($sql_query_future);
         while ($tab = $reponse->fetch()){
@@ -293,10 +274,52 @@ elseif(isset($_POST['resa_tri']) && isset($_POST['passe']) && isset($_POST['regl
                 default:
                     break;
             }
-            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['username'] . ";" . $privatise . ";" . $we_off . ";" . $reglement . "\n";
+            $total_occ = $tab['nbgrosdub'] + $tab['nbptitdub'] + $tab['nb_adh_plus7'] + $tab['nb_adh_toddler'] + $tab['nbvis_pt'] + $tab['nbvis_tr'] + $tab['nbvis_enf'] + $tab['nbvis_toddler'];
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['nom'] . ";" . $tab['username'] . ";;" . $privatise . ";" . $we_off . ";;" . $reglement;
+            if($_POST['show_occ'] == "Oui") {$csvcsv .= ";;" . $tab['nbgrosdub'] . ";" . $tab['nbptitdub'] . ";" . $tab['nb_adh_plus7'] . ";" . $tab['nb_adh_toddler'] . ";;" . $tab['nbvis_pt'] . ";" . $tab['nbvis_tr'] . ";" . $tab['nbvis_enf'] . ";" . $tab['nbvis_toddler'] . ";;" . $total_occ;}
+            $csvcsv .= "\n";
         }
         $reponse->closeCursor();
-    }*/
+        $csvcsv .= "Réservations passées : \n";
+        $reponse = $bdd->query($sql_query_past);
+        while ($tab = $reponse->fetch()){
+            switch ($tab['prive']) {
+                case 0:
+                    $privatise = "Non";
+                    break;
+                case 1:
+                    $privatise = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['we_gratuit']) {
+                case 0:
+                    $we_off = "Non";
+                    break;
+                case 1:
+                    $we_off = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            switch ($tab['paye']) {
+                case 0:
+                    $reglement = "Non";
+                    break;
+                case 1:
+                    $reglement = "Oui";
+                    break;
+                default:
+                    break;
+            }
+            $total_occ = $tab['nbgrosdub'] + $tab['nbptitdub'] + $tab['nb_adh_plus7'] + $tab['nb_adh_toddler'] + $tab['nbvis_pt'] + $tab['nbvis_tr'] + $tab['nbvis_enf'] + $tab['nbvis_toddler'];
+            $csvcsv .= $tab['debut'] . ";" . $tab['fin'] . ";" . $tab['nom'] . ";" . $tab['username'] . ";;" . $privatise . ";" . $we_off . ";;" . $reglement;
+            if($_POST['show_occ'] == "Oui") {$csvcsv .= ";;" . $tab['nbgrosdub'] . ";" . $tab['nbptitdub'] . ";" . $tab['nb_adh_plus7'] . ";" . $tab['nb_adh_toddler'] . ";;" . $tab['nbvis_pt'] . ";" . $tab['nbvis_tr'] . ";" . $tab['nbvis_enf'] . ";" . $tab['nbvis_toddler'] . ";;" . $total_occ;}
+            $csvcsv .= "\n";
+        }
+        $reponse->closeCursor();
+    }
     $csv = utf8_decode($csvcsv);
     //termine le traitement de la requête   
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
