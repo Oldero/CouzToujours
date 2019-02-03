@@ -5,17 +5,27 @@
 - Ajouts d'Anne
 - https
 - bdd
+- 15 février !
 
 
 À implémenter :
 ---------------
 
-- email sur monCompte.
+Champs bdd users :
+- email accès sur monCompte.
+- compteur de nuitées
+- statut modérateur pour forum
+- statut propriétaire : accès en lecture sur le calendrier.
+
+Page accueil :
+- mettre signature et time en haut (seconde case)
 
 Gestion :
+- plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
+- ajouter la mention "officielle" dans tableau des résas
 - page gestion : changement de bureau, compteur de résa, RàZ en septembre.
 - RàZ : compteur de nuitées, cotiz non payées
-- modification par le bureau only ?
+- modification par le bureau only ? Nope, pas vraiment, à confirmer.
 
 - FACTURES : reservation.php, monCompte, gestion
 
