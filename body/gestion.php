@@ -59,7 +59,7 @@
         header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
     }
     //réponse du formulaire de création de tribu
-    if (isset($_POST['nom_famille']) && isset($_POST['adh1']) && isset($_POST['adh2']) && isset($_POST['etu'])) {
+    if (isset($_POST['nom_famille']) && isset($_POST['adh1']) && isset($_POST['adh2'])) {
         //update adherent1
         $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
         $req->execute(array(
@@ -74,14 +74,19 @@
             'name' => $_POST['adh2'],
             ));
         $req->closeCursor();
-        //update etudiant
-        $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
-        $req->execute(array(
-            'tribu' => $_POST['nom_famille'],
-            'name' => $_POST['etu'],
-            ));
-        $req->closeCursor();
-        //termine le traitement de la requête
+        //update etudiant pour chaque étudiant du select multiple
+        if (isset($_POST['etu'])){
+            $array_etu = $_POST['etu'];
+            foreach ($array_etu as $value) {
+                $req = $bdd->prepare('UPDATE users SET tribu = :tribu,we_offert = 1 WHERE name = :name');
+                $req->execute(array(
+                    'tribu' => $_POST['nom_famille'],
+                    'name' => $value,
+                    ));
+            $req->closeCursor();
+            //termine le traitement de la requête
+        }}
+        
         header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
     }
     //date temoin pour dernière modification
@@ -415,8 +420,8 @@
                     <th>Nom de réservation</th>
                     <th>Du</th>
                     <th>Au</th>
-                    <th>nb d'adhérents</th>
-                    <th>nb de visiteurs</th>
+                    <th>nb d'adh</th>
+                    <th>nb de visi</th>
                     <th>prix</th>
                     <th colspan=2>réglé ?</th>
                 </tr>
@@ -438,6 +443,7 @@
                         echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
                         echo '</td><td class="cell_left">';
                         if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
+                        elseif ($resass['officiel'] == 1) {echo ' (Séjour officiel)';}
                         else {echo $resass['prix'] . " €";
                         if ($resass['prive'] == 1) {echo ' (privatisé)';}}
                         echo '</td><td class="cell_left">';
@@ -484,8 +490,8 @@
                     <th>Nom de réservation</th>
                     <th>Du</th>
                     <th>Au</th>
-                    <th>adh</th>
-                    <th>vis</th>
+                    <th>nb d'adh</th>
+                    <th>nb de visi</th>
                     <th>prix</th>
                     <th colspan=2>réglé ?</th>
                 </tr>
@@ -506,6 +512,7 @@
                         echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
                         echo '</td><td class="cell_left">';
                         if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
+                        elseif ($resass['officiel'] == 1) {echo ' (Séjour officiel)';}
                         else {echo $resass['prix'] . " €";
                         if ($resass['prive'] == 1) {echo ' (privatisé)';}}
                         echo '</td><td class="cell_left">';
@@ -580,11 +587,11 @@
                     <th>Nom</th>
                     <th colspan=2>Adhérent 1</th>
                     <th colspan=2>Adhérent 2</th>
-                    <th colspan=2>Étudiant à charge</th>
+                    <th colspan=2>Étudiant(s) à charge</th>
                     <th>Action</th>
                 </tr>
                 <?php
-                //difficulté : deux ou trois personnes par tribu
+                //difficulté : deux ou trois personnes par tribu OU PLUS !
                 $tribus = $bdd->query('SELECT nom,prenom,type,tribu FROM users WHERE type IN (3,4) AND tribu != "" ORDER BY tribu,type');
                 while ($donnees = $tribus->fetch()) {
                         $ex_famille = $donnees['tribu'];
@@ -596,13 +603,15 @@
                         echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
                         echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
                         $donnees = $tribus->fetch();
-                        if ($donnees['type'] == 4) {
-                            echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                            echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                        echo '<td class="cell_left" colspan=2>';
+                        while ($donnees['type'] == 4) {
+                            echo $donnees['nom'] . ' ' . $donnees['prenom'] . '<br/>';
+                            $donnees = $tribus->fetch();
                         }
-                        else {
+                        echo '</td>';
+                        /*else {
                             echo '<td class="unique_case" colspan=2> - </td>';
-                        }
+                        }*/
                         echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
                         echo'<input type="hidden" name="a_suppr" value=' . $ex_famille .'>
                             <input type="submit" value="Supprimer">
@@ -628,15 +637,16 @@
                 }
                 $reponse2->closeCursor();
                 //case etudiant avec sélecteur
-                echo '<td class="cell_left" colspan=2><select name="etu" id="etu">';
+                echo '<td class="cell_left" colspan=2><select name="etu[]" id="etu" multiple size=3>';
                 $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4');
-                echo '<option value="Aucun">Aucun</option>';
+                // echo '<option value="Aucun">Aucun</option>';
                 while ($dubtribu = $reponse3->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
                 }
                 $reponse3->closeCursor();
 
-                echo '</select></td>';
+                echo '</select>';
+                echo '<a class="small_ita"><br/>sélect avec CTRL</a></td>';
                 echo '<td class="unique_case"><input type="submit" value="Créer tribu"></td>';
                 echo '</form></tr>';
                 ?>

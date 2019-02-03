@@ -89,6 +89,9 @@
                     if($tribu = $recherche->fetch()){
                         echo " et dont fait partie " . $tribu['prenom'] . " " . $tribu['nom'];
                     }
+                    while ($tribu = $recherche->fetch()){
+                    	echo " mais aussi " . $tribu['prenom'] . " " . $tribu['nom'];
+                    }
                     echo ".";
                 }
                 else{echo " et à la tête d'une tribu.";}
@@ -96,7 +99,7 @@
                 $recherche->closeCursor();
                 break;
             case 4:
-                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?)');
+                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
                 $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
                 echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie";
                 if($_SESSION['tribu'] != ""){
@@ -104,7 +107,14 @@
                     $tribu = $recherche->fetch();
                     echo $tribu['prenom'] . " " . $tribu['nom'] . " et ";
                     $tribu = $recherche->fetch();
-                    echo $tribu['prenom'] . " " . $tribu['nom'] . ". ";}
+                    echo $tribu['prenom'] . " " . $tribu['nom'];
+                    if($tribu = $recherche->fetch()){
+                        echo " et dont fait aussi partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                    }
+                    while ($tribu = $recherche->fetch()){
+                    	echo ", et il y a " . $tribu['prenom'] . " " . $tribu['nom'] . " itou";
+                    }
+                    echo ".";}
                 else{echo " d'une tribu.";}
                 $recherche->closeCursor();
                 break;

@@ -30,6 +30,7 @@ Gestion :
 - FACTURES : reservation.php, monCompte, gestion
 
 Réservation :
+- pack week-end offert peut être privatisé ?
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
 - mon compte : mettre bouton (à régler)

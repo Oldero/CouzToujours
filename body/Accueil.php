@@ -46,15 +46,16 @@
     <section class="page_deuxcolonnes">
         <section class="colonne_droite">
         <table class="formulaire_cote">
-            <tr><td class="underlined" colspan=2>Rédaction de news</td></tr>
+            <tr><td class="underlined case_titre" colspan=2>Rédaction d'une nouvelle familiale importante</td></tr>
         <form method="post">
             <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
-            <tr><td><label for="title">Titre de la news : </label>
+            <tr><td><label for="title">Titre du message : </label>
             </td><td><input type="text" name="title" id="title"/></td></tr>
             <tr><td colspan=2><label for="msg">Quelles nouvelles ?</label></td></tr>
             <tr><td colspan=2><textarea name="msg" id="msg" required="required"></textarea></td></tr>
             <tr><td colspan=2><input type="submit" value="Poster"></td></tr>
         </form>
+            <tr><td class="small_ita" colspan=2>Pour les simples messages, va sur le <a href="LeForum.php">forum</a> !</td></tr>
         </table>
         </section>
         <section class="ensemble_gauche">
@@ -65,9 +66,8 @@
                 // On affiche chaque entrée une à une
                 while ($donnees = $reponse->fetch())
                     {
-                        echo "<tr><td class=\"titre_news\"><strong>" . $donnees['titre'] . "</strong></td></tr>";
-                        echo "<tr><td class=\"msg_news\">" . $donnees['message'] . "</td></tr>";
-                        echo "<tr><td class=\"sign_news\"> Le " . convertdate($donnees['date_du_jour']) . " par " . $donnees['nom'] . " </td></tr>";
+                        echo "<tr><td class=\"titre_news\"><strong>" . $donnees['titre'] . "</strong></td><td class=\"sign_news\"> Le " . convertdate($donnees['date_du_jour']) . " par " . $donnees['nom'] . " </td></tr>";
+                        echo "<tr><td class=\"msg_news\" colspan=2>" . $donnees['message'] . "</td></tr>";
                     }
                 echo '</table>';
                 $reponse->closeCursor(); // Termine le traitement de la requête

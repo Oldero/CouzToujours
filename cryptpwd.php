@@ -1,7 +1,6 @@
 <?php
 if (isset($_POST['pass']))
 {
-    $login = $_POST['login'];
     $pass_crypte = password_hash($_POST['pass'], PASSWORD_DEFAULT); // On crypte le mot de passe
 
     echo '<p>Ligne à copier dans le .htpasswd :<br />' . $pass_crypte . '</p>';

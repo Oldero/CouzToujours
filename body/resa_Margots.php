@@ -224,9 +224,15 @@ Dynamic Date
     if ($help) {echo '<span class="span_help" span_label="Pour supprimer une réservation, rends-toi sur la page &#34Mon compte&quot."><img src="../img/help.ico" height=22px width=22px></span>';}
     if ($help) {echo '<span class="span_help" span_label="Il est encore impossible de modifier une réservation autrement qu\'en la supprimant et en la recréant."><img src="../img/help.ico" height=22px width=22px></span>';}
     echo ("<ol id=\"year\">\n");
-    for($i=1;$i<=12;$i++){
+    for($i=(date("m"));$i<=12;$i++){
         echo ("<li class =\"month\">");
         echo ($calendar->output_calendar($calendar->year, $i));
+        echo ("</li>\n");
+    }
+    //Complément avec l'année d'après
+    for($i=1;$i<(date("m"));$i++){
+        echo ("<li class =\"month\">");
+        echo ($calendar->output_calendar($calendar->year+1, $i));
         echo ("</li>\n");
     }
     //Légende
