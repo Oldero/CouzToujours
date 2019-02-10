@@ -181,6 +181,7 @@
         case 1:?>
         <section class="ensemble_gauche">
         <p>Page de gestion de l'association Couz'Toujours. Pour commencer, clique sur un onglet ci-dessus.</p>
+        <p>Attention ! Il faut s'assurer que les tribus sont bien constituées avant de modifier les infos des adhérents concernés !</p>
         
             <table class="event_officiel">
             <tr><td class="caption_center" colspan=2><a>Réservation des Margots</a></td></tr>
@@ -232,7 +233,7 @@
                     <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grossolo" id="grossolo" /><label for="grossolo">Les gros Dub solo</label></td></tr>
                     <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="grostribu" id="grostribu" /><label for="grostribu">Les gros Dub tribu</label></td></tr>
                     <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="etudiants" id="etudiants" /><label for="etudiants">Les étudiants-parasites</label></td></tr>
-                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="honneur" id="honneur" /><label for="honneur">Les membres d'honneur</label></td></tr>
+                    <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="honneur" id="honneur" /><label for="honneur">Les membres bienfaiteurs</label></td></tr>
                     <tr><td></td><td></td><td class="justify_left"><input type="checkbox" name="visiteurs" id="visiteurs" /><label for="visiteurs">Les non-adhérents</label></td></tr>
                     <tr></tr>
                     <tr></tr>
@@ -243,7 +244,18 @@
             <section class="ensemble_gauche">
             <!--Création du tableau de gestion des adhérents: -->
             <table class="gestion">
-                <tl><td class="unique_case" colspan=10>Gestion des adhésions :</td></tl>
+                <tl><td class="cell_left" colspan=7>Gestion des adhésions :</td>
+                    <?php $req_count=$bdd->query('SELECT COUNT(*) FROM users');
+                    $total = $req_count->fetch();
+                    $req_count->closeCursor();
+                    $req_count=$bdd->query('SELECT COUNT(*) FROM users WHERE numero != 1 AND type > 0');
+                    $total_adh = $req_count->fetch();
+                    $req_count->closeCursor();
+                    echo '<td class="cell_right" colspan = 3>';
+                    echo $total_adh[0] . ' adhérents sur ' . $total[0] . ' potentiels';
+                    echo '</td>';
+                     ?>
+                </tl>
                 <tr class ="line">
                     <th colspan=2>Nom</th>
                     <th colspan=2>Type d'adhésion</th>
@@ -279,7 +291,7 @@
                             echo '<td class="cell_left">Étudiant-parasite</td>';
                             break;
                         case 5:
-                            echo '<td class="cell_left">Membre d\'honneur</td>';
+                            echo '<td class="cell_left">Membre bienfaiteur</td>';
                             break;
                         default:
                             echo '<td class="cell_left">Superhéros</td>';
@@ -308,7 +320,7 @@
                                 echo '>Étudiant-parasite</option>
                                 <option value=5';
                                 if($donnees['type'] == 5) {echo ' selected="selected"';}
-                                echo '>Membre d\'honneur</option>
+                                echo '>Membre bienfaiteur</option>
                             </select>';
                         echo '<input type="submit" value="Modifier" /></form></td>';}
                     else {echo '<td class="cell_none"></td>';}
@@ -593,16 +605,24 @@
                 <?php
                 //difficulté : deux ou trois personnes par tribu OU PLUS !
                 $tribus = $bdd->query('SELECT nom,prenom,type,tribu FROM users WHERE type IN (3,4) AND tribu != "" ORDER BY tribu,type');
-                while ($donnees = $tribus->fetch()) {
+                $donnees = $tribus->fetch();
+                while (is_array($donnees)) {
                         $ex_famille = $donnees['tribu'];
                         echo '<tr>';
                         echo '<td class="cell_left">' . $donnees['tribu'] . '</td>';
                         echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
                         echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
                         $donnees = $tribus->fetch();
-                        echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
-                        echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
-                        $donnees = $tribus->fetch();
+                        //dans le cas d'une tribu avec un seul adherent.
+                        if ($donnees['tribu'] == $ex_famille && $donnees['type'] == 3) {
+                            echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
+                            echo '<td class="cell_right">' . $donnees['prenom'] . '</td>';
+                            $donnees = $tribus->fetch();
+                        }
+                        else {
+                            echo '<td class="cell_left"></td>';
+                            echo '<td class="cell_right"></td>';
+                        }
                         echo '<td class="cell_left" colspan=2>';
                         while ($donnees['type'] == 4) {
                             echo $donnees['nom'] . ' ' . $donnees['prenom'] . '<br/>';
@@ -623,6 +643,7 @@
                 echo '<td class="cell_left"><input type="text" name="nom_famille" required="required"></td>';
                 //case adhérent 1 avec sélecteur
                 echo '<td class="cell_left" colspan=2><select name="adh1" id="adh1">';
+                echo '<option value="aucun">Sélectionner</option>';
                 $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
                 while ($dubtribu = $reponse1->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
@@ -631,6 +652,7 @@
                 echo '</select></td>';
                 //case adhérent 2 avec sélecteur
                 echo '<td class="cell_left" colspan=2><select name="adh2" id="adh2">';
+                echo '<option value="aucun">Sélectionner</option>';
                 $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
                 while ($dubtribu = $reponse2->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
@@ -646,9 +668,9 @@
                 $reponse3->closeCursor();
 
                 echo '</select>';
-                echo '<a class="small_ita"><br/>sélect avec CTRL</a></td>';
                 echo '<td class="unique_case"><input type="submit" value="Créer tribu"></td>';
                 echo '</form></tr>';
+                echo '<tr><td colspan=5 class="cell_left"></td><td class="cell_none" colspan=2><a class="small_ita">sélect avec CTRL</a></td><td class="cell_right"></td></tr>';
                 ?>
             </table>
             </section>

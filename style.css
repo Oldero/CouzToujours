@@ -686,46 +686,38 @@ input[type=submit], input[type=button]{
 	font-size: 80%;
 }
 /*-----------------------------------------------style des cellules*/
+/*à réorganiser : faire cinq : top bottom left right, puis cell avec padding */
 .cell_left{
-	border-left-width: 1px;
-  	border-left-style: solid; 
- 	border-left-color: red;
- 	border-bottom-width: 1px;
- 	border-bottom-style: solid; 
- 	border-bottom-color: red;
+	border-left: 1px solid red;
+ 	border-bottom: 1px solid red;
+ 	border-top: 1px solid red;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
 }
 .cell_right{
-	border-right-width: 1px;
- 	border-right-style: solid; 
- 	border-right-color: red;
- 	border-bottom-width: 1px;
- 	border-bottom-style: solid; 
- 	border-bottom-color: red;
+	border-right: 1px solid red;
+ 	border-bottom: 1px solid red;
+ 	border-top: 1px solid red;
  	padding-right: 3px;
  	padding-left: 3px;
 	font-size: 90%;
 }
 .cell_none{
- 	border-bottom-width: 1px;
- 	border-bottom-style: solid; 
- 	border-bottom-color: red;
+ 	border-bottom: 1px solid red;
+ 	border-top: 1px solid red;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
 }
 .unique_case{
-	border-width: 1px;
-  	border-style: solid; 
- 	border-color: red;
- 	border-width: 1px;
- 	border-style: solid; 
- 	border-color: red;
+	border: 1px solid red;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
+}
+.top_none{
+	border-top: none;
 }
 /*------------------------------------------------------------------calendar*/
 .calendar {

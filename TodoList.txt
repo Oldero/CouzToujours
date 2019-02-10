@@ -4,25 +4,26 @@
 -------------------
 - Ajouts d'Anne
 - https
-- bdd
+- bdd -> check
 - 15 février !
 
 
 À implémenter :
 ---------------
 
-Champs bdd users :
+Table anniversaires/décés/anniversaires de mariage/mariages à venir
+
+Champs bdd users : bdd ok
 - email accès sur monCompte.
-- compteur de nuitées
+- compteur de nuitées test sur mon compte
 - statut modérateur pour forum
 - statut propriétaire : accès en lecture sur le calendrier.
 
 Page accueil :
-- mettre signature et time en haut (seconde case)
+- cadre anniversaires/événements
+- événements à venir
 
 Gestion :
-- plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
-- ajouter la mention "officielle" dans tableau des résas
 - page gestion : changement de bureau, compteur de résa, RàZ en septembre.
 - RàZ : compteur de nuitées, cotiz non payées
 - modification par le bureau only ? Nope, pas vraiment, à confirmer.
@@ -66,6 +67,10 @@ En cours de test:
 
 - tableau réservation : limite à l'année en cours. -> à limiter année en cours, à appliquer à l'edit de tableau
 
+- plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
+- tribus avec un seul adhérent
+- ajouter la mention "officielle" dans tableau des résas
+- accueil: mettre signature et time en haut (seconde case)
 
 
 Versions ultérieures :

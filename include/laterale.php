@@ -10,6 +10,7 @@ echo'<nav id="menu">
                 <dd><ul>
                     <li>Généalogie</li>
                     <li>Carnet d\'adresses</li>
+                    <li>Anniversaires</li>
                 </ul></dd></dl>
             <dl><dt><a class="lien" href="CampCousins.php" title="Les camps cousins">Camp cousins</a></dt>
                 <dd><ul>

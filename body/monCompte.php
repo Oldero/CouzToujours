@@ -80,17 +80,23 @@
             case 3:
             //case 3 and 4 : recherche des noms associés dans la tribu.
                 echo "Tu es <strong>Gros Dub</strong>";
-                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
+                $recherche = $bdd->prepare('SELECT nom,prenom,type FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
                 $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
                 if($_SESSION['tribu'] != ""){
-                    echo " et à la tête de la <strong>tribu</strong> " . $_SESSION['tribu'] . " avec " ;
+                    echo " et à la tête de la <strong>tribu</strong> " . $_SESSION['tribu'];
                     $tribu = $recherche->fetch();
-                    echo $tribu['prenom'] . " " . $tribu['nom'];
-                    if($tribu = $recherche->fetch()){
-                        echo " et dont fait partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                    // gérer le cas un seul adhérent par tribu
+                    if ($tribu['type'] == 3) {
+                        echo " avec " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
                     }
-                    while ($tribu = $recherche->fetch()){
+                    if(is_array($tribu)){
+                        echo " et dont fait partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
+                    }
+                    while (is_array($tribu)){
                     	echo " mais aussi " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
                     }
                     echo ".";
                 }
@@ -99,27 +105,33 @@
                 $recherche->closeCursor();
                 break;
             case 4:
-                $recherche = $bdd->prepare('SELECT nom,prenom FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
+                $recherche = $bdd->prepare('SELECT nom,prenom,type FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
                 $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
                 echo "Tu es un <strong>parasite</strong>. Non, pardon, tu fais partie";
                 if($_SESSION['tribu'] != ""){
                     echo" de la tribu " . $_SESSION['tribu'] . " chapeautée par ";
                     $tribu = $recherche->fetch();
-                    echo $tribu['prenom'] . " " . $tribu['nom'] . " et ";
+                    echo $tribu['prenom'] . " " . $tribu['nom'] ;
                     $tribu = $recherche->fetch();
-                    echo $tribu['prenom'] . " " . $tribu['nom'];
-                    if($tribu = $recherche->fetch()){
-                        echo " et dont fait aussi partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                    // gérer le cas un seul adhérent par tribu
+                    if ($tribu['type'] == 3) {
+                        echo " et " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
                     }
-                    while ($tribu = $recherche->fetch()){
+                    if(is_array($tribu)){
+                        echo ", et dont fait aussi partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
+                    }
+                    while (is_array($tribu)){
                     	echo ", et il y a " . $tribu['prenom'] . " " . $tribu['nom'] . " itou";
+                        $tribu = $recherche->fetch();
                     }
                     echo ".";}
                 else{echo " d'une tribu.";}
                 $recherche->closeCursor();
                 break;
             case 5:
-                echo "Tu es <strong>membre honoraire</strong> de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
+                echo "Tu es <strong>membre bienfaiteur</strong> de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
                 break;
             default:
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
@@ -193,7 +205,7 @@
         $reponse->execute(array($nom_de_resa));}
         // On affiche chaque entrée une à une
         echo '<table class="resume_resa">';
-        echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
+        echo "<tr><td class=\"cell_none top_none\" colspan=2><a class=\"underlined\">Mes réservations à venir :</a></td></tr>";
         while ($donnees = $reponse->fetch()){
             $nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
             $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];
@@ -249,7 +261,7 @@
             $reponse->execute(array($nom_de_resa));}
             // On affiche chaque entrée une à une
         echo '<table class="resume_resa">';
-        echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Mes réservations passées :</a></td></tr>";
+        echo "<tr><td class=\"cell_none top_none\" colspan=2><a class=\"underlined\">Mes réservations passées :</a></td></tr>";
         while ($donnees = $reponse->fetch()){
         	$nb_adultes = $donnees['nbptitdub'] + $donnees['nbgrosdub'] + $donnees['nbvis_pt'] + $donnees['nbvis_tr'];
             $nb_enfants = $donnees['nbvis_enf'] + $donnees['nbvis_toddler'] + $donnees['nb_adh_plus7'] + $donnees['nb_adh_toddler'];

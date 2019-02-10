@@ -44,14 +44,14 @@
     }
     //tableau de génération de password
  	echo '<table class="gestion">
-            <tr><td class="unique_case" colspan=8>Reset password :</td></tr>
+            <tr><td class="unique_case" colspan=6>Reset password :</td></tr>
             <tr class ="line">
                 <th>Numéro</th>
 				<th>Login</th>
                 <th colspan=2>Nom</th>
                 <th colspan=2>Reset pwd</th>
             </tr>';
-    $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
+    $reponse = $bdd->query('SELECT * FROM users ORDER BY numero'); //WHERE name != "admin"');
     while($donnees = $reponse->fetch()){
             echo '<tr>';
             echo '<td class= "cell_left">' . $donnees['numero'] . '</td>';
@@ -61,7 +61,7 @@
             echo '<td class="cell_left"><form name="generate" method="post" action="../doctor/reset_pwd.php">
                 <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                 <input type="text" name="new_pwd"></td>';
-            echo '<td class="cell_right"><input type="submit" value="Générer" /></form></td>';
+            echo '<td class="unique_case"><input type="submit" value="Générer" /></form></td>';
         }
         $reponse->closeCursor();
     echo '</table>';
@@ -72,7 +72,7 @@
     echo '<tr><td class= "cell_left"><label for id="gen_login">Nouveau login : <br /></label><input type="text" id="gen_login" name="gen_login" required="required"></td>';
     echo '<td class= "cell_left"><label for id="gen_pass">password : <br /></label><input type="text" id="gen_pass" name="gen_pass" required="required"></td>';
     echo '<td class= "cell_left"><label for id="gen_prenom">Prénom : <br /></label><input type="text" id="gen_prenom" name="gen_prenom" required="required"></td>';
-    echo '<td class= "cell_left"><label for id="gen_nom">Nom : <br /></label><input type="text" id="gen_nom" name="gen_nom" required="required"></td></tr>';
+    echo '<td class= "unique_case"><label for id="gen_nom">Nom : <br /></label><input type="text" id="gen_nom" name="gen_nom" required="required"></td></tr>';
     echo '<tr><td class= "cell_left"><label for id="gen_type">Type* : <br /></label><input type="number" id="gen_type" name="gen_type" value=0 min=0 max=5></td>';
     echo '<td class= "cell_left">Bureau : <br /><input type="radio" name="gen_bureau" value="Non" id="Non" checked /><label for="Non">Non </label><input type="radio" name="gen_bureau" value="Oui" id="Oui" /><label for="Oui">Oui</label></td>';
     echo '<td class= "cell_left">CA : <br /><input type="radio" name="gen_ca" value="Non" id="Non" checked /><label for="Non">Non </label><input type="radio" name="gen_ca" value="Oui" id="Oui" /><label for="Oui">Oui</label></td>';
