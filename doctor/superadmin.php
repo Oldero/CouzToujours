@@ -43,33 +43,25 @@
         echo'Utilisateur ajouté ! <br />';
     }
     //tableau de génération de password
- 	echo '<table class="gestion">';
- 		echo '<tr><td class="unique_case" colspan=7><form method="post" action="../php/mails.php">Générer tableau de mails : <input type="hidden" name="tab_date" value=' . date("Y-m-d") . '><input type="submit" value="générer"></form></td></tr>';
-    	echo '<tr><td class="unique_case" colspan=7>Reset password :</td></tr>';    
-    	echo '<tr class ="line">
+ 	echo '<table class="gestion">
+            <tr><td class="unique_case" colspan=6>Reset password :</td></tr>
+            <tr class ="line">
                 <th>Numéro</th>
 				<th>Login</th>
                 <th colspan=2>Nom</th>
                 <th colspan=2>Reset pwd</th>
-                <th>co ?</th>
             </tr>';
     $reponse = $bdd->query('SELECT * FROM users ORDER BY numero'); //WHERE name != "admin"');
     while($donnees = $reponse->fetch()){
             echo '<tr>';
-            echo '<td class="cell_left">' . $donnees['numero'] . '</td>';
-            echo '<td class="cell_left">' . $donnees['name'] . '</td>';            
+            echo '<td class= "cell_left">' . $donnees['numero'] . '</td>';
+            echo '<td class= "cell_left">' . $donnees['name'] . '</td>';            
             echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
             echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
             echo '<td class="cell_left"><form name="generate" method="post" action="../doctor/reset_pwd.php">
                 <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                 <input type="text" name="new_pwd"></td>';
             echo '<td class="unique_case"><input type="submit" value="Générer" /></form></td>';
-            if($donnees['last_co']==NULL){
-                echo '<td class="unique_case">jamais co</td></tr>';
-            }
-            else{
-                echo '<td class="unique_case">yep</td></tr>';
-            }
         }
         $reponse->closeCursor();
     echo '</table>';

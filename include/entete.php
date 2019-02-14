@@ -5,7 +5,7 @@
 
         // On teste pour voir si nos variables ont bien été enregistrées
         echo '<body>';
-        echo '<div class="bienvenue"><div> Bienvenue, '.$_SESSION['prenom'].' ! </div>';
+        echo '<div class="bienvenue"><div> Bonjour, '.$_SESSION['prenom'].' ! </div>';
         //affichage du popup cotiz non payée sauf si c'est un non-adhérent
         if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] != 0) {
             echo "<div class=\"bold\"> &nbsp Tu n'as pas encore payé ta cotiz !</div>";

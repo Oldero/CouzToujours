@@ -12,6 +12,10 @@
 ---------------
 
 Table anniversaires/décés/anniversaires de mariage/mariages à venir
+- Insérer anniversaire dans page d'accueil -> fait (test nb de jours du mois ?)
+- Check pour BP, BM, Pierre, Joseph
+- Saints du jour
+- Mariages
 
 Champs bdd users : bdd ok
 - email accès sur monCompte.

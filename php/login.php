@@ -12,7 +12,11 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
     {
         if ($login == $donnees['name'] AND password_verify($password,$donnees['password'])) 
         {// dans ce cas, tout est ok, on peut démarrer notre session
-            // on la démarre :)
+            //on met à jour la date de dernière connexion
+            $req=$bdd->prepare('UPDATE users SET last_co=? WHERE numero=?');
+            $req->execute(array(date("Y-m-d H:i:s"),$donnees['numero']));
+            $req->closeCursor();
+            // on démarre la session
             session_start();
             // on enregistre les paramètres de notre visiteur comme variables de session
             $_SESSION['login'] = $login;

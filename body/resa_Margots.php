@@ -134,7 +134,7 @@ Dynamic Date
         <!-- Tableau de résumé-->
         <table class="resume_resa">
             <?php
-                echo "<tr><td class=\"cell_none\" colspan=2><a class=\"underlined\">Réservations à venir :";
+                echo "<tr><td class=\"cell_none top_none\" colspan=2><a class=\"underlined\">Réservations à venir :";
                 if ($help) {echo '<span class="span_help" span_label="Résumé des prochaines réservations."><img src="../img/help.ico" height=22px width=22px></span>';}
                 if ($help) {echo '<span class="span_help" span_label="Pour supprimer une réservation, rends-toi sur la page &#34mon Compte&quot."><img src="../img/help.ico" height=22px width=22px></span>';}
                 if ($help) {echo '<span class="span_help" span_label="Il est encore impossible de modifier une réservation autrement qu\'en la supprimant et en la recréant."><img src="../img/help.ico" height=22px width=22px></span>';}

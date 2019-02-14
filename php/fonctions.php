@@ -12,7 +12,7 @@ function day($date){
         case 2:
             $jour = "mardi";
             break;    
-        case "3":
+        case 3:
             $jour = "mercredi";
             break;
         case 4:
@@ -121,16 +121,16 @@ function short_convertdate($date){
     //$frenchdate = array($tdate[2], "mois", $tdate[0]);
     switch ($tdate[1]){
         case 1:
-            $mois = "janvier";
+            $mois = "jan";
             break;
         case 2:
-            $mois = "février";
+            $mois = "fév";
             break;    
         case 3:
             $mois = "mars";
             break;
         case 4:
-            $mois = "avril";
+            $mois = "avr";
             break;
         case 5:
             $mois = "mai";
@@ -139,22 +139,22 @@ function short_convertdate($date){
             $mois = "juin";
             break;
         case 7:
-            $mois = "juillet";
+            $mois = "juil";
             break;
         case 8:
             $mois = "août";
             break;
         case 9:
-            $mois = "septembre";
+            $mois = "sept";
             break;
         case 10:
-            $mois = "octobre";
+            $mois = "oct";
             break;
         case 11:
-            $mois = "novembre";
+            $mois = "nov";
             break;
         case 12:
-            $mois = "décembre";
+            $mois = "déc";
             break;
     }
 
@@ -179,4 +179,8 @@ function NbJours($debut, $fin) {
     return(($diff / 86400));
 }
 
+function datetime_to_date($date) {
+    $date_explode = explode(" ",$date);
+    return $date_explode[0];
+}
 ?>

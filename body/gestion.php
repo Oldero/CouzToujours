@@ -19,6 +19,26 @@
         header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
         
     }
+    // résultat du formulaire edit-weoff
+    if (isset($_POST['weoff']) && isset ($_POST['num']) && isset($_POST['user'])) {
+        //update avec tag.
+        if ($_POST['tribu'] != NULL) {
+            $req = $bdd->prepare('UPDATE users SET we_offert = ? WHERE tribu = ?');
+            $req->execute(array($_POST['weoff'], $_POST['tribu']));
+            $req->closeCursor();
+        }
+        else {
+            $req = $bdd->prepare('UPDATE users SET we_offert = ? WHERE numero = ?');
+            $req->execute(array($_POST['weoff'], $_POST['num']));
+            $req->closeCursor();
+        }
+        //termine le traitement de la requête
+        //changement de date de modif :
+        $req = $bdd->prepare('UPDATE users SET modif = ? WHERE name = ?');
+        $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
+        $req->closeCursor(); 
+        header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
+    }
     // résultat du formulaire edit-cotiz
     if (isset($_POST['cotiz']) && isset ($_POST['num']) && isset($_POST['user'])) {
         //update avec tag.
@@ -101,14 +121,17 @@
     }
     //if septembre passé, nouvelle année scolaire. Sinon, c'est l'année en cours.
     //marqueur aujourd'hui : séparer année en cours des autres.
+    //compare le mois pour savoir si l'année scolaire a commencé.
     if (date("m")>= 9) {$cur_year = date("Y");} else {$cur_year = date("Y")-1;}
     //Réponse de la sélection de la tranche année
     if (isset($_POST['tranche_annee']) && ($_POST['tranche_annee'] != "0000")){
+        //du 1er sept de l'année en cours au 31 aout de l'année qui suit
         $tranche = $_POST['tranche_annee'] . "-09-01";
         $tranche_fin = $_POST['tranche_annee'] + 1 . "-08-31";
         $aujourdhui = 0;
     }
     else {
+        //Si pas de choix ou choix = année en cours.
     	$tranche = $cur_year . "-09-01";
         $aujourdhui = 1;
     }
@@ -244,7 +267,7 @@
             <section class="ensemble_gauche">
             <!--Création du tableau de gestion des adhérents: -->
             <table class="gestion">
-                <tl><td class="cell_left" colspan=7>Gestion des adhésions :</td>
+                <tl><td class="cell_left" colspan=5>Gestion des adhésions :</td>
                     <?php $req_count=$bdd->query('SELECT COUNT(*) FROM users');
                     $total = $req_count->fetch();
                     $req_count->closeCursor();
@@ -258,12 +281,12 @@
                 </tl>
                 <tr class ="line">
                     <th colspan=2>Nom</th>
-                    <th colspan=2>Type d'adhésion</th>
+                    <th colspan=1>Type d'adhésion</th>
                     <th>Tribu</th>
-                    <th>WE offert</th>
+                    <th colspan=1>WE offert</th>
                     <th>CA</th>
                     <th>Bureau</th>
-                    <th colspan=2>Cotiz ?</th>
+                    <th colspan=1>Cotiz ?</th>
                 </tr>
                 <?php 
                 $reponse = $bdd->query('SELECT * FROM users ORDER BY nom, prenom'); //WHERE name != "admin"');
@@ -274,6 +297,7 @@
                     echo '<tr>';
                     echo '<td class="cell_left">' . $donnees['nom'] . '</td>';
                     echo '<td class="cell_none">' . $donnees['prenom'] . '</td>';
+                    /* //pour afficher le type ded cotiz en plus du sélecteur:
                     switch($donnees['type']){
                         case 0:
                             echo '<td class="cell_left">Non adhérent</td>';
@@ -296,10 +320,10 @@
                         default:
                             echo '<td class="cell_left">Superhéros</td>';
                             break;          
-                    }
+                    }*/
                     //Si la ligne n'est pas celle du login de session ni de l'admin le if est là pour sélectionner par défaut le type
                     if (!$test && $donnees['name'] != 'admin') {
-                        echo '<td class="cell_none"><form name="formulaire_type" method="post">
+                        echo '<td class="unique_case"><form name="formulaire_type" method="post">
                             <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                             <input name="num" type="hidden" value=' . $donnees['numero'] .'></input>
                             <select name="typ" id="typ'. $donnees['numero'] . '">
@@ -331,9 +355,22 @@
                         echo '<td class="cell_left"></td>';
                     }
                     if ($donnees['type'] >= 2 && $donnees['type'] <= 4) {
-                        echo '<td class="cell_left">' . $donnees['we_offert'] . '</td>';
+                        //echo '<td class="cell_left">' . $donnees['we_offert'] . '</td>';
+                        echo '<td class="unique_case"><form name="formulaire_weoff" method="post">
+                            <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
+                            <input name="num" type="hidden" value=' . $donnees['numero'] .'>';
+                        echo '<input name="tribu" type="hidden" value=' . $donnees['tribu'] . '>';
+                        echo '<select name="weoff" id="weoff'. $donnees['numero'] . '">
+                                <option value=0';
+                                if($donnees['we_offert'] == 0) {echo ' selected="selected"';}
+                                echo '>0</option>
+                                <option value=1';
+                                if($donnees['we_offert'] == 1) {echo ' selected="selected"';}
+                                echo '>1</option>
+                            </select>';
+                        echo '<input type="submit" value="Modifier" /></form></td>';
                     }
-                    else {echo '<td class="cell_left"></td>';}
+                    else {echo '<td class="unique_case"></td>';}
                     switch($donnees['ca']){
                         case 0:
                             echo '<td class="cell_left"> </td>';
@@ -356,6 +393,7 @@
                             echo '<td class="cell_left">superhéros</td>';
                             break;          
                     }
+                    /* // Pour afficher "payé" en plus du sélecteur
                     switch($donnees['cotiz']){
                         case 0:
                             if ($donnees['type'] < 5 && $donnees['type'] > 0){
@@ -376,9 +414,9 @@
                         default:
                             echo '<td class="cell_left">superhéros</td>';
                             break;          
-                    }
+                    }*/
                     if (!$test && $donnees['type'] < 5 && $donnees['type'] > 0) {
-                        echo '<td class="cell_right"><form name="formulaire_cotiz" method="post">
+                        echo '<td class="unique_case"><form name="formulaire_cotiz" method="post">
                             <input type="hidden" name="user" value="' . $_SESSION['login'] . '">
                             <input name="num" type="hidden" value=' . $donnees['numero'] .'>';
                         echo '<input name="tribu" type="hidden" value=' . $donnees['tribu'] . '>';
@@ -394,7 +432,7 @@
                         echo '</tr>';
                     }
                     else {
-                        echo '<td class="cell_right"></td></tr>';
+                        echo '<td class="unique_case"></td></tr>';
                     }
                     }
                     //calcul de la dernière date de modif et login correspondant.
@@ -406,7 +444,7 @@
                 }
                 $reponse->closeCursor();
                 ?>
-                <?php echo '<tr><td class="unique_case" colspan=10><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
+                <?php echo '<tr><td class="unique_case" colspan=8><a class="sign_news">Dernière modification : le ' . convertdate($last_date_modif) . ' par ' . $last_name_modif . '.</a></td></tr>'; ?>
             </table>
             </section>
             </section>
@@ -490,7 +528,7 @@
             <?php
             	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . date("Y-m-d") . "' ORDER BY fin DESC";
             	echo '<table class="gestion">
-                <tr><td class="unique_case" colspan=9>Réservations passées :</td></tr>';
+                <tr><td class="unique_case" colspan=9>Réservations passées depuis le ' . convertdate($tranche) . ' :</td></tr>';
             }
             else { 
             	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . $tranche_fin . "' ORDER BY fin DESC";

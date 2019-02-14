@@ -6,7 +6,8 @@
     // on teste si nos variables sont définies
 if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && isset($_POST['select'])) {
         //query à distinquer selon les critères de choix.
-        $csvcsv="Tribu;Nom;Prénom;Type;Cotiz\n";
+        $csvcsv = "Date d'édition :;" . date("Y-m-d") . "\n";
+        $csvcsv .="Tribu;Nom;Prénom;Type;Cotiz\n";
         //construction du sql_query qui va dépendre des options cochées
         $sql_query = "SELECT * FROM users";
         switch ($_POST['cotiz']) {

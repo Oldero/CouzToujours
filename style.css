@@ -301,7 +301,6 @@ input[type=submit], input[type=button]{
 	max-width: 50% ;
 	min-width: 500px;
 	margin-right: 0px;
-	margin-bottom: 80px;
 	display: flex;
 	flex-direction: column;
 }
@@ -502,7 +501,35 @@ input[type=submit], input[type=button]{
 	font-weight: bold;
 }
 /*--------------------------------------------------Page d'accueil*/
+.carnet_du_jour{
+ 	position: relative;
+	padding: 20px;
+	font-family: 'Patrick Hand', cursive;
+	text-align: center;
+	max-height: 50%;
+	flex:2;
+	/*margin-bottom: 80px;
+	border-radius: 10px 10px 10px 10px;
+	border-style: solid;*/
+	box-shadow: 3px 6px 12px #303030;
+	background: rgba(255,255,255, 0.5);
+	width: 92%;
+}
+.big{
+	font-family: 'Patrick Hand', cursive;
+	font-size: 150%;
+}
+.less_big{
+	font-family: 'Patrick Hand', cursive;
+	font-size:120%;
+}
+.smaller{
+	font-family: 'Patrick Hand', cursive;
+	font-size: 90%;
+	font-style: italic;
+}
 .formulaire_cote {
+	margin-top: 50px;
 	height: 350px;
 	border: 1px solid black;
 	padding: 20px;
@@ -515,6 +542,7 @@ input[type=submit], input[type=button]{
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 3px 6px 12px #303030;
 	background: rgba(255,255,255, 0.6);
+	margin-left: 50px;
 }
 .formulaire_cote textarea {
 	width: 100%;
@@ -524,8 +552,10 @@ input[type=submit], input[type=button]{
 /*-------------------------------------------------------------news*/
 .section_news{
 	background: rgba(255,255,255, 0.6);
-	margin-right: 200px;
-	margin-bottom: 100px;
+	box-shadow: 3px 6px 12px #303030;
+	margin-bottom: 25px;
+	margin-top: 50px;
+	padding: 5px;
 }
 .news{
 	min-width: 500px;
@@ -684,6 +714,10 @@ input[type=submit], input[type=button]{
 	text-align: right;
 	font-style: italic;
 	font-size: 80%;
+}
+.formulaire_idees textarea{
+	width: 400px;
+	height: 200px;
 }
 /*-----------------------------------------------style des cellules*/
 /*à réorganiser : faire cinq : top bottom left right, puis cell avec padding */
