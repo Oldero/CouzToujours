@@ -4,7 +4,7 @@
 	font-family: "chalk";
 	src: url("font/LittleBird.ttf");
 	}
-/* basic elements */
+/* ------------------------------------------------------------basic elements */
 html {
 	margin: 0;
 	padding: 0;
@@ -25,6 +25,7 @@ input[type=submit], input[type=button]{
 .page_connexion{
 }
 .tableau_connexion{
+	font-family: 'Patrick Hand', cursive;
 	border-radius: 0px 0px 10px 10px;
 	margin:auto;
 	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
@@ -33,7 +34,6 @@ input[type=submit], input[type=button]{
 	border-top: none;
 	padding: 10px;
 	background-color: #303030;
-	font-family: 'Kalam', cursive;
 	font-weight: bold;
 	color: #C9A0DC;
 	box-shadow: 3px 6px 12px #303030;
@@ -44,14 +44,14 @@ input[type=submit], input[type=button]{
 	border: 1px solid black;
 	border-bottom: none;
 	padding-top: 10px;
+	box-shadow: 3px 6px 12px #303030;
 }
-.tableau_connexion td{
-	font-style: italic;
+.tableau_connexion td, .tableau_connexion label{
 }
 /*.tableau_connexion input[type=submit]{
 	border-radius: 3px 3px 3px 3px;
 }*/
-/*----------------------------------------------------------éléments classiques*/
+/*-------------------------------------------------éléments de texte classiques*/
 .underlined{
 	text-decoration: underline; 
 }
@@ -82,6 +82,10 @@ input[type=submit], input[type=button]{
 }
 .case_titre{
 	padding-top: 05px;
+}
+/*-------------------------------------------------éléments de tableau classiques*/
+.tableau_simple{
+	border-collapse: collapse;
 }
 /*-------------------------------------------------------------------Les liens */
 .lien:link { 
@@ -295,6 +299,10 @@ input[type=submit], input[type=button]{
 } 
 .colonne_droite{
 	order: 2;
+	max-width: 50% ;
+	min-width: 500px;
+	margin-right: 0px;
+	margin-left: 20px;
 }
 .colonne_gauche{
 	order: 1;
@@ -404,6 +412,7 @@ input[type=submit], input[type=button]{
 }
 /*-----------------------------------------------page mon compte*/
 .infos_persos{
+	font-family: 'Patrick Hand', cursive;
 	width: 600px;
 	margin-right: 80px;
 	text-align: justify;
@@ -550,7 +559,7 @@ input[type=submit], input[type=button]{
 	border-radius: 3px 3px 3px 3px;
 }
 /*-------------------------------------------------------------news*/
-.section_news{
+.section_news, .table_docs{
 	background: rgba(255,255,255, 0.6);
 	box-shadow: 3px 6px 12px #303030;
 	margin-bottom: 25px;
@@ -574,7 +583,7 @@ input[type=submit], input[type=button]{
 	border-bottom: solid red 1px;
 }
 .sign_news{
-	font-family: 'Londrina Solid', cursive;
+	font-family: 'Patrick Hand', cursive;
 	font-size:70%;
 	font-style: italic;
 }

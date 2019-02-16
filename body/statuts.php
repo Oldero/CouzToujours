@@ -12,7 +12,7 @@
 
 <head>
     <?php include("../include/style.php"); ?>
-    <title>Camps cousins</title>
+    <title>Statuts de l'asso</title>
 </head>
 
 
@@ -20,6 +20,8 @@
 
     <?php include("../include/entete.php"); ?>
     <?php include("../include/laterale.php"); ?>
+
+    <div class="img_fixed"><img src="../img/styled_margots.jpg"></div>
 
     <section class="corps">
         <table class="table_docs">

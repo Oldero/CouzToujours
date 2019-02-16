@@ -682,7 +682,7 @@
                 //case adhérent 1 avec sélecteur
                 echo '<td class="cell_left" colspan=2><select name="adh1" id="adh1">';
                 echo '<option value="aucun">Sélectionner</option>';
-                $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+                $reponse1 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3 ORDER BY nom,prenom');
                 while ($dubtribu = $reponse1->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
                 }
@@ -691,14 +691,14 @@
                 //case adhérent 2 avec sélecteur
                 echo '<td class="cell_left" colspan=2><select name="adh2" id="adh2">';
                 echo '<option value="aucun">Sélectionner</option>';
-                $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3');
+                $reponse2 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 3 ORDER BY nom,prenom');
                 while ($dubtribu = $reponse2->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';
                 }
                 $reponse2->closeCursor();
                 //case etudiant avec sélecteur
                 echo '<td class="cell_left" colspan=2><select name="etu[]" id="etu" multiple size=3>';
-                $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4');
+                $reponse3 = $bdd->query('SELECT name,nom,prenom FROM users WHERE type = 4 ORDER BY nom,prenom');
                 // echo '<option value="Aucun">Aucun</option>';
                 while ($dubtribu = $reponse3->fetch()) {
                     echo '<option value="' . $dubtribu['name'] .'"">' . $dubtribu['nom'] . ' ' . $dubtribu['prenom'] . '</option>';

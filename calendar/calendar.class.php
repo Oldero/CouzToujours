@@ -60,13 +60,14 @@ class Calendar{
 		$this->link_to = $self;
 		
 		if( is_null($year) || is_null($month) ){
-			if( !is_null($date) ){
+			/*if( !is_null($date) ){
 				//-------- strtotime the submitted date to ensure correct format
 				$this->date = date("Y-m-d", strtotime($date));
 			} else {
 				//-------------------------- no date submitted, use today's date
 				$this->date = date("Y-m-d");
-			}
+			}*/
+			$this->date = date("Y-m-d"); //On ne veut que la date du jour comme référence.
 			$this->set_date_parts_from_date($this->date);
 		} else {
 			$this->year		= $year;

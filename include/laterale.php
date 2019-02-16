@@ -11,11 +11,12 @@ echo'<nav id="menu">
                     <li>Généalogie</li>
                     <li>Carnet d\'adresses</li>
                     <li>Anniversaires</li>
-                </ul></dd></dl>
+                    <li><a class="lien" href="oeuvres.php" title="Art familial">Œuvres familiales</a></li>';
+        echo '</ul></dd></dl>
             <dl><dt><a class="lien" href="CampCousins.php" title="Les camps cousins">Camp cousins</a></dt>
                 <dd><ul>
                     <li>À venir</li>
-                    <li>Archives</li>
+                    <li><a class="lien" href="CCarchives.php" title="Les archives">Archives</a></li>
                 </ul></dd></dl>
             <dl><dt><a class="lien" href="LesMargots.php">Les Margots</a></dt>
                 <dd><ul>

@@ -45,7 +45,10 @@
     //tableau de génération de password
  	echo '<table class="gestion">';
  		echo '<tr><td class="unique_case" colspan=7><form method="post" action="../php/mails.php">Générer tableau de mails : <input type="hidden" name="tab_date" value=' . date("Y-m-d") . '><input type="submit" value="générer"></form></td></tr>';
-    	echo '<tr><td class="unique_case" colspan=7>Reset password :</td></tr>';    
+        $reponse = $bdd->query('SELECT COUNT(*) FROM users WHERE last_co != "NULL"');
+        $nb = $reponse->fetch();
+        $reponse->closeCursor();
+    	echo '<tr><td class="unique_case" colspan=7>Reset password : total : ' . $nb[0] . '/95</td></tr>';    
     	echo '<tr class ="line">
                 <th>Numéro</th>
 				<th>Login</th>

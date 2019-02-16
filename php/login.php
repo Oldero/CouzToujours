@@ -25,6 +25,7 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $_SESSION['ca'] = $donnees['ca'];
             $_SESSION['bureau'] = $donnees['bureau'];
             $_SESSION['admin'] = $donnees['admin'];
+            $_SESSION['modo'] = $donnees['modo'];
             $_SESSION['cotiz'] = $donnees['cotiz'];
             $_SESSION['prenom'] = $donnees['prenom'];
             $_SESSION['nom'] = $donnees['nom'];

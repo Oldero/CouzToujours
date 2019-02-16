@@ -65,7 +65,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';
     }
     //si we_offert = oui alors que pas pack WE non privatisé
-    elseif ($_POST['we'] == "Oui" && $_POST['package'] != "weekend" && $_POST['prive']!="Non") {
+    elseif ($_POST['we'] == "Oui" && ($_POST['package'] != "weekend" || $_POST['prive']!="Non")) {
         echo "<body onLoad=\"alert('Le WE offert ne concerne que le package WE non privatisé !')\">";
         // puis on le redirige vers la page précédente
         echo '<meta http-equiv="refresh" content="0;URL=../body/resa_Margots.php">';

@@ -10,6 +10,10 @@
 
 À implémenter :
 ---------------
+Calendrier :
+- Créer une couleur pour événement passif (en vert pour commencer)
+- Calendrier des anniversaires ?
+
 
 Table anniversaires/décés/anniversaires de mariage/mariages à venir
 - Insérer anniversaire dans page d'accueil -> fait (test nb de jours du mois ?)
@@ -35,7 +39,7 @@ Gestion :
 - FACTURES : reservation.php, monCompte, gestion
 
 Réservation :
-- pack week-end offert peut être privatisé ?
+- pack week-end offert peut être privatisé ? nope.
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
 - mon compte : mettre bouton (à régler)
@@ -60,6 +64,8 @@ Autre :
 En cours de test:
 -----------------
 
+-> BUG Manu ?!? résa 1WE du 18 au 22 ?!? check mauvaises conditions.
+
 - TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
 - édition des tableaux avec le nom de tribu. V
 - pas payé, payé -> pour toute la tribu. V
@@ -72,9 +78,6 @@ En cours de test:
 - tableau réservation : limite à l'année en cours. -> à limiter année en cours, à appliquer à l'edit de tableau
 
 - plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
-- tribus avec un seul adhérent
-- ajouter la mention "officielle" dans tableau des résas
-- accueil: mettre signature et time en haut (seconde case)
 
 
 Versions ultérieures :
