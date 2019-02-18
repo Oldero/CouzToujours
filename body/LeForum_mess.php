@@ -25,10 +25,10 @@
     else {
     	$ans = 0;
     }
-    //réponse du formulaire d'idée.
+    //réponse du formulaire de réponse de message.
     if (isset($_POST['name']) && isset($_POST['msg'])) {
         //update avec tag.
-        $msg = htmlspecialchars($_POST['msg']);
+        $msg = $_POST['msg'];
         $day_date = date("Y-m-d H:i:s");
         $req = $bdd->prepare('INSERT INTO z_messages(id_topic, author, message, post_date) VALUES(?,?,?,?)');
         $req->execute(array($topic, $_POST['name'], $msg, $day_date));
@@ -40,6 +40,16 @@
         //termine le traitement de la requête    
         header ('location: ../body/LeForum_mess.php?theme=' . $theme . '&topic=' . $topic ); //on recharge la page
     }
+    //Réponse du formulaire de suppression de message
+    if(isset($_POST['msg_a_suppr'])){
+        $id_msg=$_POST['msg_a_suppr'];
+        $req = $bdd->prepare('DELETE FROM z_messages WHERE num=?');
+        $req->execute(array($id_msg));
+        $req->closeCursor();
+        header ('location: ../body/LeForum_mess.php?theme=' . $theme . '&topic=' . $topic ); //on recharge la page
+    }
+    //Nom d'auteur du message
+    $nom_auth = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
 ?>
   
  
@@ -50,6 +60,27 @@
 <head>
     <?php include("../include/style.php"); ?>
     <title>Forum Couz'Toujours</title>
+
+    <!-- Script pour la zone de texte du message -->
+    <script src="http://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="../include/fr_FR.js"></script>
+    <style> @import url("../include/skin.min.css"); </style>
+    <script>tinymce.init({
+        selector: 'textarea',
+        height: 200,
+        theme: 'modern',
+        plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+          ],
+        toolbar1: 'undo redo | fontsizeselect forecolor | bold italic underline strikethrough',
+        toolbar2: 'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link unlink emoticons',
+        statusbar: false,
+        menubar: false,
+        resizehandle: true});
+    </script>-->
 </head>
 
 
@@ -92,7 +123,7 @@
     	//if $ans form avec text et envoyer puis $ans=0 avec écriture dans bdd, else bouton répondre puis $ans=1
         //$topic = 4, non modifiable
     	if(!$ans && $topic != 4){
-			echo '<form method="post">';/* action="' . $_SERVER['PHP_SELF'] .'?theme=' . $theme . '&topic=' . $topic . '" method="post"">*/
+			echo '<form method="post">';
     	    echo '<input type="hidden" name="answer" value=1>
     	    <input type="submit" value="Répondre"></form>';
     	}
@@ -101,7 +132,15 @@
     	$request->execute(array($topic));
     	while ($mess=$request->fetch()) {
     		echo '<tr><td class="f_message" colspan=2>' . $mess['message'] . '</td></tr>';
-    		echo '<tr><td class="f_signature" colspan=2> signé : ' . $mess['author'] . ' le ' . convertdate($mess['post_date']) . '</td></tr>';
+    		echo '<tr><td class="f_signature" colspan=2> signé : ' . $mess['author'] . ' le ' . convertdate($mess['post_date']);
+            if ($nom_auth == $mess['author']){
+                echo '<form method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');"><input type="hidden" name="msg_a_suppr" value="' . $mess['num'] . '"><input type="submit" value="Supprimer"></form>';
+                /*echo '<form method="post">';
+                echo '<input type="hidden" name="answer" value=1>
+                    <input type="hidden" name="modif" value="' . $mess['message'] . '">
+                    <input type="submit" value="Modifier"></form>';*/
+            }
+            echo '</td></tr>';
     		echo'<tr><td class="f_separator" colspan=2></td></tr>';
     	}
     	$request->closeCursor();
@@ -110,17 +149,19 @@
     	</section>
     	<section class="colonne_droite">
     		<?php
-    		if($ans){ ?>
-	    		<table class="formulaire_idees">
-	            <tr><td></td><td class="underlined">Répondre à la discussion</td><td></td></tr>
-		        <form method="post">
-		            <?php echo'<input type="hidden" name="name" value="' . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] . '">'; ?>
-		            <tr><td colspan=3><textarea name="msg" id="msg" required="required"></textarea></td></tr>
+    		if($ans){ 
+	    		echo '<table class="formulaire_idees">
+	            <tr><td></td><td class="underlined">';
+                echo 'Répondre à la discussion';
+                echo '</td><td></td></tr>';
+                echo '<form method="post">';
+		        echo'<input type="hidden" name="name" value="' . $nom_auth . '">';
+		        echo '<tr><td colspan=3><textarea name="msg" id="msg"></textarea></td></tr>
 		            <input type="hidden" name="answer" value=0>
-		            <tr><td></td><td class="justify_center"><input type="submit" value="Poster"></td><td></td></tr>
+		            <tr><td></td><td class="justify_center"><input type="submit" value="Poster"></form><form method="post"><input type="submit" value="Annuler"></form></td><td></td></tr>
 		        </form>
-		        </table>
-    		<?php }
+		        </table>';
+    		 }
     		?>
     	</section>
     	</section>

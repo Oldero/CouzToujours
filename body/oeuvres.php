@@ -22,7 +22,7 @@
 
     <section class="corps">
     	<table class="table_docs">
-    		<tr><td class="unique_case" rowspan=2><img height="156px" width="108px" src="../img/oeuvres/contes.jpg" title="Les contes de Bon-Papa"></td>
+    		<tr><td class="unique_case justify_center" rowspan=2 width=120px height=185px><img height="156px" width="108px" src="../img/oeuvres/contes.jpg" title="Les contes de Bon-Papa"></td>
     			<td width=600px class="unique_case">Pour les grandes et les petites têtes... Pour marquer un grand anniversaire ! Voici des histoires que notre bon-papa nous a toujours racontées. Des histoires à lire, à relire et à faire passer ! </td></tr>
     		<tr><td class="unique_case">Mahauld Dubus, Caroline Froissart, Mayeule des Robert</br>2009 - Autoédition</td></tr>
     	</table>

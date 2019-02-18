@@ -34,7 +34,7 @@
                 <td class="unique_case justify_center" width="140px">2017</td>
                 <td class="unique_case">Le lac de Lavallette</td>
                 <td class="unique_case justify_center">Les Margots et autour</td>
-                <td class="unique_case justify_center"></td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2017.pdf">Le cahier</a></td>
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2016</td>
@@ -43,11 +43,19 @@
                 <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2016.pdf">Le cahier</a></td>
             </tr>
             <tr>
-                <td class="unique_case justify_center" width="140px">2015</td>
-                <td class="unique_case">En attente d'informations</td>
-                <td class="unique_case justify_center"></td>
+                <td class="unique_case justify_center" width="140px">2012</td>
+                <td class="unique_case">Descente de la Loire</td>
+                <td class="unique_case justify_center">Pays de la Loire</td>
                 <td class="unique_case justify_center"></td>
             </tr>
+            <tr>
+                <td class="unique_case justify_center" width="140px">2009</td>
+                <td class="unique_case">Parc du Queyras</td>
+                <td class="unique_case justify_center">Alpes</td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2009.pdf">Le cahier</a></td>
+            </tr>
+        </table>
+        <table class="table_docs">
             <tr>
                 <td class="unique_case justify_center" width="140px">Années précédentes</td>
                 <td class="unique_case">En attente d'informations</td>

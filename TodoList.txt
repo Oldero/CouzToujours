@@ -48,8 +48,6 @@ Forum :
 - gérer le dix messages/topics par page. 
 - Créer la fonction modérateur (accès dans super-admin)
 - Fonction rechercher
-- boutons de mise en page
-- bouton supprimer mon message ?
 
 Autre :
 
@@ -79,6 +77,8 @@ En cours de test:
 
 - plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
 
+- boutons de mise en page
+- bouton supprimer mon message ?
 
 Versions ultérieures :
 ----------------------
