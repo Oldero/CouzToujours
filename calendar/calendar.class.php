@@ -23,7 +23,7 @@ class Calendar{
 	var $week_start_on = FALSE;
 	var $week_start = 1;// monday
 	
-	var $link_days = TRUE; //créer un lien sur les jours ? ou non ?
+	var $link_days = FALSE; //créer un lien sur les jours ? ou non ?
 	var $link_to;
 	var $formatted_link_to;
 	

@@ -57,6 +57,7 @@ Autre :
 
 - Accès super-admin où on peut tout changer
 
+- quand le nouveau logo sera là, réduire la taille du petit
 
 
 En cours de test:

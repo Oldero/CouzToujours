@@ -189,7 +189,7 @@ Dynamic Date
                             $date_to_add = $donnees['debut'];
                             while ($date_to_add <= $donnees['fin']) {
                                 //si pas déjà dans l'array en utilisant la double fonction, le rajouter, sinon ajouter $nb_total de personnes 
-                                if(!in_array($date_to_add,array_column($evenement_normal, '0'))){
+                                if(!in_array($date_to_add,array_column($evenement_normal, 0))){
                                     $evenement_normal[] = array($date_to_add, $nb_total, $donnees['nom'] . " (" . $donnees['username'] . ")", $nb_enfants);
                                 }
                                 else{
@@ -215,6 +215,7 @@ Dynamic Date
     $calendar->info_private = $evenement_prive;
     $calendar->info_official = $evenement_officiel;
     $calendar->info_normal = $evenement_normal;
+    $calendar->link_days = TRUE;
     //-------------------------------------------------------------- output calendar -> on peut rajouter la classe ?
     echo '<div class="almanach">';
     if ($help) {echo '<span class="span_help" span_label="Calendrier des réservations à venir. La couleur indique le type de réservation ou le taux d\'occupation."><img src="../img/help.ico" height=22px width=22px></span>';}

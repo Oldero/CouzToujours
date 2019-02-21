@@ -10,7 +10,7 @@ echo'<nav id="menu">
                 <dd><ul>
                     <li>Généalogie</li>
                     <li>Carnet d\'adresses</li>
-                    <li>Anniversaires</li>
+                    <li><a class="lien" href="anniversaires.php" title="Calendrier">Anniversaires</a></li>
                     <li><a class="lien" href="oeuvres.php" title="Art familial">Œuvres familiales</a></li>';
         echo '</ul></dd></dl>
             <dl><dt><a class="lien" href="CampCousins.php" title="Les camps cousins">Camp cousins</a></dt>
@@ -38,5 +38,10 @@ echo'<nav id="menu">
             <dl><dt><a class="lien" href="LeForum.php" title="Pour discuter bien sûr !">Le Forum</a></dt></dl>
         </div>';
         }
+        echo '<div class="contacts justify_left"></br></br></br>
+        	Contact :</br>
+        	-> Une adresse mail : </br>&nbsp&nbsp&nbsp cousinsdubus@yahoogroupes.fr</br>
+        	-> Un WhatsApp : </br>&nbsp&nbsp&nbsp Couz\'toujours
+        </div>';
     echo '</div>
 </nav>'; ?>

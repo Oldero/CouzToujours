@@ -44,14 +44,14 @@
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2012</td>
-                <td class="unique_case">Descente de la Loire</td>
-                <td class="unique_case justify_center">Pays de la Loire</td>
+                <td class="unique_case">La Loire en canoë</td>
+                <td class="unique_case justify_center">De Tours à Angers</td>
                 <td class="unique_case justify_center"></td>
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2009</td>
                 <td class="unique_case">Parc du Queyras</td>
-                <td class="unique_case justify_center">Alpes</td>
+                <td class="unique_case justify_center">Hautes-Alpes</td>
                 <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2009.pdf">Le cahier</a></td>
             </tr>
         </table>
