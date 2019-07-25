@@ -486,6 +486,9 @@ input[type=submit], input[type=button]{
 #onglets a:hover{
     background : #fff;
 }
+#onglets a.red{
+	color: red;
+}
 /*-----------------------------------------------tableau de gestion*/
 .gestion {
 	border-width:1px; 

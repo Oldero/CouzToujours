@@ -31,6 +31,7 @@ if (isset($_POST['login']) && isset($_POST['pwd'])) {
             $_SESSION['nom'] = $donnees['nom'];
             $_SESSION['tribu'] = $donnees['tribu'];
             $_SESSION['we_offert'] = $donnees['we_offert'];
+            $_SESSION['proprio'] = $donnees['proprio'];
             // on redirige notre visiteur vers l'accueil
             header('location: ../body/Accueil.php');
         }

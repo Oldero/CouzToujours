@@ -26,6 +26,11 @@
     			<td width=600px class="unique_case">Pour les grandes et les petites têtes... Pour marquer un grand anniversaire ! Voici des histoires que notre bon-papa nous a toujours racontées. Des histoires à lire, à relire et à faire passer ! </td></tr>
     		<tr><td class="unique_case">Mahauld Dubus, Caroline Froissart, Mayeule des Robert</br>2009 - Autoédition</td></tr>
     	</table>
+        <table class="table_docs">
+            <tr><td class="unique_case justify_center" rowspan=2 width=120px height=185px></td>
+                <td width=600px class="unique_case">Discours de Bon-Papa aux cent ans de mariage : 4 x 25 ans de Sylvie et Christophe, Béatrice et Christophe, Chantal et Benoît, Gérard et Myriam</td></tr>
+            <tr><td class="unique_case"><a href="../docs/discours_original2005.pdf">Le discours original</a>&nbsp&nbsp&nbsp&nbsp<a href="../docs/discours2005.pdf">Le discours retranscrit</a></td></tr>
+        </table>
     </section>
 
     <?php include("../include/pieddepage.php"); ?>

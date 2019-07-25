@@ -40,12 +40,14 @@ class Calendar{
 	//tableaux 2-dimension d'infobulles -> tableau d'événements;
 	var $info_private;
 	var $info_official;
+	var $info_autre;
 	var $info_normal;
 	//classe de case
 	//event privatisé
 	var $privatised_class = 'privatised';
 	//event officiel de l'asso
 	var $official_class = 'official';	
+	var $autre_class = 'autre';
 	//event normal, nuances de rouge
 	var $event_light_class = 'red_light';
 	var $event_medium_class = 'red_medium';
@@ -99,6 +101,7 @@ class Calendar{
 		//------------------------------------ privatisé + officiel + normal * 3
 		$privatised_event = array_column($this->info_private, 0);
 		$official_event = array_column($this->info_official, 0);
+		$autre_event = array_column($this->info_autre, 0);
 		if (is_array($this->info_normal)) {
 		$top = sizeof($this->info_normal);
     	$bottom = 0;
@@ -143,7 +146,7 @@ class Calendar{
 		for( $i=1,$j=$this->week_start,$t=(3+$this->week_start)*86400; $i<=7; $i++,$j++,$t+=86400 ){
 			$localized_day_name = gmstrftime('%A',$t);
 			$col .= "<col class=\"" . strtolower($localized_day_name) ."\" />\n";
-			$th .= "\t<th title=\"" . "ucfirst($localized_day_name)" ."\">" . strtoupper($localized_day_name{0}) ."</th>\n";
+			$th .= "\t<th title=\"" . ucfirst($localized_day_name) ."\">" . strtoupper($localized_day_name{0}) ."</th>\n";
 			$j = ( $j == 7 )? 0 : $j;
 		}
 		
@@ -207,6 +210,11 @@ class Calendar{
 					$classes[] = $this->official_class;
 				}
 			}
+			if( is_array($autre_event) ){
+				if( in_array($day_date, $autre_event) ){
+					$classes[] = $this->autre_class;
+				}
+			}
 			if( is_array($event_light) ){
 				if( in_array($day_date, $event_light) ){
 					$classes[] = $this->event_light_class;
@@ -248,6 +256,12 @@ class Calendar{
 				if (in_array($jour_compare, array_column($this->info_official,0))) {
 					$key = array_search($jour_compare, array_column($this->info_official, 0));
 					$infobulle .= "\n" . $this->info_official[$key][2];
+				}
+			}
+			if (is_array($this->info_autre)) {
+				if (in_array($jour_compare, array_column($this->info_autre,0))) {
+					$key = array_search($jour_compare, array_column($this->info_autre, 0));
+					$infobulle .= "\n" . $this->info_autre[$key][2];
 				}
 			}
 			if (is_array($this->info_normal)) {

@@ -62,7 +62,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
                 $sql_query .= " type > 3 AND";
             }
             if ($_POST['etudiants'] == "on") {
-                $sql_query .= " type = 4 OR";
+                $sql_query .= " type = 4 OR (type = 6 AND tribu IS NOT NULL) OR";
             }
             else{
                 $sql_query .= " type > 4 AND";
@@ -71,7 +71,7 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
                 $sql_query .= " type = 5";
             }
             else{
-                $sql_query .= " type > 5";
+                $sql_query .= " type > 6";
             }
             $sql_query .= ")";                
         }
@@ -111,6 +111,9 @@ if (isset($_POST['tri']) && isset($_POST['cotiz']) && isset($_POST['adh']) && is
                     break;
                 case 5:
                     $type = "Membre d'honneur";
+                    break;
+                case 6:
+                    $type = "Enfant";
                     break;
                 default:
                     $type = "";

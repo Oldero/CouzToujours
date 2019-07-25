@@ -130,13 +130,39 @@
                 else{echo " d'une tribu.";}
                 $recherche->closeCursor();
                 break;
+            case 6:
+                $recherche = $bdd->prepare('SELECT nom,prenom,type FROM users WHERE (tribu = ? AND name != ?) ORDER BY type');
+                $recherche->execute(array($_SESSION['tribu'], $_SESSION['login']));
+                echo "Tu fais <strong>partie</strong>";
+                if($_SESSION['tribu'] != ""){
+                    echo" de la tribu " . $_SESSION['tribu'] . " chapeautée par ";
+                    $tribu = $recherche->fetch();
+                    echo $tribu['prenom'] . " " . $tribu['nom'] ;
+                    $tribu = $recherche->fetch();
+                    // gérer le cas un seul adhérent par tribu
+                    if ($tribu['type'] == 3) {
+                        echo " et " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
+                    }
+                    if(is_array($tribu)){
+                        echo ", et dont fait aussi partie " . $tribu['prenom'] . " " . $tribu['nom'];
+                        $tribu = $recherche->fetch();
+                    }
+                    while (is_array($tribu)){
+                    	echo ", et il y a " . $tribu['prenom'] . " " . $tribu['nom'] . " itou";
+                        $tribu = $recherche->fetch();
+                    }
+                    echo ".";}
+                else{echo " d'une tribu.";}
+                $recherche->closeCursor();
+                break;
             case 5:
                 echo "Tu es <strong>membre bienfaiteur</strong> de cette association, grâce à ton travail fantastique pour que l'association vive aussi longtemps que possible.";
                 break;
             default:
                 echo "Tu as des superpouvoirs ! Sans blague, je ne sais pas, tu devrais avoir un type d'adhésion.";
         } 
-        if ($_SESSION['type'] > 0) {
+        if ($_SESSION['type'] > 0 && $_SESSION['type'] < 5) {
             echo "<br>Tu peux donc <a class=\"lien\" href=\"resa_Margots.php\" title=\"réserver les Margots\"> réserver les Margots</a> pour un séjour. ";
         }
         if ($_SESSION['type'] >=2 && $_SESSION['type'] <=4) {
@@ -151,13 +177,13 @@
                     break;
             }
         }
-        if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] > 0) {
+        if ($_SESSION['cotiz'] == 0 && $_SESSION['type'] > 0 && $_SESSION['type'] < 5) {
             echo "<br>Tu n'as pas encore payé ta cotiz ! <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">C'est par ici</a> ! ";
         }
-        if ( $_SESSION['type'] > 0) {
+        if ( $_SESSION['type'] > 0 && $_SESSION['type'] < 6) {
             echo "<br>Si cela t'intéresse, tu peux aussi <a class=\"lien\" href=\"adhesion.php\" title=\"Adhérer ou faire un don\">faire un don</a> à l'association.";
         }
-        if ($_SESSION['ca'] == 1 && $_SESSION['admin'] == 0) {
+        if ($_SESSION['ca'] == 1 && $_SESSION['login'] != "admin") {
             echo "<br>Tu fais partie du CA";
             if ($_SESSION['bureau'] == 1) {
                 echo " et même du bureau élu démocratiquement puisqu'il y a eu des votes contre";
@@ -166,7 +192,7 @@
             echo '<br>';
         }
 
-        if ($_SESSION['admin'] == 1) {
+        if ($_SESSION['login'] == "admin") {
             echo "<br>Tu es super-admin !";
             echo " Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';

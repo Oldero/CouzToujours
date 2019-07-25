@@ -11,9 +11,9 @@
 À implémenter :
 ---------------
 Calendrier :
-- Créer une couleur pour événement passif (en vert pour commencer)
-- Calendrier des anniversaires ?
-
+- Créer une couleur pour événement passif (en vert pour commencer) ou d'autres couleurs.
+- Passer toutes les infos dans la page resa.php histoire d'avoir un calendar clean.
+- We offert utilisable sur une résa de plus de deux jours (en enlevant deux jours dans le prix)
 
 Table anniversaires/décés/anniversaires de mariage/mariages à venir
 - Insérer anniversaire dans page d'accueil -> fait (test nb de jours du mois ?)
@@ -25,10 +25,8 @@ Champs bdd users : bdd ok
 - email accès sur monCompte.
 - compteur de nuitées test sur mon compte
 - statut modérateur pour forum
-- statut propriétaire : accès en lecture sur le calendrier.
 
 Page accueil :
-- cadre anniversaires/événements
 - événements à venir
 
 Gestion :
@@ -36,27 +34,23 @@ Gestion :
 - RàZ : compteur de nuitées, cotiz non payées
 - modification par le bureau only ? Nope, pas vraiment, à confirmer.
 
-- FACTURES : reservation.php, monCompte, gestion
+- FACTURES : reservation.php, monCompte, gestion + modalités de paienement + mail à Couz'Toujours.
 
 Réservation :
-- pack week-end offert peut être privatisé ? nope.
 - compteur de nuitées
 - check pour l'été 15 juillet 15 aout.
 - mon compte : mettre bouton (à régler)
 
 Forum : 
 - gérer le dix messages/topics par page. 
-- Créer la fonction modérateur (accès dans super-admin)
+- Créer la fonction modérateur
 - Fonction rechercher
 
 Autre :
 
 - Gérer le style des pages... -> IE !
-
-- écrire un mail à couz'toujours + infos de l'asso
-
+- écrire un mail à couz'toujours
 - Accès super-admin où on peut tout changer
-
 - quand le nouveau logo sera là, réduire la taille du petit
 
 
@@ -80,6 +74,12 @@ En cours de test:
 
 - boutons de mise en page
 - bouton supprimer mon message ?
+- Calendrier des anniversaires ?
+- statut propriétaire : accès en lecture sur le calendrier.
+
+- statut enfant et lien avec tribus
+
+- cadre anniversaires/événements
 
 Versions ultérieures :
 ----------------------

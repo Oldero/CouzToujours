@@ -59,13 +59,14 @@ Dynamic Date
                     $age++;
                 }
                 $date_to_add = date("Y") . '-' . $naissance[1] . '-' . $naissance[2];
+                $name_to_add = $donnees['qui'] . ' (' . $naissance['0'] . ')';
                 //si pas déjà dans l'array en utilisant la double fonction, le rajouter, sinon ajouter nom de personne
                 if(!in_array($date_to_add,array_column($anniv, 0))){
-                    $anniv[] = array($date_to_add, 0, $donnees['qui'], 0);
+                    $anniv[] = array($date_to_add, 0, $name_to_add, 0);
                 }
                 else{
                     $key = array_search($date_to_add, array_column($anniv, 0));
-                    $anniv[$key][2] .= "\n" . $donnees['qui'];
+                    $anniv[$key][2] .= "\n" . $name_to_add;
                 }
             }
         }

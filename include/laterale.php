@@ -22,7 +22,7 @@ echo'<nav id="menu">
                 <dd><ul>
                     <li>L\'actualité de la maison</li>
                     <li><a class="lien" href="Codex_Margoticus.php" title="Codex">Codex Margoticus</a></li>';
-            if ($_SESSION['type'] > 0) {
+            if ($_SESSION['type'] > 0 && $_SESSION['type'] < 6) {
                     echo'<li><a class="lien" href="resa_Margots.php" title="Réserver les Margots">Réserver les Margots</a></li>';
             }
                 echo '</ul></dd></dl>

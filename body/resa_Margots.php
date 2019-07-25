@@ -44,6 +44,7 @@ Dynamic Date
     <section class="corps">
     <section class="page_deuxcolonnes">
     <section class="colonne_droite">
+        <?php if($_SESSION['proprio'] == 0){ ?>
         <table class="formulaire_resa">
             <tr><td class="underlined" colspan=4>Réservation des Margots</td></tr>
             <form method="post" action="../php/reservation.php">
@@ -105,6 +106,7 @@ Dynamic Date
                 <tr><td colspan=4><input type="submit" value="Réserver les Margots" /></td></tr>
             </form>
         </table>
+        <?php } ?>
         <div class=tableau_noir>
         <table class="tarifs">
             <tr><th colspan=2>Tarifs des nuitées 
