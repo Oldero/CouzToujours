@@ -185,8 +185,8 @@
         }
         if ($_SESSION['ca'] == 1 && $_SESSION['login'] != "admin") {
             echo "<br>Tu fais partie du CA";
-            if ($_SESSION['bureau'] == 1) {
-                echo " et même du bureau élu démocratiquement puisqu'il y a eu des votes contre";
+            if ($_SESSION['bureau'] >= 1) {
+                echo " et même du bureau élu démocratiquement (puisqu'il y a eu des votes contre)";
             }
             echo ". Tu as donc accès à <a class=\"lien\" href=\"gestion.php\" title=\"gestion\"> la page de gestion</a> de l'association.";
             echo '<br>';

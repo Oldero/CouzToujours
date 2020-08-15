@@ -58,13 +58,19 @@ Dynamic Date
                     <label for="fin"> &nbsp &nbsp Date de fin : </label><input type="date" name="fin" id="fin" placeholder="AAAA-MM-JJ" value="' . $fin_defaut . '" min="' . date("Y-m-d") . '"required />'; ?>
                 </td></tr>
 
+                <tr><td colspan=4 class="seconde_partie"></td></tr>
+
+                <tr><td colspan=4>
+                    <input type="radio" name="package" value="nuitee" id="nuitee" checked /> <label for="nuitee">À la nuitée</label> &nbsp &nbsp
+                </td></tr>
+
                 <tr><td colspan=4>
                     <?php if ($help) {echo '<span class="span_help" span_label="Le pack WE correspond à  un maximum de 2 nuitées, le pack semaine à un maximum de 7 nuitées, au tarif fixé ci-dessous qui ne dépend pas du nombre de personnes."><img src="../img/help.ico" height=22px width=22px></span>';}?>
-                    Pour quel package ?
-                    <input type="radio" name="package" value="nuitee" id="nuitee" checked /> <label for="nuitee">À la nuitée</label> &nbsp &nbsp
+                    Réserver pour un nombre illimité d'occupants ? 
                     <input type="radio" name="package" value="weekend" id="weekend" /> <label for="weekend">Week-end entier</label> &nbsp &nbsp
                     <input type="radio" name="package" value="semaine" id="semaine" /> <label for="semaine">Toute la semaine !</label>
                 </td></tr>
+
                 <tr><td colspan=4>
                     <?php if ($help) {echo '<span class="span_help" span_label="Privatiser le séjour pour un nombre illimité de personnes. Seules les réservations au WE ou à la semaine peuvent être privatisées. Voir tarifs ci-dessous."><img src="../img/help.ico" height=22px width=22px></span>';}?>
                     Est-ce un séjour privatisé ? 
@@ -83,6 +89,7 @@ Dynamic Date
                         echo '<input type="hidden" name="we" value="Non">';
                     }
                 ?>
+
                 <tr><td colspan=4 class="seconde_partie"></td></tr>
                 <tr><td colspan=4>
                     <?php if ($help) {echo '<span class="span_help" span_label="Si le séjour est non privatisé, renseigne ici le nombre de personnes qui seront présentes, afin de calculer le prix du séjour, de prévoir l\'occupation et de tenir des statistiques à jour. Essaie d\'être exhaustif."><img src="../img/help.ico" height=22px width=22px></span>';}?>

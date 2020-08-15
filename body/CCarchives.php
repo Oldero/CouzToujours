@@ -23,7 +23,20 @@
     <div class="img_fixed"><img src="../img/campcouz.jpg"></div>
 
     <section class="corps">
+      <a class="big">Camps cousins par ordre antéchronologique :</a>
         <table class="table_docs">
+            <tr>
+                <td class="unique_case justify_center" width="140px">2020</td>
+                <td class="unique_case">l'Ardèche</td>
+                <td class="unique_case justify_center">En vélo !</td>
+                <td class="unique_case justify_center"></td>
+            </tr>
+            <tr>
+                <td class="unique_case justify_center" width="140px">2019</td>
+                <td class="unique_case">Beaujolais Verre & Rouge</td>
+                <td class="unique_case justify_center">Vers le Mont Brouilly !</td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2019.pdf">Le cahier</a></td>
+            </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2018</td>
                 <td class="unique_case">Les Margots</td>
@@ -46,7 +59,7 @@
                 <td class="unique_case justify_center" width="140px">2010</td>
                 <td class="unique_case">La Loire de Tours à Angers</td>
                 <td class="unique_case justify_center">En canoë</td>
-                <td class="unique_case justify_center"><a href="../docs/campscousins/resume2010.jpg">Les participants</a></td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2010.pdf">Le cahier</a></td>
             </tr>
         </table>
         <table class="table_docs">
@@ -70,9 +83,9 @@
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2003</td>
-                <td class="unique_case">En attente d'informations</td>
-                <td class="unique_case justify_center">Alpes</td>
+                <td class="unique_case">Alpes</td>
                 <td class="unique_case justify_center"></td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier2003.pdf">Le cahier</a></td>
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">2002</td>
@@ -128,7 +141,7 @@
                 <td class="unique_case justify_center" width="140px">1994</td>
                 <td class="unique_case">La Chartreuse</td>
                 <td class="unique_case justify_center"></td>
-                <td class="unique_case justify_center"></td>
+                <td class="unique_case justify_center"><a href="../docs/campscousins/cahier1994.pdf">Le cahier</a></td>
             </tr>
             <tr>
                 <td class="unique_case justify_center" width="140px">1993</td>

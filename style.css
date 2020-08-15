@@ -149,6 +149,12 @@ input[type=submit], input[type=button]{
 	color: white;
 	z-index: 1;
 }
+.img_small{
+	width: 100%;
+}
+.img_small img{
+	width: 85%;
+}
 /*--------------------------------tentative de menu déroulant vertical*/
 .navigation{
 	width: 175px;
@@ -303,14 +309,14 @@ input[type=submit], input[type=button]{
 } 
 .colonne_droite{
 	order: 2;
-	max-width: 50% ;
+	max-width: 49% ;
 	min-width: 500px;
 	margin-right: 0px;
 	margin-left: 20px;
 }
 .colonne_gauche{
 	order: 1;
-	max-width: 50% ;
+	max-width: 49% ;
 	min-width: 500px;
 	margin-right: 0px;
 	display: flex;
@@ -506,7 +512,7 @@ input[type=submit], input[type=button]{
 	font-size: 90%;
  	border-width: 1px;
  	border-style: solid; 
- 	border-color: red;
+ 	border-color: black;
 }
  .type_adhesion{
  	width: 300px;
@@ -587,7 +593,7 @@ input[type=submit], input[type=button]{
 }
 .msg_news{
 	font-family: 'Indie Flower', cursive;
-	border-bottom: solid red 1px;
+	border-bottom: solid black 1px;
 }
 .sign_news{
 	font-family: 'Patrick Hand', cursive;
@@ -608,7 +614,7 @@ input[type=submit], input[type=button]{
 	padding-right: 4px;
 	padding-bottom: 2px;
 	padding-top: 2px;
-	border: 1px solid red;
+	border: 1px solid black;
 }
 .table_docs form{
 	text-align: center;
@@ -738,30 +744,30 @@ input[type=submit], input[type=button]{
 /*-----------------------------------------------style des cellules*/
 /*à réorganiser : faire cinq : top bottom left right, puis cell avec padding */
 .cell_left{
-	border-left: 1px solid red;
- 	border-bottom: 1px solid red;
- 	border-top: 1px solid red;
+	border-left: 1px solid black;
+ 	border-bottom: 1px solid black;
+ 	border-top: 1px solid black;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
 }
 .cell_right{
-	border-right: 1px solid red;
- 	border-bottom: 1px solid red;
- 	border-top: 1px solid red;
+	border-right: 1px solid black;
+ 	border-bottom: 1px solid black;
+ 	border-top: 1px solid black;
  	padding-right: 3px;
  	padding-left: 3px;
 	font-size: 90%;
 }
 .cell_none{
- 	border-bottom: 1px solid red;
- 	border-top: 1px solid red;
+ 	border-bottom: 1px solid black;
+ 	border-top: 1px solid black;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;
 }
 .unique_case{
-	border: 1px solid red;
+	border: 1px solid black;
  	padding-right: 5px;
  	padding-left: 5px;
 	font-size: 90%;

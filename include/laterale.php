@@ -1,17 +1,17 @@
 <?php 
 echo'<nav id="menu">        
     <div class="element_menu">
-        <img src="../favicon.ico">
-        <h3>Couz\'Toujours</h3>';
+        <img height=100% width=100% src="../img/visuel.png">';
+        //<h3>Couz\'Toujours</h3>';
         if(isset($_SESSION['pwd'])){
         echo '<div class="navigation">
             <dl><dt><a class="lien" href="Accueil.php" title="Retour à l\'accueil">Accueil</a></dt></dl>
             <dl><dt><a class="lien" href="LaFamilha.php" title="Généalogie et carnet d\'adresses">La Familha</a></dt>
                 <dd><ul>
                     <li>Généalogie</li>
-                    <li>Carnet d\'adresses</li>
+                    <li><a class="lien" href="adresses.php" title="Carnet d\'adresse">Carnet d\'adresses</a></li>
                     <li><a class="lien" href="anniversaires.php" title="Calendrier">Anniversaires</a></li>
-                    <li><a class="lien" href="oeuvres.php" title="Art familial">Œuvres familiales</a></li>';
+                    <li><a class="lien" href="oeuvres.php" title="Art familial">Documents familiaux</a></li>';
         echo '</ul></dd></dl>
             <dl><dt><a class="lien" href="CampCousins.php" title="Les camps cousins">Camp cousins</a></dt>
                 <dd><ul>

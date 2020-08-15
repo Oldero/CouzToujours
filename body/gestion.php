@@ -5,6 +5,7 @@
     include("../doctor/bdd.php");
     include("../php/fonctions.php");
 
+// -------------------------------------------------------------------------------------------------------------------RESULTATS FORMULAIRES POST
     // résultat du formulaire edit-type
     if (isset($_POST['typ']) && isset ($_POST['num']) && isset($_POST['user'])) {
         //update avec tag.
@@ -142,7 +143,7 @@
     }
 ?>
   
-
+<!-- -------------------------------------------------------------------------------------------------------------------DEBUT PAGE HTML -->
 <!DOCTYPE html>
 
 <html>
@@ -181,17 +182,21 @@
                     echo '><a href="gestion.php?page=5" class="red">new user/pwd</a></li>';
                     echo '<li';
                     if ($page==6){echo' class="active"';}
-                    echo '><a href="gestion.php?page=6" class="red">BDD users</a></li>';
+                    echo '><a href="gestion.php?page=6" class="red">Bureau & CA</a></li>';
                     echo '<li';
                     if ($page==7){echo' class="active"';}
-                    echo '><a href="gestion.php?page=7" class="red">BDD resas</a></li>';
+                    echo '><a href="gestion.php?page=7" class="red">BDD users</a></li>';
                     echo '<li';
                     if ($page==8){echo' class="active"';}
-                    echo '><a href="gestion.php?page=8" class="red">BDD anniv</a></li>';
+                    echo '><a href="gestion.php?page=8" class="red">BDD resas</a></li>';
+                    echo '<li';
+                    if ($page==9){echo' class="active"';}
+                    echo '><a href="gestion.php?page=9" class="red">BDD anniv</a></li>';
                 }
         echo '</ul>
     </div>';
     switch($page) {
+// -------------------------------------------------------------------------------------------------------------------ONGLET 1 : Page d'accueil
         case 1:?>
         <section class="ensemble_gauche">
         <p>Page de gestion de l'association Couz'Toujours. Pour commencer, clique sur un onglet ci-dessus.</p>
@@ -217,26 +222,37 @@
             </table>
         </section>
         <?php break;
-        case 5: ?>
-            <?php if ($_SESSION['admin'] == 1) {
+// -------------------------------------------------------------------------------------------------------------------ONGLET 5 : nouvel utilisateur / changement de mdp
+        case 5: 
+            if ($_SESSION['admin'] == 1) {
                  include("../doctor/admin.php");
             }
         break;
-        case 6:
+// -------------------------------------------------------------------------------------------------------------------ONGLET 6 : Changement de bureau/CA
+        case 6: 
             if ($_SESSION['admin'] == 1) {
-                 include("../doctor/superadmin_bdd1.php");
+                 include("../doctor/bureau_CA.php");
             }
         break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 7 : Changement BDD user
         case 7:
             if ($_SESSION['admin'] == 1) {
-                 include("../doctor/superadmin_bdd2.php");
+                 include("../doctor/BDD_users.php");
             }
         break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 8 : Changement BDD reservations
         case 8:
             if ($_SESSION['admin'] == 1) {
-                 include("../doctor/superadmin_bdd3.php");
+                 include("../doctor/BDD_resas.php");
             }
         break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 7 : Ajout d'anniversaires, naissances
+        case 9:
+            if ($_SESSION['admin'] == 1) {
+                 include("../doctor/BDD_anniv.php");
+            }
+        break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 2 : Màj des adhésions des utilisateurs
         case 2: ?>
             <section class="page_deuxcolonnes">
             <section class="colonne_droite">
@@ -372,7 +388,22 @@
                             echo '<td class="cell_left"> </td>';
                             break;
                         case 1:
-                            echo '<td class="cell_left">membre</td>';
+                            echo '<td class="cell_left">Président(e)</td>';
+                            break;
+                        case 2:
+                            echo '<td class="cell_left">Vice-Président(e)</td>';
+                            break;
+                        case 3:
+                            echo '<td class="cell_left">Trésorier(e)</td>';
+                            break;
+                        case 4:
+                            echo '<td class="cell_left">Vice-Trésorier(e)</td>';
+                            break;
+                        case 5:
+                            echo '<td class="cell_left">Secrétaire</td>';
+                            break;
+                        case 6:
+                            echo '<td class="cell_left">Vice-Secrétaire</td>';
                             break;
                         default:
                             echo '<td class="cell_left">superhéros</td>';
@@ -412,6 +443,7 @@
             </section>
             </section>
         <?php break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 3 : Réservations passées
         case 3: ?>
         <section class="page_deuxcolonnes">
             <section class="ensemble_gauche">
@@ -591,6 +623,7 @@
             </section>
         </section>
         <?php break;
+// -------------------------------------------------------------------------------------------------------------------ONGLET 4 : Changement des tribus
         case 4: ?>
     <!-- Tableau des tribus -->
             <section class="ensemble_gauche">

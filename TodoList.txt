@@ -62,24 +62,24 @@ En cours de test:
 - TEST réservation privatisée -> pas déjà de réservation. -> FAIT (à tester)
 - édition des tableaux avec le nom de tribu. V
 - pas payé, payé -> pour toute la tribu. V
-- onglets de la page gestion
-- gestion réservation, avec colonne payé, ou non.
-- prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel.
-- ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats -> dans bdd
-- résumé réservation : fautes pluriel 1 personne(s)
+- onglets de la page gestion V
+- gestion réservation, avec colonne payé, ou non. V
+- prévoir le cas de suppression de résa : rajouter une colonne we_gratuit (ou gérer avec prix == 0) qui teste au moment de la suppression et remet un 1 éventuel. V
+- ajouter les enfants de moins de 7 ans et les adhérents de moins de 18 pour les stats -> dans bdd V
+- résumé réservation : fautes pluriel 1 personne(s) 
 
 - tableau réservation : limite à l'année en cours. -> à limiter année en cours, à appliquer à l'edit de tableau
 
 - plusieurs étudiants par tribu ! select multiple (avec astérisque, vérifier résa tribu puis mon compte, afficher tous les étudiants sur mon compte)
 
-- boutons de mise en page
-- bouton supprimer mon message ?
-- Calendrier des anniversaires ?
-- statut propriétaire : accès en lecture sur le calendrier.
+- boutons de mise en page V
+- bouton supprimer mon message ? V
+- Calendrier des anniversaires ? V
+- statut propriétaire : accès en lecture sur le calendrier. V
 
-- statut enfant et lien avec tribus
+- statut enfant et lien avec tribus V
 
-- cadre anniversaires/événements
+- cadre anniversaires/événements V
 
 Versions ultérieures :
 ----------------------
