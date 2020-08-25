@@ -90,7 +90,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                 case "nuitee":
                     $package = 1;
                     $nbnuitee = NbJours($_POST['debut'], $_POST['fin']);
-                    $prix =($_POST['ptitdub']*6 + $_POST['pleintarif']*10 + $_POST['tarifreduit']*7 + $_POST['enfants']*4.5)*$nbnuitee ;
+                    $prix =($_POST['ptitdub']*6 + $_POST['pleintarif']*10 + $_POST['tarifreduit']*7 + $_POST['enfants']*5)*$nbnuitee ;
                     $nb_adultes = $_POST['ptitdub'] + $_POST['grosdub'] + $_POST['pleintarif'] + $_POST['tarifreduit'];
                     $nb_enfants = $_POST['adh_enfants'] + $_POST['adh_moins7'] + $_POST['vis_moins7'] + $_POST['enfants'];
                     echo "soit $nbnuitee nuitée(s) <br />";
@@ -148,9 +148,15 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
         else {
             $we_off = 0;
         }
+        if($prix == 0){
+            $regle = 1;
+        }
+        else{
+            $regle = 0;
+        }
         if($nope == 0){
             //enregistrement dans la base de données
-            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nb_adh_plus7, nb_adh_toddler, nbvis_pt, nbvis_tr, nbvis_enf, nbvis_toddler, prive, officiel, package, prix, we_gratuit, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nb_adh_plus7, :nb_adh_toddler, :nbvis_pt, :nbvis_tr, :nbvis_enf, :nbvis_toddler, :prive, :officiel, :package, :prix, :we_offert, :date_resa)');
+            $req = $bdd->prepare('INSERT INTO reservation(username, nom, debut, fin, nbptitdub, nbgrosdub, nb_adh_plus7, nb_adh_toddler, nbvis_pt, nbvis_tr, nbvis_enf, nbvis_toddler, prive, officiel, package, prix, we_gratuit, paye, date_resa) VALUES(:username, :nom, :debut, :fin, :nbptitdub, :nbgrosdub, :nb_adh_plus7, :nb_adh_toddler, :nbvis_pt, :nbvis_tr, :nbvis_enf, :nbvis_toddler, :prive, :officiel, :package, :prix, :we_offert, :regled, :date_resa)');
 
             $req->execute(array(
                 'username' => $_POST['login'],
@@ -170,6 +176,7 @@ if (isset($_POST['nom']) && isset($_POST['debut']) && isset($_POST['fin']) && is
                 'package' => $package,
                 'prix' => $prix,
                 'we_offert' => $we_off,
+                'regled' => $regle,
                 'date_resa' => date("Y-m-d H:i:s")
             ));
         }

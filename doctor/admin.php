@@ -42,6 +42,8 @@
         $gener->closeCursor();
         echo'Utilisateur ajouté ! <br />';
     }
+
+    echo 'Modification des mots de passe et création de compte - ACCES ADMIN';
     //générer nouvel user
     echo '<table class="gestion">
         <tr><td class="unique_case" colspan=4> Générer nouvel utilisateur </td></tr>';

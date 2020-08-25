@@ -25,6 +25,7 @@ Dynamic Date
 //affichage de l'aide
     if (isset($_GET['help'])) {$help = $_GET['help'];}
     else {$help = 0;}
+
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +50,14 @@ Dynamic Date
             <tr><td class="underlined" colspan=4>Réservation des Margots</td></tr>
             <form method="post" action="../php/reservation.php">
                 <tr><td colspan=4>
-                    <?php if ($help) {echo '<span class="span_help" span_label="Renseigne ici le but du séjour."><img src="../img/help.ico" height=22px width=22px></span>';}?>
-                    <label for="nom">Nom de la réservation : </label> <input type="text" name="nom" id="nom" value= "Séjour pépère" required /></td></tr>
+
+                    <?php  // Nom aléatoire
+                    $nom_alea = array('Séjour pépère', 'Sous le Mont Aigu', 'Séjour à la fraîche', 'Ainsi va la vie', 'Farniente');
+                    $rand_keys = array_rand($nom_alea);
+                    $resa_alea = $nom_alea[$rand_keys]; ?>
+
+                    <?php if ($help) {echo '<span class="span_help" span_label="Renseigne ici le but du séjour."><img src="../img/help.ico" height=22px width=22px></span>';};
+                    echo '<label for="nom">Nom de la réservation : </label> <input type="text" name="nom" id="nom" value= "' . $resa_alea .'" required /></td></tr>';?>
                 <tr><td colspan=4>
                     <!-- min (date de fin) = today -->
                     <?php if ($help) {echo '<span class="span_help" span_label="Attention, la date de fin doit être ultérieure à la date de début. Pour Safari : s\'assurer du format AAAA-MM-JJ, par exemple : 2019-02-29"><img src="../img/help.ico" height=22px width=22px></span>';} ?>
@@ -60,15 +67,13 @@ Dynamic Date
 
                 <tr><td colspan=4 class="seconde_partie"></td></tr>
 
-                <tr><td colspan=4>
-                    <input type="radio" name="package" value="nuitee" id="nuitee" checked /> <label for="nuitee">À la nuitée</label> &nbsp &nbsp
-                </td></tr>
-
+                <!-- Type de réservation : nuitée / pack WE / pack semaine-->
                 <tr><td colspan=4>
                     <?php if ($help) {echo '<span class="span_help" span_label="Le pack WE correspond à  un maximum de 2 nuitées, le pack semaine à un maximum de 7 nuitées, au tarif fixé ci-dessous qui ne dépend pas du nombre de personnes."><img src="../img/help.ico" height=22px width=22px></span>';}?>
-                    Réserver pour un nombre illimité d'occupants ? 
-                    <input type="radio" name="package" value="weekend" id="weekend" /> <label for="weekend">Week-end entier</label> &nbsp &nbsp
-                    <input type="radio" name="package" value="semaine" id="semaine" /> <label for="semaine">Toute la semaine !</label>
+                    Type de réservation :</td></tr><tr>
+                    <td><input type="radio" name="package" value="nuitee" id="nuitee" checked /> <label for="nuitee">À la nuitée</label></td>
+                    <td colspan=3><input type="radio" name="package" value="weekend" id="weekend" /> <label for="weekend">Package WE</label><a class="smaller"> (2 nuitées avec invités illimités)</a><br>
+                    <input type="radio" name="package" value="semaine" id="semaine" /> <label for="semaine">Package semaine</label><a class="smaller"> (7 nuitées avec invités illimités)</a></td>
                 </td></tr>
 
                 <tr><td colspan=4>
@@ -77,6 +82,7 @@ Dynamic Date
                     <input type="radio" name="prive" value="Non" id="Non" checked /> <label for="Non">Non</label> &nbsp &nbsp
                     <input type="radio" name="prive" value="Oui" id="Oui" /><label for="Oui">Oui</label>
                 </td></tr>
+                <!-- Ajout d'une éventuelle option de cocher WE offert (avec les adhésions gros Dub)-->
                 <?php 
                     if ($_SESSION['type'] >= 2 && $_SESSION['type'] <= 4 && $_SESSION['we_offert'] == 1){
                         echo '<tr><td colspan=4>';
@@ -93,7 +99,7 @@ Dynamic Date
                 <tr><td colspan=4 class="seconde_partie"></td></tr>
                 <tr><td colspan=4>
                     <?php if ($help) {echo '<span class="span_help" span_label="Si le séjour est non privatisé, renseigne ici le nombre de personnes qui seront présentes, afin de calculer le prix du séjour, de prévoir l\'occupation et de tenir des statistiques à jour. Essaie d\'être exhaustif."><img src="../img/help.ico" height=22px width=22px></span>';}?>
-                    Si non privatisé, pour combien de personnes ? </td></tr>
+                    Pour combien de personnes ? </td></tr>
                     <tr><td colspan=2>
                         <?php if ($help) {echo '<span class="span_help" span_label="Dans cette colonne, renseigne le nombre d\'occupants adhérents de l\'association ou d\'enfants de tribu."><img src="../img/help.ico" height=22px width=22px></span>';}?>
                         <a class="underlined">Adhérents</a> :</td><td colspan=2>
@@ -114,25 +120,30 @@ Dynamic Date
             </form>
         </table>
         <?php } ?>
+        <!-- Tableau noir ardoise des tarifs des réservations-->
         <div class=tableau_noir>
         <table class="tarifs">
             <tr><th colspan=2>Tarifs des nuitées 
                 <?php if ($help) {echo '<span class="span_help" span_label="Tarifs en vigueur."><img src="../img/help.ico" height=22px width=22px></span>';}?>
                 </th></tr>
             <tr><td><br /></td></tr>
-            <tr><td>P'tit Dub ..................................</td><td>6€ / nuitée</td></td></tr>
-            <tr><td><br /></td></tr>
+            <tr><td>P'tit Dub .......................................</td><td>6€ / nuitée</td></td></tr>
+            <tr><td colspan=2>~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</td></tr>
             <tr><td colspan=2>Visiteurs</td></tr>
-            <tr><td>Plein tarif ..............................</td><td>10€ / nuitée</td></tr>
-            <tr><td>Tarif réduit ............................</td><td>7€ / nuitée</td></tr>
-            <tr><td colspan=2>&nbsp &nbsp (RSA, étudiant sans revenu)</td><td></td></tr>
-            <tr><td>Enfants / + de 7 ans ..............</td><td>5€ / nuitée</td></tr>
-            <tr><td><br /></td></tr>
-            <tr><td>Package week-end ..................</td><td>140€</td></tr>
-            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatisé ........................</td><td>200€</td></tr>
-            <tr><td><br /></td></tr>
-            <tr><td>Package semaine ....................</td><td>330€</td></tr>
-            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp privatisé ........................</td><td>450€</td></tr>
+            <tr><td>Plein tarif ......................................</td><td>10€ / nuitée</td></tr>
+            <tr><td>Tarif réduit ...................................</td><td>7€ / nuitée</td></tr>
+            <tr><td colspan=2 style="font-size: 80%;" >&nbsp &nbsp (RSA, étudiant sans revenu)</td><td></td></tr>
+            <tr><td>Enfants / + de 7 ans .....................</td><td>5€ / nuitée</td></tr>
+            <tr><td colspan=2>~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</td></tr>
+            <tr><td>Package week-end ..........................<br></td><td>140€<br> </td></tr>
+            <tr><td><a style="font-size: 80%;" colspan=2> ( 2 nuitées avec invités illimités)</a></td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp WE privatisé * .....................</td><td>200€</td></tr>
+            <tr><td colspan=2>~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</td></tr>
+            <tr><td>Package semaine ...........................</td><td>330€<br> </td></tr>
+            <tr><td><a style="font-size: 80%;" colspan=2> ( 7 nuitées avec invités illimités)</a></td></tr>
+            <tr><td>&nbsp &nbsp &nbsp &nbsp &nbsp semaine privatisée * ............     </td><td> 450€</td></tr>
+            <tr><td colspan=2>~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</td></tr>
+            <tr><td colspan=2 style="font-size: 75%;"> * Les Margots sont à vous tout seuls ! Toute réservation <br>à cette date ne sera plus possible pour d'autres couz'.</td><td></td></tr>
         </table>
     </div>
     </section>

@@ -17,9 +17,12 @@ body {
 	font-size: 100%;
 	color: #555753; 
 	}
-input[type=submit], input[type=button]{
+input[type="submit"], input[type="button"]{
 	border-radius: 3px 3px 3px 3px;
 	font-family: "Source Sans Pro", sans-serif;
+}
+input[type="number"]{
+	 style ="width: 50%
 }
 /*----------------------------------------------------------Page de connection*/
 .page_connexion{
@@ -217,6 +220,14 @@ input[type=submit], input[type=button]{
 	color: white;
 	font-weight: bold;
 }
+.sousmenu {
+	position: fixed;
+	height: 40px;
+	top: 60px;
+	left: 0;
+	width: 1440px;
+	background-color: black;
+}
 /*----------------------------------- mise en page de l'en tête*/
 .bienvenue{
 	height: 30px;
@@ -364,13 +375,13 @@ input[type=submit], input[type=button]{
 .tableau_noir{
 	order: 4;
 	padding-left: 50px;
-	width: 350px;
+	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
 	padding-bottom: 20px;
 	padding-top: 10px;
-	align-self: right;
 	background-image : url(img/blackboard.jpg);
+	background-size: 220%;
 	background-repeat:no-repeat;
 	border-collapse: collapse;
 	transform: matrix(1, 0.05, 0, 1, 0, 0);
@@ -392,7 +403,7 @@ input[type=submit], input[type=button]{
 	padding:0;
 	color: white;
 	font-family: "chalk";
-	font-size: 100%;
+	font-size: 110%;
 }
 .separateur{
 	height: 50px;
@@ -534,7 +545,7 @@ input[type=submit], input[type=button]{
 	border-radius: 10px 10px 10px 10px;
 	border-style: solid;*/
 	box-shadow: 3px 6px 12px #303030;
-	background: rgba(255,255,255, 0.5);
+	background: rgba(255,255,255, 0.7);
 	width: 92%;
 }
 .big{
@@ -563,7 +574,7 @@ input[type=submit], input[type=button]{
 	margin-right: 80px;
 	border-radius: 10px 10px 10px 10px;
 	box-shadow: 3px 6px 12px #303030;
-	background: rgba(255,255,255, 0.6);
+	background: rgba(255,255,255, 0.7);
 	margin-left: 50px;
 }
 .formulaire_cote textarea {
@@ -573,7 +584,7 @@ input[type=submit], input[type=button]{
 }
 /*-------------------------------------------------------------news*/
 .section_news, .table_docs{
-	background: rgba(255,255,255, 0.6);
+	background: rgba(255,255,255, 0.7);
 	box-shadow: 3px 6px 12px #303030;
 	margin-bottom: 25px;
 	margin-top: 50px;

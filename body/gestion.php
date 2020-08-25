@@ -18,6 +18,7 @@
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor();     
         header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
+        echo 'Modifié !';
         
     }
     // résultat du formulaire edit-weoff
@@ -39,6 +40,7 @@
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor(); 
         header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
+        echo 'Modifié !';
     }
     // résultat du formulaire edit-cotiz
     if (isset($_POST['cotiz']) && isset ($_POST['num']) && isset($_POST['user'])) {
@@ -59,6 +61,7 @@
         $req->execute(array(date("Y-m-d H:i:s"), $_POST['user']));
         $req->closeCursor(); 
         header ('location: ../body/gestion.php?page=2'); //on recharge la page gestion
+        echo 'Modifié !';
     }
     // résultat du formulaire reglement de reservation
     if (isset($_POST['reglement_resa']) && isset ($_POST['num_resa'])) {
@@ -68,6 +71,7 @@
             $req->closeCursor();
         //termine le traitement de la requête
         header ('location: ../body/gestion.php?page=3'); //on recharge la page gestion
+        echo 'Modifié !';
     }    
     //réponse du formulaire suppression de tribu
     if (isset($_POST['a_suppr'])) {
@@ -77,6 +81,7 @@
         $req->closeCursor();
         //termine le traitement de la requête
         header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
+        echo 'Supprimé !';
     }
     //réponse du formulaire de création de tribu
     if (isset($_POST['nom_famille']) && isset($_POST['adh'])) {
@@ -114,6 +119,7 @@
         }}
         
         header ('location: ../body/gestion.php?page=4'); //on recharge la page gestion
+        echo 'Modifié !';
     }
     //date temoin pour dernière modification
     $last_date_modif = "2018-01-01";
@@ -217,6 +223,10 @@
                 <input type="hidden" name="pleintarif" value=0>
                 <input type="hidden" name="tarifreduit" value=0>
                 <input type="hidden" name="enfants" value=0>
+                <input type="hidden" name="we" value=0>
+                <input type="hidden" name="adh_enfants" value=0>
+                <input type="hidden" name="adh_moins7" value=0>
+                <input type="hidden" name="vis_moins7" value=0>
                 <tr><td colspan=2 class="justify_center"><input type="submit" value="Déclarer un événement officiel"></td></tr>
             </form>
             </table>
@@ -483,9 +493,9 @@
                         echo '</td><td class="cell_left">';
                         echo short_convertdate($resass['fin']);
                         echo '</td><td class="cell_left">';
-                        echo $resass['nbptitdub'] + $resass['nbgrosdub'];
+                        echo $resass['nbptitdub'] + $resass['nbgrosdub'] + $resass['nb_adh_plus7'] + $resass['nb_adh_toddler'];
                         echo '</td><td class="cell_left">';
-                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
+                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'] + $resass['nbvis_toddler'];
                         echo '</td><td class="cell_left">';
                         if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
                         elseif ($resass['officiel'] == 1) {echo ' (Séjour officiel)';}
@@ -521,7 +531,7 @@
             </table>
             <!--Création du tableau de réservations passées: -->
             <?php
-            	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . date("Y-m-d") . "' ORDER BY fin DESC";
+            	$sql_req = "SELECT * FROM reservation WHERE fin BETWEEN '" . $tranche . "' AND '" . date('Y-m-d', strtotime("1 day ago" )) . "' ORDER BY fin DESC";
             	echo '<table class="gestion">
                 <tr><td class="unique_case" colspan=9>Réservations passées depuis le ' . convertdate($tranche) . ' :</td></tr>';
             }
@@ -552,9 +562,9 @@
                         echo '</td><td class="cell_left">';
                         echo short_convertdate($resass['fin']);
                         echo '</td><td class="cell_left">';
-                        echo $resass['nbptitdub'] + $resass['nbgrosdub'];
+                        echo $resass['nbptitdub'] + $resass['nbgrosdub'] + $resass['nb_adh_plus7'] + $resass['nb_adh_toddler'];
                         echo '</td><td class="cell_left">';
-                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'];
+                        echo $resass['nbvis_pt'] + $resass['nbvis_tr'] + $resass['nbvis_enf'] + $resass['nbvis_toddler'];
                         echo '</td><td class="cell_left">';
                         if ($resass['we_gratuit'] == 1) {echo ' (WE offert)';}
                         elseif ($resass['officiel'] == 1) {echo ' (Séjour officiel)';}
@@ -678,7 +688,7 @@
                         /*else {
                             echo '<td class="unique_case" colspan=2> - </td>';
                         }*/
-                        echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                        echo '<td class="unique_case"><form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr(e) de vouloir supprimer ce truc ?\');">';
                         echo'<input type="hidden" name="a_suppr" value=' . $ex_famille .'>
                             <input type="submit" value="Supprimer">
                             </form></td>';

@@ -44,6 +44,7 @@
 
     <section class="corps">
     <!-- <section></section> -->
+<!-- --------------------------------------------------------------------------------------------------------------------Anniversaires du jour-->
     <table class="carnet_du_jour">
 	    <?php
 	    	echo '<tr><td colspan=2 class="big">' . ucfirst(convertdate(date("Y-m-d"))) . '</td></tr>';
@@ -61,21 +62,21 @@
 		    	}
 		    	echo ' ! Bon anniversaire !</td></tr>';
 	    	}
-	    	//aniversaire(s) de mariage du jour
-	    	$req=$bdd->prepare('SELECT * FROM anniversaires WHERE quoi=4 AND month(quand)=? AND day(quand)=?');
-	    	$req->execute(array(date('m'),date('d')));
-	    	if ($anniv=$req->fetch()){
-	    		$naissance = explode("-", $anniv['quand']); 
-	    		$age = date("Y") - $naissance[0];
-	    		echo '<tr><td colspan=2 class="less_big">Bon anniv de mariage <strong>' . $anniv['qui'] . '</strong>, ' . $age . ' ans déjà !';
-		    	while ($anniv=$req->fetch()){
-		    		$naissance = explode("-", $anniv['quand']);
-		    		$age = date("Y") - $naissance[0];
-		    		echo 'Et <strong>' . $anniv['qui'] . '</strong> aussi, ' . $age . ' ans !';
-		    	}
-		    	echo ' ! Eh ben !</td></tr>';
-	    	}
-	    	$req->closeCursor();
+//	    	//aniversaire(s) de mariage du jour
+//	    	$req=$bdd->prepare('SELECT * FROM anniversaires WHERE quoi=4 AND month(quand)=? AND day(quand)=?');
+//	    	$req->execute(array(date('m'),date('d')));
+//	    	if ($anniv=$req->fetch()){
+//	    		$naissance = explode("-", $anniv['quand']); 
+//	    		$age = date("Y") - $naissance[0];
+//	    		echo '<tr><td colspan=2 class="less_big">Bon anniv de mariage <strong>' . $anniv['qui'] . '</strong>, ' . $age . ' ans déjà !';
+//		    	while ($anniv=$req->fetch()){
+//		    		$naissance = explode("-", $anniv['quand']);
+//		    		$age = date("Y") - $naissance[0];
+//		    		echo 'Et <strong>' . $anniv['qui'] . '</strong> aussi, ' . $age . ' ans !';
+//		    	}
+//		    	echo ' ! Eh ben !</td></tr>';
+//	    	}
+//	    	$req->closeCursor(); -->
 	    	//anniveraire(s) de la prochaine semaine
 	    	$req=$bdd->prepare('SELECT * FROM anniversaires WHERE quoi=1 AND ((month(quand)=? AND day(quand) BETWEEN ? AND ?) OR (month(quand)=? AND day(quand) BETWEEN ? AND ?)) ORDER BY month(quand),day(quand)');
 	    	$req->execute(array(date('m'),date('d')+1,date('d')+7,date('m')+1,0,date('d')-23)); //date('m'),date('d')));
@@ -93,6 +94,7 @@
 	    	}
 	    ?>
 	</table>
+<!-- --------------------------------------------------------------------------------------------------------------------Formulaire d'actualités -->
     <section class="page_deuxcolonnes">
         <section class="colonne_droite">
         <table class="formulaire_cote">
@@ -108,6 +110,7 @@
             <tr><td class="small_ita" colspan=2>Pour les simples messages, va sur le <a href="LeForum.php">forum</a> !</td></tr>
         </table>
         </section>
+<!-- --------------------------------------------------------------------------------------------------------------------Fil d'actualités-->
         <section class="ensemble_gauche">
         <div class="section_news">
         	<h1 class="big">Les actus des cousins Dubus :</h1>

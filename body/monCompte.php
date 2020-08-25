@@ -252,12 +252,13 @@
                 }
                 if ($donnees['officiel'] != 1){
                 	echo " - coût : " . ($donnees['prix']) . " euros";
-	                if ($donnees['paye']){
+	                if ($donnees['prix'] != 0){
+                    if ($donnees['paye']){
 	                	echo " (déjà payé)";
 	                }
 	                else{
 	                	echo " (à régler)";
-	                }
+	                }}
                 } 
                 if($donnees['we_gratuit'] == 1){
                     echo ' (WE offert)';
@@ -265,7 +266,7 @@
                 echo '</td>'; 
                     //<!-- bouton supprimer lié au script confirm plus haut. Galère d'avoir fait passer un paramètre... -->
                 echo '<td class="cell_none">';
-                echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr de vouloir supprimer ce truc ?\');">';
+                echo '<form name="suppr" method="post" onsubmit="return confirm(\'Es-tu sûr(e) de vouloir supprimer ce truc ?\');">';
                 echo'<input type="hidden" name="param" value=' . $donnees['numero'] .'>
                     <input type="hidden" name="tribu" value=' . $_SESSION['tribu'] .'>
                     <input type="hidden" name="we_off" value=' . $donnees['we_gratuit'] .'>

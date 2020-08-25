@@ -1,6 +1,17 @@
 <?php
 // liste des fonctions utilisées ailleurs
 
+//variables pour le tarif Margots
+$prix_ptidu = 6;
+$prix_vispt = 10;
+$prix_vistr = 7;
+$prix_visp7 = 5;
+
+$prix_we = 140;
+$prix_we_prive = 200;
+$prix_sem = 330;
+$prix_sem_prive = 450;
+
 function day($date){
     $tdate_hour = explode("-", $date);
     $tday = explode(" ",$tdate_hour[2]);
@@ -176,11 +187,29 @@ function NbJours($debut, $fin) {
 
     $diff = mktime(0, 0, 0, $tFin[1], $tFin[2], $tFin[0]) - mktime(0, 0, 0, $tDeb[1], $tDeb[2], $tDeb[0]);
   
-    return(($diff / 86400));
+    return((int)($diff / 86400));
 }
 
 function datetime_to_date($date) {
     $date_explode = explode(" ",$date);
     return $date_explode[0];
 }
+
+
+function prix_sejour($debut, $fin, $pack, $prive, $nb_pd, $nb_pt, $nb_tr, $nb_ps) {
+    switch ($pack){
+        case 1: //à la nuitée
+            $total = NbJours($debut, $fin) * ($prix_ptidu * $nb_pd + $prix_vispt * $nb_pt + $prix_vistr * $nb_tr +$prix_visp7 * $nb_ps);
+            break;
+        case 2:
+            $total = (1 - $prive) * $prix_we + $prive * $prix_we_prive;
+            break;
+        case 2:
+            $total = (1 - $prive) * $prix_sem + $prive * $prix_sem_prive;
+            break;
+    }
+
+    return $total;
+}
+
 ?>
